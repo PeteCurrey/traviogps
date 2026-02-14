@@ -66,8 +66,8 @@ export function TrackingApplicationPage({
       <section className="relative pt-32 lg:pt-40 pb-20 bg-background overflow-hidden">
         {heroImage && (
           <div className="absolute inset-0">
-            <img src={heroImage} alt="" className="w-full h-full object-cover opacity-30" />
-            <div className="absolute inset-0 bg-gradient-to-r from-background via-background/90 to-background/60" />
+            <img src={heroImage} alt="" className="w-full h-full object-cover opacity-50 dark:opacity-40" />
+            <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/75 to-background/40 dark:from-background/90 dark:via-background/65 dark:to-background/30" />
           </div>
         )}
         <div className="container-premium relative z-10">
