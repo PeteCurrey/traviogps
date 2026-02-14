@@ -85,42 +85,56 @@
 
   /* Light mode - maintaining premium feel */
   .light {
-    --background: 45 30% 97%;
-    --foreground: 160 25% 12%;
+    --background: 45 20% 96%;
+    --foreground: 160 30% 10%;
 
     --card: 0 0% 100%;
-    --card-foreground: 160 25% 12%;
+    --card-foreground: 160 30% 10%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 160 25% 12%;
+    --popover-foreground: 160 30% 10%;
 
-    --primary: 160 25% 15%;
-    --primary-foreground: 45 30% 97%;
+    --primary: 160 30% 18%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 45 20% 92%;
-    --secondary-foreground: 160 25% 15%;
+    --secondary: 160 8% 90%;
+    --secondary-foreground: 160 30% 12%;
 
-    --muted: 45 15% 92%;
-    --muted-foreground: 160 10% 45%;
+    --muted: 160 6% 91%;
+    --muted-foreground: 160 10% 40%;
 
-    --accent: 210 70% 55%;
-    --accent-foreground: 45 30% 97%;
+    --accent: 210 70% 50%;
+    --accent-foreground: 0 0% 100%;
 
     --destructive: 0 65% 50%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 45 15% 85%;
-    --input: 45 15% 88%;
-    --ring: 160 25% 25%;
+    --border: 160 8% 82%;
+    --input: 160 6% 86%;
+    --ring: 210 70% 50%;
+
+    --gold: 38 55% 50%;
+    --gold-muted: 38 25% 40%;
+    --cream: 45 20% 92%;
+    --forest: 160 20% 92%;
+    --forest-light: 160 15% 95%;
+    --charcoal: 160 10% 94%;
 
     --sidebar-background: 0 0% 100%;
-    --sidebar-foreground: 160 25% 12%;
-    --sidebar-primary: 160 25% 15%;
-    --sidebar-primary-foreground: 45 30% 97%;
-    --sidebar-accent: 45 20% 92%;
-    --sidebar-accent-foreground: 160 25% 15%;
-    --sidebar-border: 45 15% 85%;
-    --sidebar-ring: 160 25% 25%;
+    --sidebar-foreground: 160 30% 10%;
+    --sidebar-primary: 160 30% 18%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 160 8% 90%;
+    --sidebar-accent-foreground: 160 30% 12%;
+    --sidebar-border: 160 8% 82%;
+    --sidebar-ring: 210 70% 50%;
+
+    --gradient-hero: linear-gradient(180deg, hsl(45 20% 96% / 0.3) 0%, hsl(45 20% 96% / 0.85) 100%);
+    --gradient-card: linear-gradient(180deg, hsl(0 0% 100%) 0%, hsl(45 20% 96%) 100%);
+
+    --shadow-soft: 0 4px 20px -4px hsl(0 0% 0% / 0.08);
+    --shadow-elevated: 0 8px 40px -8px hsl(0 0% 0% / 0.12);
+    --shadow-glow: 0 0 40px -10px hsl(210 70% 50% / 0.15);
   }
   .dark {
     --font-sans: Montserrat, ui-sans-serif, system-ui, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
