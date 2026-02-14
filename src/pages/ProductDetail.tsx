@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { getProductBySlug, products } from "@/data/products";
 import { AddToCartButton } from "@/components/store/AddToCartButton";
+import { ProductReviews } from "@/components/store/ProductReviews";
 import {
   Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator, BreadcrumbPage,
 } from "@/components/ui/breadcrumb";
@@ -303,6 +304,11 @@ function ProductDetailContent({ product, related, frequentlyBoughtTogether }: {
             </div>
           </div>
         </section>
+      )}
+
+      {/* Customer Reviews */}
+      {product.customerReviews && product.customerReviews.length > 0 && (
+        <ProductReviews reviews={product.customerReviews} rating={product.rating} totalReviews={product.reviews} />
       )}
 
       {/* Related Products */}
