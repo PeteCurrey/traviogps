@@ -1,11 +1,18 @@
+import { useRef } from "react";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowRight, Smartphone, Globe, Shield } from "lucide-react";
 import liveMapImg from "@/assets/platform/live-map.webp";
 
 export function AboutSection() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+  const imgY = useTransform(scrollYProgress, [0, 1], ["0%", "15%"]);
   return (
-    <section className="section-padding bg-card">
+    <section ref={sectionRef} className="section-padding bg-card">
       <div className="container-premium">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           {/* Image */}
@@ -17,10 +24,11 @@ export function AboutSection() {
             className="relative"
           >
             <div className="aspect-[4/5] overflow-hidden rounded-sm relative">
-              <img
+              <motion.img
                 src={liveMapImg}
                 alt="GPSLive real-time fleet map with live vehicle positions"
-                className="absolute inset-0 w-full h-full object-cover"
+                className="absolute inset-0 w-full object-cover"
+                style={{ y: imgY, height: "120%" }}
               />
               <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/40 to-background/10" />
               <div className="relative z-10 flex flex-col justify-end h-full p-8">
