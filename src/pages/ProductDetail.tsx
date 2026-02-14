@@ -1,11 +1,12 @@
 import { useParams, Link } from "react-router-dom";
 import { PageWrapper } from "@/components/layout/PageWrapper";
 import { motion } from "framer-motion";
-import { Star, Check, ArrowRight, ArrowLeft, ShoppingCart, Phone, Truck, Shield, RotateCcw } from "lucide-react";
+import { Star, Check, ArrowRight, ArrowLeft, Phone, Truck, Shield, RotateCcw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { getProductBySlug, products } from "@/data/products";
+import { AddToCartButton } from "@/components/store/AddToCartButton";
 
 const ProductDetail = () => {
   const { slug } = useParams();
@@ -38,7 +39,7 @@ const ProductDetail = () => {
           <nav className="flex items-center gap-2 text-xs text-muted-foreground">
             <Link to="/products" className="hover:text-foreground transition-colors">Store</Link>
             <span>/</span>
-            <Link to={`/products?category=${encodeURIComponent(product.category)}`} className="hover:text-foreground transition-colors">{product.category}</Link>
+            <Link to={`/products/category/${encodeURIComponent(product.category)}`} className="hover:text-foreground transition-colors">{product.category}</Link>
             <span>/</span>
             <span className="text-foreground">{product.name}</span>
           </nav>
@@ -131,12 +132,7 @@ const ProductDetail = () => {
 
               {/* CTA Buttons */}
               <div className="flex flex-wrap gap-3 mb-8">
-                <Button size="lg" className="btn-premium bg-accent hover:bg-accent/90 text-accent-foreground flex-1 md:flex-none" asChild>
-                  <Link to="/contact">
-                    <ShoppingCart className="mr-2 h-4 w-4" />
-                    {product.price === 0 ? "Request Quote" : "Order Now"}
-                  </Link>
-                </Button>
+                <AddToCartButton product={product} size="lg" className="flex-1 md:flex-none" />
                 <Button size="lg" variant="outline" asChild>
                   <a href="tel:0800TRAVIO"><Phone className="mr-2 h-4 w-4" /> Call to Order</a>
                 </Button>

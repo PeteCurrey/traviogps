@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { TravioLogo } from "./TravioLogo";
 import { ThemeToggle } from "@/components/ThemeToggle";
+import { CartDrawer } from "@/components/store/CartDrawer";
 
 const leftNavLinks = [
   { 
@@ -183,12 +184,16 @@ export function Navigation() {
               {rightNavLinks.map((link) => (
                 <NavLinkItem key={link.label} link={link} activeSubmenu={activeSubmenu} setActiveSubmenu={setActiveSubmenu} pathname={location.pathname} />
               ))}
-              <div className="ml-3">
+              <div className="ml-2">
+                <CartDrawer />
+              </div>
+              <div className="ml-1">
                 <ThemeToggle />
               </div>
             </div>
 
             <div className="lg:hidden flex items-center gap-2">
+              <CartDrawer />
               <ThemeToggle />
             </div>
           </div>

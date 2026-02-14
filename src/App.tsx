@@ -15,10 +15,13 @@ import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
 import NotFound from "./pages/NotFound";
 
-// Public pages
-import Products from "./pages/Products";
+// Store pages
+import StoreFront from "./pages/StoreFront";
+import CategoryProducts from "./pages/CategoryProducts";
 import ProductDetail from "./pages/ProductDetail";
 import CompareProducts from "./pages/CompareProducts";
+import Cart from "./pages/Cart";
+import Checkout from "./pages/Checkout";
 import Fleet from "./pages/Fleet";
 import Platform from "./pages/Platform";
 
@@ -65,9 +68,16 @@ const App = () => (
           <Routes>
             {/* Public routes */}
             <Route path="/" element={<Index />} />
-            <Route path="/products" element={<Products />} />
+            
+            {/* Store routes */}
+            <Route path="/products" element={<StoreFront />} />
+            <Route path="/products/all" element={<CategoryProducts />} />
+            <Route path="/products/category/:category" element={<CategoryProducts />} />
             <Route path="/products/compare" element={<CompareProducts />} />
             <Route path="/products/:slug" element={<ProductDetail />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/checkout" element={<Checkout />} />
+            
             <Route path="/fleet" element={<Fleet />} />
             <Route path="/platform" element={<Platform />} />
             <Route path="/about" element={<About />} />
