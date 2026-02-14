@@ -15,6 +15,7 @@ import {
   ChevronDown,
   Megaphone,
   Building2,
+  Shield,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/useAuth";
@@ -35,6 +36,7 @@ const navItems = [
       { label: "Testimonials", href: "/admin/testimonials", icon: Star },
     ],
   },
+  { label: "Users", href: "/admin/users", icon: Shield },
   { label: "Settings", href: "/admin/settings", icon: Settings },
 ];
 
