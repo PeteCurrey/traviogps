@@ -1,172 +1,178 @@
 
-# Plan: Import All Property Listings from dalesandpeaks.co.uk
+
+# Travio - GPS Tracking Website Rebuild
 
 ## Overview
 
-Based on my analysis of the old dalesandpeaks.co.uk website, there are approximately **68 currently available properties for sale** (with 127 total including sold/under offer properties). The old website currently shows no active rental listings. The new build currently has only **12 properties** in the database.
-
-This plan covers:
-1. Scraping and importing all available property listings from the old website
-2. Downloading main images for each property
-3. Ensuring properties appear correctly in the admin panel and front-end
-4. Updating the hero section right-hand card image to a Peak District stone property
+Transform the current Dales & Peaks estate agency website into **Travio**, a premium GPS tracking systems website. The design template (dark, sophisticated aesthetic with Playfair Display headings, copper/bronze accents, and smooth framer-motion animations) will be preserved. All property-related content, pages, and components will be replaced with GPS tracker content sourced from www.rewiresecurity.co.uk via Firecrawl.
 
 ---
 
-## Phase 1: Property Data Extraction and Import
+## Content to Scrape from Rewire Security
 
-### Step 1.1: Create a Property Import Edge Function
-
-I will create a backend function to systematically scrape property listings from the old website. The function will:
-
-- Fetch property listing pages (for-sale and lettings)
-- Parse property details from each listing page including:
-  - Title and address
-  - Price
-  - Bedrooms, bathrooms, property type
-  - Main image URL
-  - Description and features
-  - Postcode/location details
-  - EPC rating, tenure, council tax band
-
-### Step 1.2: Property Data Mapping
-
-Each scraped property will be mapped to the database schema:
-
-| Old Website Field | Database Column |
-|-------------------|-----------------|
-| Address | street, area, city, postcode, location |
-| Price | price, price_formatted |
-| Bedrooms | bedrooms |
-| Property Type | property_type (mapped to enum values) |
-| Listing Type | listing_type (sale/rent) |
-| Main Image | images array |
-| Description | description, short_description |
-| Features | features array |
-| EPC/Tenure | epc_rating, tenure |
-
-### Step 1.3: Database Insertions
-
-I will insert approximately 60+ new property records into the `properties` table. These will:
-- Generate unique slugs for each property
-- Set appropriate default values for optional fields
-- Mark all as `status: available` unless identified as sold/under offer
-- Not mark any as `featured` initially (you can set these manually via admin)
+Using Firecrawl, we will extract:
+- Product listings (GPS trackers, dashcams, etc.) with names, prices, descriptions, ratings
+- Feature descriptions (real-time tracking, fleet management, alerts, reports, etc.)
+- Use case categories (Cars, Fleets, People, Assets)
+- Statistics (94,000+ devices, 2,000+ fleets, 185 countries, 300B data points)
+- Testimonial/review content
+- Platform features (GPSLive software capabilities)
 
 ---
 
-## Phase 2: Image Handling
+## Phase 1: Branding & Core Layout Changes
 
-### Step 2.1: Download and Store Main Images
+### 1.1 Rebrand to Travio
+- **SplashScreen.tsx** - Change "Dales & Peaks" to "Travio", update tagline to "Smart GPS Tracking"
+- **DalesAndPeaksLogo.tsx** - Rename to `TravioLogo.tsx`, replace logo image with a new Travio text/icon logo (location pin motif)
+- **Navigation.tsx** - Replace all property nav links with GPS tracking navigation:
+  - GPS Trackers (Vehicle, Magnetic, Portable, Insurance)
+  - Fleet Solutions (Fleet Tracking, Driver ID, Temperature Monitoring)
+  - Platform (GPSLive, Reports, Alerts, Mobile App)
+  - Company (About, Blog, Contact)
+- **Footer.tsx** - Replace all property links, update contact info, social links, brand description
 
-For each property, I will:
-1. Download the main/hero image from the old website's S3 bucket
-2. Store images in `public/properties/` directory using the property slug as filename
-3. Update the property record with the local image path
+### 1.2 Color Scheme Adjustment
+- Keep the dark premium aesthetic (deep forest green background)
+- Shift accent color slightly toward a blue/tech tone to suit GPS/tracking (from copper `25 45% 50%` to a tech-blue like `210 70% 55%`)
+- This is a minor CSS variable change in `index.css`
 
-### Step 2.2: Image Naming Convention
+---
 
-Images will follow the pattern:
+## Phase 2: Homepage Sections Transformation
+
+### 2.1 HeroSection.tsx
+- Replace hero image with GPS tracking dashboard/software imagery
+- Change headline: "Smart GPS Tracking Systems" with italic accent "for your fleet"
+- Update service cards to:
+  - Vehicle Trackers - "Self-install GPS trackers from GBP34.99"
+  - Fleet Solutions - "Complete fleet management and telematics"
+  - GPSLive Platform - "Real-time tracking, reports & alerts"
+- Update stats: 94,000+ Devices Connected, 2,000+ Business Fleets, 185 Countries
+
+### 2.2 AboutSection.tsx
+- Replace with "Locate Vehicles 24/7" section
+- Content about GPSLive platform, real-time tracking, web and mobile access
+- Links to Vehicle Tracking, Magnetic Trackers, Portable Trackers
+
+### 2.3 FeaturedProperties.tsx -> FeaturedProducts.tsx
+- Replace property cards with product cards showing GPS tracker products
+- Products: DB2 Self-Install (GBP34.99), DB3 OBD-II (GBP59.99), Dual Vision Dashcam (GBP169.99), S5+ Insurance Tracker (GBP349.99)
+- Each with rating, price, and "View Product" CTA
+
+### 2.4 AreasSection.tsx -> UseCasesSection.tsx
+- Replace area grid with use case categories:
+  - For Cars
+  - For Fleets
+  - For People
+  - For Assets
+
+### 2.5 ServicesSection.tsx -> FeaturesSection.tsx
+- Replace property services with GPS features:
+  - Real-time Tracking
+  - Driver Behaviour Management
+  - Geo-zone Alarms
+  - Remote Temperature Monitoring
+
+### 2.6 TestimonialsSection.tsx
+- Replace property testimonials with GPS tracking customer reviews
+- Keep the same elegant carousel design
+
+### 2.7 CTASection.tsx
+- Update to "Reach Out Today" - "Discover Our Tailored Solutions for Businesses"
+- CTA buttons: "Request Demo" and "Contact Us"
+
+---
+
+## Phase 3: Page Restructuring
+
+### 3.1 Pages to Remove/Repurpose
+Remove all property-specific pages and routes:
+- Sales, Lettings, MapSearch, PropertyDetail, Valuation
+- Sell, Landlords, Tenants, PropertyManagement
+- NewHomes, DevelopmentDetail, ShowcaseIndex, ShowcaseDetail
+- Areas, AreaGuide
+
+### 3.2 Pages to Create/Keep
+- **/** - Homepage (rebuilt as above)
+- **/products** - Product listing page (replaces Sales)
+- **/products/:slug** - Individual product detail page
+- **/fleet** - Fleet solutions page
+- **/platform** - GPSLive platform features page
+- **/about** - About Travio (repurpose existing About page)
+- **/contact** - Contact page (repurpose existing)
+- **/blog** - Blog/News (keep existing)
+- **/privacy** and **/terms** - Keep existing
+
+### 3.3 Admin Pages
+- Keep admin structure but rename property management to product management
+- Admin dashboard stats updated for tracker/order context
+
+---
+
+## Phase 4: Data & Types
+
+### 4.1 Replace Property Types
+- Remove `src/types/property.ts`
+- Create `src/types/product.ts` with Product interface (name, slug, price, rating, category, description, images, features, specs)
+
+### 4.2 Database Updates
+- Create a `products` table to replace properties (or repurpose the existing properties table)
+- Fields: id, name, slug, price, description, short_description, category, images, features, specs, rating, review_count, in_stock, featured
+
+### 4.3 Hooks
+- Replace `useProperties.tsx` with `useProducts.tsx`
+- Remove `useSavedProperties.tsx`, `useSearchAlerts.tsx`, `useShowcase.tsx`, `useDevelopments.tsx`
+
+---
+
+## Phase 5: Component Cleanup
+
+### Files to Delete
+- All property-specific components (`PropertyCard`, `PropertyFilters`, `PropertyGrid`, etc.)
+- Map components (`PropertyMap`, `MapFilters`, `MapPropertyList`)
+- Development components (`DevelopmentEnquiryForm`)
+- Property matcher chat widget
+- All property images in `public/properties/`
+- Dales & Peaks specific assets
+
+### Files to Create
+- `src/components/products/ProductCard.tsx`
+- `src/components/products/ProductGrid.tsx`
+- `src/components/products/ProductFilters.tsx`
+- `src/components/home/FeaturedProducts.tsx`
+- `src/components/home/UseCasesSection.tsx`
+- `src/components/home/FeaturesSection.tsx`
+- `src/components/layout/TravioLogo.tsx`
+
+---
+
+## Technical Details
+
+### Firecrawl Integration
+A Firecrawl connector will be used to scrape detailed product pages from rewiresecurity.co.uk to extract:
+- Product specifications and descriptions
+- Pricing information
+- Feature lists
+- Image URLs (to be referenced or downloaded)
+
+### App.tsx Route Changes
+```text
+Remove: /sales, /lettings, /map-search, /property/:slug, /valuation,
+        /sell, /landlords, /tenants, /new-homes, /new-homes/:slug,
+        /showcase, /showcase/:slug, /property-management, /areas, /areas/:slug
+
+Add:    /products, /products/:slug, /fleet, /platform
+
+Keep:   /, /about, /about/team, /contact, /blog, /privacy, /terms, /admin/*
 ```
-public/properties/{property-slug}.webp
-```
 
-Example: `public/properties/walton-back-lane-walton.webp`
+### Estimated Scope
+| Component | Count |
+|-----------|-------|
+| Files to modify | ~15-20 |
+| Files to create | ~8-10 |
+| Files to delete | ~15-20 |
+| Database migrations | 1 (products table) |
+| Edge functions | 1 (Firecrawl product scraper) |
 
----
-
-## Phase 3: Hero Section Image Update
-
-### Step 3.1: Update Right-Hand Card Image
-
-The hero section in `src/components/home/HeroSection.tsx` uses three cards with Unsplash stock images. I will:
-
-1. Source an appropriate image of a beautiful Peak District stone-built property (either from the scraped properties or a high-quality representative image)
-2. Update the third card (Valuations) image URL to use this authentic Peak District property image
-
-Current images:
-- Card 1 (Find Property): Modern interior shot
-- Card 2 (Buy/Sell): Luxury exterior
-- Card 3 (Valuations): Modern property exterior - **will be replaced**
-
----
-
-## Phase 4: Verification and Quality Assurance
-
-### Step 4.1: Admin Panel Verification
-
-All imported properties will automatically appear in:
-- `/admin/properties` - Full CRUD management
-- Filtering by status (available/sold/under-offer)
-- Filtering by type (sale/rent)
-- Search functionality
-
-### Step 4.2: Front-End Display
-
-Properties will display on:
-- `/sales` - Sales listings page
-- `/lettings` - Rental listings page (if any rentals exist)
-- `/property/{slug}` - Individual property detail pages
-- Homepage Featured Properties section (if marked as featured)
-- Map search functionality
-
----
-
-## Technical Implementation Details
-
-### Database Changes Required
-None - the existing `properties` table schema fully supports all required fields.
-
-### Files to Modify
-
-1. **`src/components/home/HeroSection.tsx`**
-   - Update image URL for the third (rightmost) service card to use a Peak District stone property image
-
-2. **New Edge Function: `supabase/functions/import-properties/index.ts`**
-   - Handles property scraping and import logic
-   - Can be triggered manually or via admin panel
-
-3. **Property Images**
-   - Download and store ~60+ property images to `public/properties/`
-
-### Database Insertions
-- INSERT ~60+ new property records via SQL or the import function
-
----
-
-## Estimated Scope
-
-| Component | Quantity |
-|-----------|----------|
-| New properties to import | ~60-68 |
-| Images to download | ~60-68 |
-| Code files to modify | 1-2 |
-| New edge function | 1 |
-
----
-
-## Considerations and Notes
-
-1. **Image Quality**: Main images from the old site are high-resolution WebP format, suitable for direct use.
-
-2. **Data Accuracy**: Property details (bedrooms, price, location) will be extracted as displayed on the old website.
-
-3. **Duplicate Prevention**: I will check for existing properties by address/slug to avoid duplicates.
-
-4. **Rental Properties**: The old website currently shows no active rentals ("Unfortunately, we do not currently have any properties that match your search criteria" on the lettings page). Only sales listings will be imported.
-
-5. **Status Tracking**: Properties marked as "Sold Subject To Contract" on the old site will be imported with `status: under-offer`.
-
-6. **Additional Images**: This initial import will only include the main/hero image for each property. You mentioned you will upload additional images via the admin panel later - the system fully supports multiple images per property.
-
----
-
-## Ready to Implement
-
-Upon approval, I will:
-1. Create the property import edge function
-2. Systematically scrape all available properties from dalesandpeaks.co.uk
-3. Download main images for each property
-4. Insert all properties into the database
-5. Update the hero section with an authentic Peak District property image
-6. Verify everything displays correctly in admin and front-end
