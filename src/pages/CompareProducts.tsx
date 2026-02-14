@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Star, Check, Minus, X } from "lucide-react";
+import { AddToCartButton } from "@/components/store/AddToCartButton";
 
 const CompareProducts = () => {
   const { items, remove, clear } = useCompareStore();
@@ -166,10 +167,11 @@ const CompareProducts = () => {
           {/* CTAs */}
           <div className="flex gap-4 mt-10 border-t border-border pt-8">
             {items.map((product) => (
-              <div key={product.id} className="flex-1">
-                <Button asChild className="w-full bg-accent hover:bg-accent/90 text-accent-foreground">
+              <div key={product.id} className="flex-1 flex flex-col gap-2">
+                <AddToCartButton product={product} className="w-full" />
+                <Button asChild variant="outline" size="sm" className="w-full">
                   <Link to={`/products/${product.slug}`}>
-                    View {product.name.split(" ")[0]}
+                    View Details
                   </Link>
                 </Button>
               </div>
