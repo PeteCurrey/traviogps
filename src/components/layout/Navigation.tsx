@@ -42,6 +42,7 @@ const rightNavLinks = [
       { label: "Mobile App", href: "/platform" },
     ]
   },
+  { label: "Store", href: "/products" },
   { label: "About", href: "/about" },
   { label: "Contact", href: "/contact" },
 ];
