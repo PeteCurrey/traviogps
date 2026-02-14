@@ -1,15 +1,12 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowRight, Award, Users, Home, Heart } from "lucide-react";
+import { ArrowRight, Award, Users, Home, Heart, MapPin } from "lucide-react";
 import { PageWrapper } from "@/components/layout/PageWrapper";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { useQuery } from "@tanstack/react-query";
 
-// Import real images from the website
 import heroBanner from "@/assets/hero-banner.webp";
-import aboutImage1 from "@/assets/about-image-1.webp";
-import aboutImage2 from "@/assets/about-image-2.webp";
 
 const stats = [
   { value: "15+", label: "Years Experience" },
@@ -166,11 +163,9 @@ export default function About() {
               className="relative"
             >
               <div className="aspect-[4/5] rounded-sm overflow-hidden">
-                <img
-                  src={aboutImage1}
-                  alt="Dales & Peaks office"
-                  className="w-full h-full object-cover"
-                />
+                <div className="w-full h-full bg-accent/20 flex items-center justify-center">
+                  <MapPin className="h-20 w-20 text-accent/40" />
+                </div>
               </div>
               <div className="absolute -bottom-8 -left-8 w-48 h-48 bg-accent/10 rounded-sm -z-10" />
             </motion.div>
@@ -190,11 +185,9 @@ export default function About() {
               className="order-2 lg:order-1"
             >
               <div className="aspect-[4/5] rounded-sm overflow-hidden">
-                <img
-                  src={aboutImage2}
-                  alt="Beautiful property in the Peak District"
-                  className="w-full h-full object-cover"
-                />
+                <div className="w-full h-full bg-accent/20 flex items-center justify-center">
+                  <MapPin className="h-20 w-20 text-accent/40" />
+                </div>
               </div>
             </motion.div>
             <motion.div
