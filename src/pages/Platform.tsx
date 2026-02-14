@@ -49,7 +49,7 @@ const featureShowcase = [
     desc: "See every vehicle on one interactive map. Click any marker for live speed, heading, driver, and last-known address. Filter by status, group, or geo-zone for instant fleet oversight.",
     image: liveMapImg,
     points: ["10-second live position updates", "Street-level address lookup", "Vehicle clustering for large fleets", "Custom map layers and satellite view"],
-    link: "",
+    link: "/platform/live-map",
   },
   {
     label: "Reports & Analytics",

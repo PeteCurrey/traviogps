@@ -42,6 +42,7 @@ import Vans from "./pages/tracking/Vans";
 import ReportsAnalytics from "./pages/platform/ReportsAnalytics";
 import AlertsNotifications from "./pages/platform/AlertsNotifications";
 import MobileApp from "./pages/platform/MobileApp";
+import LiveMap from "./pages/platform/LiveMap";
 
 // Fleet sub-pages
 import Couriers from "./pages/fleet/Couriers";
@@ -98,6 +99,7 @@ const App = () => (
             <Route path="/terms" element={<Terms />} />
 
             {/* Platform sub-routes */}
+            <Route path="/platform/live-map" element={<LiveMap />} />
             <Route path="/platform/reports-analytics" element={<ReportsAnalytics />} />
             <Route path="/platform/alerts-notifications" element={<AlertsNotifications />} />
             <Route path="/platform/mobile-app" element={<MobileApp />} />
