@@ -1,64 +1,70 @@
 
-# Stripe Payment Integration for GPS Tracker Store
 
-## What We're Building
-Connect real Stripe payments to the existing checkout flow so customers can pay for GPS trackers with their credit/debit card. When a customer clicks "Pay" on the checkout page, they'll be redirected to Stripe's secure hosted checkout page to complete payment, then redirected back to a success or cancellation page.
+# Enhanced Store Hub with Improved UX and SEO
 
-## How It Works
+## Overview
+Transform the existing StoreFront page (`/products`) into a rich, content-driven store hub that guides users through the product range with informative sections, better navigation cues, and SEO-focused content. Also enhance the category listing page and product detail page for a more polished shopping experience.
 
-1. Customer adds products to cart and proceeds to checkout
-2. On the checkout page, clicking "Pay" sends the cart items to a backend function
-3. The backend function creates a Stripe Checkout Session with all the cart items
-4. Customer is redirected to Stripe's secure payment page
-5. After payment, customer returns to a success page and the cart is cleared
+## Changes
 
-## Implementation Steps
+### 1. Revamp StoreFront.tsx (`/products`) -- The Store Hub
 
-### 1. Create the Backend Payment Function
-A new backend function called `create-checkout` that:
-- Receives the cart items (product name, price, quantity) from the frontend
-- Also receives customer details (name, email, address) collected on the checkout form
-- Creates a Stripe Checkout Session in `payment` mode with GBP currency
-- Uses `price_data` for dynamic line items (since we have 24+ products with prices defined in the frontend data)
-- Sets success and cancel redirect URLs
-- Returns the Stripe Checkout URL to the frontend
-- Supports guest checkout (no login required)
+**New sections to add (in order):**
 
-### 2. Update the Checkout Page
-Modify the existing checkout page to:
-- Send cart items and customer details to the `create-checkout` function when the form is submitted
-- Show a loading state while the Stripe session is being created
-- Redirect the customer to Stripe Checkout on success
-- Handle and display errors if something goes wrong
+- **Hero** -- Rewrite with stronger SEO H1 ("GPS Trackers & Vehicle Tracking Devices | UK Store") and a short paragraph with keywords. Add a secondary "Compare Trackers" CTA.
+- **Trust Bar** -- Keep as-is (free delivery, warranty, returns, rating).
+- **"How It Works" Section** -- 3-step visual guide: Choose Your Tracker > Self-Install in Minutes > Track Live on GPSLive. Builds confidence for new visitors and reduces bounce.
+- **Bestsellers** -- Keep, but add a "Why customers love it" one-liner under each card showing the top review highlight or key stat (e.g., "140-day battery | 2,340 reviews").
+- **Shop by Category** -- Keep, but enhance cards with an icon per category (using existing Lucide icons matching the product types) and a slightly larger card layout.
+- **"Which Tracker Is Right For You?" Quiz/Guide** -- A simple interactive section with 3-4 clickable cards (e.g., "I want to track my Car", "I want to track a Trailer", "I need Fleet Tracking", "I need Insurance Approved"). Each card links to the relevant category page. This replaces the generic CTA and provides a better UX funnel.
+- **Featured/New Arrivals** -- Keep featured products section.
+- **Use Cases / Social Proof Strip** -- A horizontal stats bar: "94,000+ devices connected", "185 countries", "2,000+ businesses", "4.8 avg rating". Reinforces trust.
+- **FAQ Section** -- 4-5 common questions with accordion (using existing Accordion component): "Do I need a subscription?", "How do I install a GPS tracker?", "Which tracker has the longest battery?", "Do you offer fleet discounts?", "Is there a money-back guarantee?". Great for SEO and reducing support queries.
+- **CTA** -- Keep the expert advice CTA at the bottom.
 
-### 3. Create Success and Cancel Pages
-- **Payment Success page** (`/payment-success`): Shows an order confirmation message and clears the cart
-- **Payment Cancelled page** (`/payment-cancelled`): Lets the customer know they can try again, with a link back to the cart
+**SEO enhancements:**
+- Add a `<Helmet>`-style approach using `document.title` and meta description via a `useEffect` on mount.
+- Use semantic HTML: proper H1, H2, H3 hierarchy.
+- Add structured breadcrumb even on the hub (Home > Store).
+- Add JSON-LD structured data for the store (WebSite + ItemList schema) via a script tag in useEffect.
 
-### 4. Add Routes
-Register the two new pages (`/payment-success` and `/payment-cancelled`) in the app router.
+### 2. Enhance CategoryProducts.tsx
+
+- Add a short SEO paragraph below the category heading describing what that category offers (pull from `categories` data -- extend the `description` field to be longer, or add a `longDescription`).
+- Add breadcrumb structured data.
+- Improve the empty state with category suggestions.
+
+### 3. Enhance ProductDetail.tsx
+
+- Add an "In the box" section beneath specs showing what the customer receives.
+- Add structured product data (JSON-LD Product schema with price, rating, availability).
+- Add a "Frequently Bought Together" section showing compatible accessories (based on `bestFor` tag matching).
+
+### 4. Extend Product Data
+
+- Add a `longDescription` field to the categories array for SEO-rich category pages.
+- Add an `inTheBox` string array to each product for the "What's in the box" section.
+- Add a `highlight` field (short string) to products for the bestseller section callout.
+
+### 5. SEO Utility
+
+- Create a small `src/lib/seo.ts` utility with a `usePageMeta(title, description)` hook that sets `document.title` and the meta description tag on mount.
+- Apply it to StoreFront, CategoryProducts, and ProductDetail pages.
 
 ## Technical Details
 
-### Edge Function: `create-checkout`
-- Located at `supabase/functions/create-checkout/index.ts`
-- Uses Stripe SDK to create a Checkout Session
-- Passes cart line items dynamically using `price_data` (product name + unit amount in pence)
-- Sets `shipping_address_collection` for UK delivery
-- Attaches customer email from the checkout form
-- No authentication required (guest checkout)
-- CORS headers included for browser requests
-- JWT verification disabled in config.toml
+### Files to create:
+- `src/lib/seo.ts` -- `usePageMeta` hook
 
-### Frontend Changes
-- **`src/pages/Checkout.tsx`**: Update `handleSubmit` to call the edge function via `supabase.functions.invoke()`, then redirect to `session.url`
-- **`src/pages/PaymentSuccess.tsx`**: New page with order confirmation, clears cart on mount
-- **`src/pages/PaymentCancelled.tsx`**: New page with retry options
-- **`src/App.tsx`**: Add routes for `/payment-success` and `/payment-cancelled`
-- **`supabase/config.toml`**: Add `[functions.create-checkout]` with `verify_jwt = false`
+### Files to modify:
+- `src/data/products.ts` -- Add `highlight`, `inTheBox` fields to Product interface and product entries; add `longDescription` to categories
+- `src/pages/StoreFront.tsx` -- Full rewrite with new sections (How It Works, Quiz Guide, Stats Strip, FAQ, breadcrumbs, JSON-LD)
+- `src/pages/CategoryProducts.tsx` -- Add long description, improved empty state, page meta
+- `src/pages/ProductDetail.tsx` -- Add "In the Box", "Frequently Bought Together", JSON-LD Product schema, page meta
 
-### Security Considerations
-- Stripe secret key is already stored as a secret (STRIPE_SECRET_KEY)
-- Prices are validated server-side (sent from frontend but could be cross-checked)
-- Stripe handles all card data -- no sensitive payment info touches our servers
-- CORS headers restrict allowed request headers
+### Component patterns:
+- Uses existing Accordion component for FAQ
+- Uses existing motion/framer-motion patterns for scroll animations
+- Follows the existing design system (font-serif headings, italic-accent spans, section-padding, container-premium, text-accent colour)
+- All new sections follow the alternating bg-background / bg-card pattern already established
+
