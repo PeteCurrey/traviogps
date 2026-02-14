@@ -21,7 +21,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/useAuth";
 import { cn } from "@/lib/utils";
-import { DalesAndPeaksLogo } from "@/components/layout/DalesAndPeaksLogo";
+import { TravioLogo } from "@/components/layout/TravioLogo";
 
 const navItems = [
   { label: "Dashboard", href: "/admin", icon: LayoutDashboard },
@@ -104,7 +104,7 @@ export default function AdminLayout() {
           {/* Logo */}
           <div className="p-6 border-b border-border">
             <Link to="/admin" className="flex items-center gap-3">
-              <DalesAndPeaksLogo size="sm" />
+              <TravioLogo size="sm" />
             </Link>
           </div>
 
@@ -221,7 +221,7 @@ export default function AdminLayout() {
             >
               <Menu className="h-5 w-5" />
             </button>
-            <DalesAndPeaksLogo size="sm" />
+            <TravioLogo size="sm" />
             <div className="w-9" /> {/* Spacer */}
           </div>
         </header>
