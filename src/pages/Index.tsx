@@ -2,9 +2,9 @@ import { useState } from "react";
 import { PageWrapper } from "@/components/layout/PageWrapper";
 import { HeroSection } from "@/components/home/HeroSection";
 import { AboutSection } from "@/components/home/AboutSection";
-import { FeaturedProperties } from "@/components/home/FeaturedProperties";
-import { AreasSection } from "@/components/home/AreasSection";
-import { ServicesSection } from "@/components/home/ServicesSection";
+import { FeaturedProducts } from "@/components/home/FeaturedProducts";
+import { UseCasesSection } from "@/components/home/UseCasesSection";
+import { FeaturesSection } from "@/components/home/FeaturesSection";
 import { TestimonialsSection } from "@/components/home/TestimonialsSection";
 import { CTASection } from "@/components/home/CTASection";
 import { SplashScreen } from "@/components/SplashScreen";
@@ -14,8 +14,6 @@ const Index = () => {
 
   const handleSplashComplete = () => {
     setShowSplash(false);
-    // TODO: Re-enable session storage check for production
-    // sessionStorage.setItem("splashSeen", "true");
   };
 
   return (
@@ -26,9 +24,9 @@ const Index = () => {
       <PageWrapper>
         <HeroSection />
         <AboutSection />
-        <FeaturedProperties />
-        <AreasSection />
-        <ServicesSection />
+        <FeaturedProducts />
+        <UseCasesSection />
+        <FeaturesSection />
         <TestimonialsSection />
         <CTASection />
       </PageWrapper>

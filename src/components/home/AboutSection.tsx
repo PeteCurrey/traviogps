@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Smartphone, Globe, Shield } from "lucide-react";
 
 export function AboutSection() {
   return (
@@ -15,16 +15,27 @@ export function AboutSection() {
             viewport={{ once: true, margin: "-100px" }}
             className="relative"
           >
-            <div className="aspect-[4/5] overflow-hidden rounded-sm">
-              <motion.img
-                src="https://ggfx-dalesandpeaks.s3.eu-west-2.amazonaws.com/x.prod/528x535/1_8ba42c10c6.webp"
-                alt="Dales and Peaks Estate Agents"
-                className="w-full h-full object-cover"
-                whileHover={{ scale: 1.05 }}
-                transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
-              />
+            <div className="aspect-[4/5] overflow-hidden rounded-sm bg-secondary/30 flex items-center justify-center">
+              <div className="text-center p-8">
+                <Globe className="w-20 h-20 text-accent mx-auto mb-6" />
+                <h3 className="font-serif text-2xl text-foreground mb-2">GPSLive Platform</h3>
+                <p className="text-muted-foreground text-sm">Track vehicles in real-time from any device</p>
+                <div className="grid grid-cols-3 gap-4 mt-8">
+                  <div className="text-center">
+                    <div className="font-serif text-2xl text-accent">24/7</div>
+                    <div className="text-[10px] uppercase tracking-wider text-muted-foreground">Monitoring</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="font-serif text-2xl text-accent">10s</div>
+                    <div className="text-[10px] uppercase tracking-wider text-muted-foreground">Updates</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="font-serif text-2xl text-accent">GPS</div>
+                    <div className="text-[10px] uppercase tracking-wider text-muted-foreground">Precision</div>
+                  </div>
+                </div>
+              </div>
             </div>
-            {/* Accent element */}
             <motion.div 
               className="absolute -bottom-6 -right-6 w-32 h-32 bg-accent/10 rounded-sm"
               initial={{ opacity: 0, scale: 0 }}
@@ -48,10 +59,10 @@ export function AboutSection() {
               viewport={{ once: true }}
               className="text-sm uppercase tracking-[0.3em] text-accent mb-4"
             >
-              About Dales & Peaks
+              About Travio
             </motion.p>
             <h2 className="font-serif text-display-3 md:text-display-2 text-foreground mb-6 leading-tight">
-              We understand that every home <span className="italic-accent">has its own story to tell.</span>
+              Locate your vehicles <span className="italic-accent">24/7 from anywhere.</span>
             </h2>
             <motion.div 
               className="space-y-4 text-muted-foreground leading-relaxed mb-8"
@@ -61,19 +72,17 @@ export function AboutSection() {
               viewport={{ once: true }}
             >
               <p>
-                Our homes are everything; we create memories within them. Bring family to them. 
-                Make friends in the streets around them. As a family-owned business, we understand 
-                the importance of homes, and the memories locked within their walls.
+                Travio provides professional GPS tracking solutions trusted by over 94,000 users worldwide. 
+                Our GPSLive platform delivers real-time vehicle location, speed monitoring, and comprehensive 
+                journey reports accessible from any web browser or our mobile app.
               </p>
               <p>
-                A team of truly passionate professionals and expertise in not only showcasing your 
-                home, but telling its story. This isn't about us, it's about you, it's about your 
-                home and its about your home's story.
+                Whether you need a simple self-install tracker for your car or a complete fleet management 
+                system, our range of devices and software delivers the visibility and control you need.
               </p>
               <p className="text-foreground font-medium">
-                Gone are the days of mediocre, welcome to a new era of estate agency, where standards 
-                are high, stress is low and results are market leading. 
-                <span className="text-accent"> Your next move could be your forever move.</span>
+                From individual vehicle owners to enterprise fleets with thousands of vehicles — 
+                <span className="text-accent"> Travio keeps you connected to what matters.</span>
               </p>
             </motion.div>
             <motion.div 
@@ -83,18 +92,16 @@ export function AboutSection() {
               transition={{ delay: 0.5, duration: 0.5 }}
               viewport={{ once: true }}
             >
-              <Link
-                to="/about"
-                className="group inline-flex items-center text-sm font-medium text-foreground link-underline"
-              >
-                About Us
+              <Link to="/products" className="group inline-flex items-center text-sm font-medium text-foreground link-underline">
+                Vehicle Trackers
                 <ArrowRight className="ml-2 h-4 w-4 opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:translate-x-1" />
               </Link>
-              <Link
-                to="/about/team"
-                className="group inline-flex items-center text-sm font-medium text-foreground link-underline"
-              >
-                Our People
+              <Link to="/fleet" className="group inline-flex items-center text-sm font-medium text-foreground link-underline">
+                Fleet Solutions
+                <ArrowRight className="ml-2 h-4 w-4 opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:translate-x-1" />
+              </Link>
+              <Link to="/platform" className="group inline-flex items-center text-sm font-medium text-foreground link-underline">
+                GPSLive Platform
                 <ArrowRight className="ml-2 h-4 w-4 opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:translate-x-1" />
               </Link>
             </motion.div>
