@@ -49,6 +49,7 @@ const featureShowcase = [
     desc: "See every vehicle on one interactive map. Click any marker for live speed, heading, driver, and last-known address. Filter by status, group, or geo-zone for instant fleet oversight.",
     image: liveMapImg,
     points: ["10-second live position updates", "Street-level address lookup", "Vehicle clustering for large fleets", "Custom map layers and satellite view"],
+    link: "",
   },
   {
     label: "Reports & Analytics",
@@ -56,6 +57,7 @@ const featureShowcase = [
     desc: "Turn raw tracking data into business insights. Automated reports on mileage, fuel, driver behaviour, and fleet utilisation. Schedule reports to land in your inbox every morning.",
     image: reportsImg,
     points: ["Driver behaviour scoring & league tables", "Mileage and fuel consumption analysis", "Journey history with stop details", "Scheduled email report delivery"],
+    link: "/platform/reports-analytics",
   },
   {
     label: "Alerts & Geofencing",
@@ -63,6 +65,7 @@ const featureShowcase = [
     desc: "Draw virtual boundaries around depots, customer sites, or restricted zones. Get instant alerts when vehicles enter, exit, speed, or move outside of hours.",
     image: alertsImg,
     points: ["Unlimited geo-zone creation", "Speed, tow, and tamper alerts", "Push, email, and SMS channels", "Custom alert schedules (business hours only)"],
+    link: "/platform/alerts-notifications",
   },
 ];
 
@@ -167,7 +170,7 @@ const Platform = () => {
                 <p className="text-sm uppercase tracking-[0.3em] text-accent mb-3">{section.label}</p>
                 <h2 className="text-display-3 text-foreground mb-4">{section.title}</h2>
                 <p className="text-muted-foreground mb-6 leading-relaxed">{section.desc}</p>
-                <ul className="space-y-3">
+                <ul className="space-y-3 mb-6">
                   {section.points.map((point) => (
                     <li key={point} className="flex items-start gap-3 text-sm">
                       <Check className="w-4 h-4 text-accent mt-0.5 flex-shrink-0" />
@@ -175,6 +178,11 @@ const Platform = () => {
                     </li>
                   ))}
                 </ul>
+                {section.link && (
+                  <Button asChild variant="outline" size="sm" className="border-border hover:bg-secondary">
+                    <Link to={section.link}>Learn More <ArrowRight className="ml-2 h-3 w-3" /></Link>
+                  </Button>
+                )}
               </motion.div>
               <motion.div
                 initial={{ opacity: 0, x: idx % 2 === 0 ? 30 : -30 }}
@@ -246,6 +254,9 @@ const Platform = () => {
                 </Button>
                 <Button variant="outline" className="border-border">
                   <Download className="mr-2 h-4 w-4" /> Google Play
+                </Button>
+                <Button asChild variant="outline" className="border-border hover:bg-secondary">
+                  <Link to="/platform/mobile-app">Learn More <ArrowRight className="ml-2 h-3 w-3" /></Link>
                 </Button>
               </div>
             </motion.div>

@@ -38,6 +38,11 @@ import Supercars from "./pages/tracking/Supercars";
 import ClassicCars from "./pages/tracking/ClassicCars";
 import Vans from "./pages/tracking/Vans";
 
+// Platform sub-pages
+import ReportsAnalytics from "./pages/platform/ReportsAnalytics";
+import AlertsNotifications from "./pages/platform/AlertsNotifications";
+import MobileApp from "./pages/platform/MobileApp";
+
 // Fleet sub-pages
 import Couriers from "./pages/fleet/Couriers";
 import Construction from "./pages/fleet/Construction";
@@ -91,6 +96,11 @@ const App = () => (
             <Route path="/blog" element={<Blog />} />
             <Route path="/privacy" element={<Privacy />} />
             <Route path="/terms" element={<Terms />} />
+
+            {/* Platform sub-routes */}
+            <Route path="/platform/reports-analytics" element={<ReportsAnalytics />} />
+            <Route path="/platform/alerts-notifications" element={<AlertsNotifications />} />
+            <Route path="/platform/mobile-app" element={<MobileApp />} />
 
             {/* Tracking application routes */}
             <Route path="/tracking/plant-machinery" element={<PlantMachinery />} />
