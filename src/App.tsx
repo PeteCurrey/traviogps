@@ -47,8 +47,8 @@ import Haulage from "./pages/fleet/Haulage";
 import Login from "./pages/admin/Login";
 import AdminLayout from "./components/admin/AdminLayout";
 import Dashboard from "./pages/admin/Dashboard";
-import Properties from "./pages/admin/Properties";
-import PropertyEdit from "./pages/admin/PropertyEdit";
+import AdminProducts from "./pages/admin/Products";
+import Orders from "./pages/admin/Orders";
 import Leads from "./pages/admin/Leads";
 import TeamMembers from "./pages/admin/TeamMembers";
 import Testimonials from "./pages/admin/Testimonials";
@@ -111,9 +111,9 @@ const App = () => (
             <Route path="/admin/login" element={<Login />} />
             <Route path="/admin" element={<AdminLayout />}>
               <Route index element={<Dashboard />} />
-              <Route path="properties" element={<Properties />} />
-              <Route path="properties/:id" element={<PropertyEdit />} />
-              <Route path="leads" element={<Leads />} />
+              <Route path="products" element={<AdminProducts />} />
+              <Route path="orders" element={<Orders />} />
+              <Route path="enquiries" element={<Leads />} />
               <Route path="team" element={<TeamMembers />} />
               <Route path="testimonials" element={<Testimonials />} />
               <Route path="settings" element={<Settings />} />

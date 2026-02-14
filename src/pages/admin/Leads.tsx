@@ -126,8 +126,8 @@ export default function Leads() {
     <div className="space-y-6">
       {/* Header */}
       <div>
-        <h1 className="font-serif text-2xl text-foreground">Leads</h1>
-        <p className="text-muted-foreground">{leads.length} leads total</p>
+        <h1 className="font-serif text-2xl text-foreground">Enquiries</h1>
+        <p className="text-muted-foreground">{leads.length} enquiries total</p>
       </div>
 
       {/* Filters */}
@@ -135,7 +135,7 @@ export default function Leads() {
         <div className="relative flex-1">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
           <Input
-            placeholder="Search leads..."
+            placeholder="Search enquiries..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="pl-10 bg-secondary border-border"
@@ -161,9 +161,9 @@ export default function Leads() {
           <SelectContent>
             <SelectItem value="all">All Types</SelectItem>
             <SelectItem value="enquiry">Enquiry</SelectItem>
-            <SelectItem value="valuation">Valuation</SelectItem>
-            <SelectItem value="viewing">Viewing</SelectItem>
             <SelectItem value="general">General</SelectItem>
+            <SelectItem value="viewing">Quote Request</SelectItem>
+            <SelectItem value="valuation">Support</SelectItem>
           </SelectContent>
         </Select>
       </div>
@@ -185,7 +185,7 @@ export default function Leads() {
               {filteredLeads.length === 0 ? (
                 <tr>
                   <td colSpan={5} className="px-4 py-8 text-center text-muted-foreground">
-                    No leads found
+                    No enquiries found
                   </td>
                 </tr>
               ) : (
@@ -316,23 +316,6 @@ export default function Leads() {
                 </div>
               )}
 
-              {selectedLead.valuation_address && (
-                <div>
-                  <p className="text-sm text-muted-foreground mb-2">Valuation Property</p>
-                  <div className="bg-secondary p-3 rounded-sm space-y-1">
-                    <p className="text-foreground">{selectedLead.valuation_address}</p>
-                    {selectedLead.valuation_postcode && (
-                      <p className="text-muted-foreground">{selectedLead.valuation_postcode}</p>
-                    )}
-                    {selectedLead.valuation_property_type && (
-                      <p className="text-muted-foreground capitalize">{selectedLead.valuation_property_type}</p>
-                    )}
-                    {selectedLead.valuation_bedrooms && (
-                      <p className="text-muted-foreground">{selectedLead.valuation_bedrooms} bedrooms</p>
-                    )}
-                  </div>
-                </div>
-              )}
 
               <div className="flex gap-2 pt-4">
                 <Button asChild className="flex-1">
