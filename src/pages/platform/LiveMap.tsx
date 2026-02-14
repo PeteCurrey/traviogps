@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { AnimatedCounter } from "@/components/ui/animated-counter";
 import liveMapImg from "@/assets/platform/live-map.webp";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import L from "leaflet";
 
 const containerVariants = {
@@ -75,6 +75,8 @@ function InteractiveMap() {
   const mapRef = useRef<HTMLDivElement>(null);
   const mapInstance = useRef<L.Map | null>(null);
   const markersRef = useRef<L.Marker[]>([]);
+  const geoFenceLayersRef = useRef<L.Circle[]>([]);
+  const [showGeoFences, setShowGeoFences] = useState(true);
   const positionsRef = useRef(sampleVehicles.map((v) => ({ lat: v.lat, lng: v.lng })));
   const speedsRef = useRef(sampleVehicles.map((v) => parseInt(v.speed)));
 
@@ -121,7 +123,7 @@ function InteractiveMap() {
 
     // Add geo-fence zone overlays
     geoFenceZones.forEach((zone) => {
-      L.circle(zone.center, {
+      const circle = L.circle(zone.center, {
         radius: zone.radius,
         color: zone.color,
         fillColor: zone.color,
@@ -140,6 +142,7 @@ function InteractiveMap() {
             </div>
           </div>`
         );
+      geoFenceLayersRef.current.push(circle);
     });
 
     // Animate driving vehicles every 3 seconds
@@ -177,10 +180,40 @@ function InteractiveMap() {
       map.remove();
       mapInstance.current = null;
       markersRef.current = [];
+      geoFenceLayersRef.current = [];
     };
   }, []);
 
-  return <div ref={mapRef} className="w-full h-full" />;
+  // Toggle geo-fence visibility
+  useEffect(() => {
+    const map = mapInstance.current;
+    if (!map) return;
+    geoFenceLayersRef.current.forEach((circle) => {
+      if (showGeoFences) {
+        if (!map.hasLayer(circle)) map.addLayer(circle);
+      } else {
+        if (map.hasLayer(circle)) map.removeLayer(circle);
+      }
+    });
+  }, [showGeoFences]);
+
+  return (
+    <div className="relative w-full h-full">
+      <div ref={mapRef} className="w-full h-full" />
+      <button
+        onClick={() => setShowGeoFences((v) => !v)}
+        className="absolute top-3 right-3 z-[1000] flex items-center gap-2 px-3 py-2 rounded-sm text-xs font-semibold shadow-elevated border transition-colors"
+        style={{
+          background: showGeoFences ? "hsl(var(--accent))" : "hsl(var(--card))",
+          color: showGeoFences ? "hsl(var(--accent-foreground))" : "hsl(var(--muted-foreground))",
+          borderColor: showGeoFences ? "hsl(var(--accent))" : "hsl(var(--border))",
+        }}
+      >
+        <Layers className="w-3.5 h-3.5" />
+        {showGeoFences ? "Geo-Fences On" : "Geo-Fences Off"}
+      </button>
+    </div>
+  );
 }
 
 const LiveMap = () => (
