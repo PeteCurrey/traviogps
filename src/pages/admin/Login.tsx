@@ -55,7 +55,7 @@ export default function Login() {
           </Link>
           <h1 className="font-serif text-2xl text-foreground mb-2">Admin Portal</h1>
           <p className="text-muted-foreground text-sm">
-            Sign in to manage your properties and leads
+            Sign in to manage your store and enquiries
           </p>
         </div>
 

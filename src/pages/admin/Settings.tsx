@@ -115,7 +115,7 @@ export default function Settings() {
               <div>
                 <label className="text-sm text-muted-foreground mb-2 block">Company Name</label>
                 <Input
-                  defaultValue="Dales & Peaks"
+                  defaultValue="Travio GPS"
                   className="bg-secondary border-border"
                 />
               </div>
@@ -123,7 +123,8 @@ export default function Settings() {
               <div>
                 <label className="text-sm text-muted-foreground mb-2 block">Phone Number</label>
                 <Input
-                  defaultValue="01246 567 540"
+                  defaultValue=""
+                  placeholder="Your phone number"
                   className="bg-secondary border-border"
                 />
               </div>
@@ -131,7 +132,7 @@ export default function Settings() {
               <div>
                 <label className="text-sm text-muted-foreground mb-2 block">Email</label>
                 <Input
-                  defaultValue="info@dalesandpeaks.co.uk"
+                  defaultValue="info@traviogps.com"
                   className="bg-secondary border-border"
                 />
               </div>
@@ -139,7 +140,8 @@ export default function Settings() {
               <div>
                 <label className="text-sm text-muted-foreground mb-2 block">Address</label>
                 <Textarea
-                  defaultValue="25 Glumangate, Chesterfield, S40 1UA"
+                  defaultValue=""
+                  placeholder="Your business address"
                   className="bg-secondary border-border"
                 />
               </div>
@@ -153,9 +155,9 @@ export default function Settings() {
             <div className="space-y-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-foreground font-medium">New Lead Notifications</p>
+                  <p className="text-foreground font-medium">New Enquiry Notifications</p>
                   <p className="text-sm text-muted-foreground">
-                    Get notified when a new lead is submitted
+                    Get notified when a new enquiry is submitted
                   </p>
                 </div>
                 <Switch defaultChecked />
@@ -163,9 +165,9 @@ export default function Settings() {
 
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-foreground font-medium">Valuation Requests</p>
+                  <p className="text-foreground font-medium">New Order Notifications</p>
                   <p className="text-sm text-muted-foreground">
-                    Get notified when someone requests a valuation
+                    Get notified when a new order is placed
                   </p>
                 </div>
                 <Switch defaultChecked />
@@ -185,7 +187,7 @@ export default function Settings() {
                 <div>
                   <p className="text-foreground font-medium">Marketing Emails</p>
                   <p className="text-sm text-muted-foreground">
-                    Receive tips and updates from Dales & Peaks
+                    Receive tips and updates from Travio GPS
                   </p>
                 </div>
                 <Switch />

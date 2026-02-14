@@ -7,7 +7,6 @@ import {
   Users,
   MessageSquare,
   FileText,
-  MapPin,
   Star,
   Settings,
   LogOut,
@@ -15,7 +14,6 @@ import {
   X,
   ChevronDown,
   Megaphone,
-  Play,
   Building2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -25,16 +23,14 @@ import { TravioLogo } from "@/components/layout/TravioLogo";
 
 const navItems = [
   { label: "Dashboard", href: "/admin", icon: LayoutDashboard },
-  { label: "Properties", href: "/admin/properties", icon: Home },
-  { label: "Showcase", href: "/admin/showcase", icon: Play },
-  { label: "Developments", href: "/admin/developments", icon: Building2 },
-  { label: "Leads", href: "/admin/leads", icon: MessageSquare },
+  { label: "Products", href: "/admin/products", icon: Home },
+  { label: "Orders", href: "/admin/orders", icon: Building2 },
+  { label: "Enquiries", href: "/admin/enquiries", icon: MessageSquare },
   { label: "Marketing", href: "/admin/marketing", icon: Megaphone },
   {
     label: "Content",
     icon: FileText,
     children: [
-      { label: "Area Guides", href: "/admin/areas", icon: MapPin },
       { label: "Team Members", href: "/admin/team", icon: Users },
       { label: "Testimonials", href: "/admin/testimonials", icon: Star },
     ],
