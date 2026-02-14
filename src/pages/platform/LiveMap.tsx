@@ -57,6 +57,14 @@ const sampleVehicles = [
   { lat: 50.3755, lng: -4.1427, name: "Van 22 – Plymouth", speed: "0 mph", status: "Idle", driver: "Dan Morris" },
 ];
 
+const geoFenceZones = [
+  { center: [51.5074, -0.1278] as [number, number], radius: 25000, name: "London Delivery Zone", color: "#3b82f6" },
+  { center: [53.4808, -2.2426] as [number, number], radius: 20000, name: "Manchester Delivery Zone", color: "#8b5cf6" },
+  { center: [52.4862, -1.8904] as [number, number], radius: 18000, name: "Birmingham Depot Zone", color: "#f59e0b" },
+  { center: [55.9533, -3.1883] as [number, number], radius: 15000, name: "Edinburgh Service Area", color: "#10b981" },
+  { center: [51.4545, -2.5879] as [number, number], radius: 12000, name: "Bristol Depot Zone", color: "#ef4444" },
+];
+
 const statusColor: Record<string, string> = {
   Driving: "#22c55e",
   Idle: "#f59e0b",
@@ -109,6 +117,29 @@ function InteractiveMap() {
         .addTo(map)
         .bindPopup(updatePopup(v, parseInt(v.speed), v.status));
       markersRef.current.push(marker);
+    });
+
+    // Add geo-fence zone overlays
+    geoFenceZones.forEach((zone) => {
+      L.circle(zone.center, {
+        radius: zone.radius,
+        color: zone.color,
+        fillColor: zone.color,
+        fillOpacity: 0.08,
+        weight: 2,
+        dashArray: "8 4",
+      })
+        .addTo(map)
+        .bindPopup(
+          `<div style="font-family:system-ui">
+            <strong style="font-size:13px">${zone.name}</strong>
+            <hr style="margin:6px 0;border-color:#e5e7eb"/>
+            <div style="font-size:12px;line-height:1.8">
+              <div><span style="color:#6b7280">Radius:</span> ${(zone.radius / 1000).toFixed(0)} km</div>
+              <div><span style="color:#6b7280">Status:</span> <span style="color:${zone.color};font-weight:600">Active</span></div>
+            </div>
+          </div>`
+        );
     });
 
     // Animate driving vehicles every 3 seconds
