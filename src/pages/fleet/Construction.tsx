@@ -1,5 +1,6 @@
 import { TrackingApplicationPage } from "@/components/tracking/TrackingApplicationPage";
 import { HardHat, MapPin, Shield, Bell, Battery, BarChart3 } from "lucide-react";
+import constructionHero from "@/assets/fleet/construction-hero.webp";
 
 const Construction = () => (
   <TrackingApplicationPage
@@ -7,6 +8,7 @@ const Construction = () => (
     subtitle="Construction & Plant"
     description="Track vehicles, plant machinery, and equipment across multiple construction sites. Geo-fencing, theft alerts, and utilisation reports."
     heroStat="Reduce plant theft by 85%"
+    heroImage={constructionHero}
     keyStats={[
       { value: "85%", label: "Theft reduction" },
       { value: "30%", label: "Utilisation improvement" },

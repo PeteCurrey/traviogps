@@ -1,5 +1,6 @@
 import { TrackingApplicationPage } from "@/components/tracking/TrackingApplicationPage";
 import { Truck, MapPin, Thermometer, Shield, Clock, BarChart3 } from "lucide-react";
+import haulageHero from "@/assets/fleet/haulage-hero.webp";
 
 const Haulage = () => (
   <TrackingApplicationPage
@@ -7,6 +8,7 @@ const Haulage = () => (
     subtitle="Heavy Goods & Logistics"
     description="Fleet management for haulage companies and HGV operators. Trailer tracking, temperature monitoring, tachograph integration, and compliance reporting."
     heroStat="Complete HGV fleet visibility"
+    heroImage={haulageHero}
     keyStats={[
       { value: "1,000+", label: "HGVs tracked" },
       { value: "15%", label: "Fuel savings" },
