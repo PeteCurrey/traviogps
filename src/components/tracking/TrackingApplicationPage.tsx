@@ -26,6 +26,7 @@ interface TrackingApplicationPageProps {
   subtitle: string;
   description: string;
   heroStat: string;
+  heroImage?: string;
   keyStats: KeyStat[];
   benefits: Benefit[];
   features: Feature[];
@@ -50,6 +51,7 @@ export function TrackingApplicationPage({
   subtitle,
   description,
   heroStat,
+  heroImage,
   keyStats,
   benefits,
   features,
@@ -61,8 +63,14 @@ export function TrackingApplicationPage({
   return (
     <PageWrapper>
       {/* Hero */}
-      <section className="pt-32 lg:pt-40 pb-20 bg-background">
-        <div className="container-premium">
+      <section className="relative pt-32 lg:pt-40 pb-20 bg-background overflow-hidden">
+        {heroImage && (
+          <div className="absolute inset-0">
+            <img src={heroImage} alt="" className="w-full h-full object-cover opacity-30" />
+            <div className="absolute inset-0 bg-gradient-to-r from-background via-background/90 to-background/60" />
+          </div>
+        )}
+        <div className="container-premium relative z-10">
           <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="max-w-3xl">
             <p className="text-sm uppercase tracking-[0.3em] text-accent mb-3">{subtitle}</p>
             <h1 className="font-serif text-display-3 md:text-display-2 text-foreground mb-4">

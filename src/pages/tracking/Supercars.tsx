@@ -1,9 +1,11 @@
 import { TrackingApplicationPage } from "@/components/tracking/TrackingApplicationPage";
 import { Shield, Award, MapPin, Bell, Lock, Phone } from "lucide-react";
+import heroImage from "@/assets/tracking/supercars-hero.webp";
 
 const Supercars = () => (
   <TrackingApplicationPage
     title="Supercar & Prestige Tracking"
+    heroImage={heroImage}
     subtitle="High-Value Vehicle Security"
     description="Thatcham S5 and S7 approved GPS tracking systems for supercars, prestige vehicles, and luxury cars. 24/7 monitoring centre with stolen vehicle recovery."
     heroStat="Thatcham S5 & S7 Approved"

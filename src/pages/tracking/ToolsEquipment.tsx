@@ -1,9 +1,11 @@
 import { TrackingApplicationPage } from "@/components/tracking/TrackingApplicationPage";
 import { Shield, Package, MapPin, Bell, Wifi, Search } from "lucide-react";
+import heroImage from "@/assets/tracking/tools-equipment-hero.webp";
 
 const ToolsEquipment = () => (
   <TrackingApplicationPage
     title="Tool & Equipment Tracking"
+    heroImage={heroImage}
     subtitle="Small Asset Protection"
     description="Compact, concealable GPS trackers for power tools, equipment cases, and high-value portable assets. Never lose a tool again."
     heroStat="From just £24.99"
