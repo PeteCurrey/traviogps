@@ -15,11 +15,27 @@ import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
 import NotFound from "./pages/NotFound";
 
-// Placeholder pages for new routes
+// Public pages
 import Products from "./pages/Products";
 import ProductDetail from "./pages/ProductDetail";
 import Fleet from "./pages/Fleet";
 import Platform from "./pages/Platform";
+
+// Tracking application pages
+import PlantMachinery from "./pages/tracking/PlantMachinery";
+import ToolsEquipment from "./pages/tracking/ToolsEquipment";
+import Motorbikes from "./pages/tracking/Motorbikes";
+import Caravans from "./pages/tracking/Caravans";
+import Trailers from "./pages/tracking/Trailers";
+import Boats from "./pages/tracking/Boats";
+import Supercars from "./pages/tracking/Supercars";
+import ClassicCars from "./pages/tracking/ClassicCars";
+import Vans from "./pages/tracking/Vans";
+
+// Fleet sub-pages
+import Couriers from "./pages/fleet/Couriers";
+import Construction from "./pages/fleet/Construction";
+import Haulage from "./pages/fleet/Haulage";
 
 // Admin pages
 import Login from "./pages/admin/Login";
@@ -58,6 +74,22 @@ const App = () => (
             <Route path="/blog" element={<Blog />} />
             <Route path="/privacy" element={<Privacy />} />
             <Route path="/terms" element={<Terms />} />
+
+            {/* Tracking application routes */}
+            <Route path="/tracking/plant-machinery" element={<PlantMachinery />} />
+            <Route path="/tracking/tools-equipment" element={<ToolsEquipment />} />
+            <Route path="/tracking/motorbikes" element={<Motorbikes />} />
+            <Route path="/tracking/caravans" element={<Caravans />} />
+            <Route path="/tracking/trailers" element={<Trailers />} />
+            <Route path="/tracking/boats" element={<Boats />} />
+            <Route path="/tracking/supercars" element={<Supercars />} />
+            <Route path="/tracking/classic-cars" element={<ClassicCars />} />
+            <Route path="/tracking/vans" element={<Vans />} />
+
+            {/* Fleet sub-routes */}
+            <Route path="/fleet/couriers" element={<Couriers />} />
+            <Route path="/fleet/construction" element={<Construction />} />
+            <Route path="/fleet/haulage" element={<Haulage />} />
 
             {/* Admin routes */}
             <Route path="/admin/login" element={<Login />} />

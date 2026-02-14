@@ -12,18 +12,20 @@ const leftNavLinks = [
     href: "/products",
     submenu: [
       { label: "Vehicle Trackers", href: "/products" },
-      { label: "Magnetic Trackers", href: "/products" },
-      { label: "Portable Trackers", href: "/products" },
-      { label: "Insurance Trackers", href: "/products" },
+      { label: "Motorbike Trackers", href: "/tracking/motorbikes" },
+      { label: "Plant & Machinery", href: "/tracking/plant-machinery" },
+      { label: "Caravan Trackers", href: "/tracking/caravans" },
+      { label: "Asset Trackers", href: "/tracking/trailers" },
     ]
   },
   { 
     label: "Fleet Solutions", 
     href: "/fleet",
     submenu: [
-      { label: "Fleet Tracking", href: "/fleet" },
-      { label: "Driver ID", href: "/fleet" },
-      { label: "Temperature Monitoring", href: "/fleet" },
+      { label: "Fleet Overview", href: "/fleet" },
+      { label: "Courier Fleets", href: "/fleet/couriers" },
+      { label: "Construction Fleets", href: "/fleet/construction" },
+      { label: "Haulage & HGV", href: "/fleet/haulage" },
     ]
   },
 ];
