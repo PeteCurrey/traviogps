@@ -38,9 +38,10 @@ const rightNavLinks = [
     href: "/platform",
     submenu: [
       { label: "GPSLive Software", href: "/platform" },
-      { label: "Reports & Analytics", href: "/platform" },
-      { label: "Alerts & Notifications", href: "/platform" },
-      { label: "Mobile App", href: "/platform" },
+      { label: "Live Map", href: "/platform/live-map" },
+      { label: "Reports & Analytics", href: "/platform/reports-analytics" },
+      { label: "Alerts & Notifications", href: "/platform/alerts-notifications" },
+      { label: "Mobile App", href: "/platform/mobile-app" },
     ]
   },
   { 
