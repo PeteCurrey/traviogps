@@ -138,15 +138,14 @@
   }
 
   body {
-    @apply bg-background text-foreground antialiased;
-    font-family: 'Inter', sans-serif;
-    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    @apply bg-background text-foreground antialiased font-light;
+    font-family: 'Montserrat', sans-serif;
   }
 
-  /* Premium typography */
+  /* Clean modern typography */
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Playfair Display', serif;
-    @apply font-medium tracking-tight;
+    font-family: 'Montserrat', sans-serif;
+    @apply font-semibold tracking-tight;
   }
 
   /* Smooth scrollbar */
@@ -238,8 +237,8 @@
 
   /* Italic accent text (like Blenheim's "your" styling) */
   .italic-accent {
-    font-family: 'Playfair Display', serif;
-    @apply italic font-normal;
+    font-family: 'Montserrat', sans-serif;
+    @apply italic font-light;
   }
 }
 
