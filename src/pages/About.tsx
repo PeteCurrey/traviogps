@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowRight, Award, Users, Home, Heart, MapPin } from "lucide-react";
+import { ArrowRight, Award, Users, Globe, Shield, MapPin, Truck, Radio } from "lucide-react";
 import { PageWrapper } from "@/components/layout/PageWrapper";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
@@ -9,32 +9,32 @@ import { useQuery } from "@tanstack/react-query";
 import heroBanner from "@/assets/hero-banner.webp";
 
 const stats = [
+  { value: "94K+", label: "Active Users" },
   { value: "15+", label: "Years Experience" },
-  { value: "2,500+", label: "Properties Sold" },
-  { value: "98%", label: "Client Satisfaction" },
-  { value: "4", label: "Office Locations" },
+  { value: "99.9%", label: "Platform Uptime" },
+  { value: "50+", label: "Countries Served" },
 ];
 
 const values = [
   {
-    icon: Heart,
-    title: "Passion",
-    description: "We love what we do. Every property has a story, and we're passionate about telling it.",
+    icon: Shield,
+    title: "Security",
+    description: "Military-grade encryption and secure data handling protect your fleet information at all times.",
   },
   {
-    icon: Users,
-    title: "Personal Service",
-    description: "You're not just a number. We provide tailored service that puts your needs first.",
+    icon: Radio,
+    title: "Real-Time Tracking",
+    description: "Live GPS updates every 10 seconds so you always know where your vehicles are.",
   },
   {
     icon: Award,
-    title: "Excellence",
-    description: "We strive for excellence in everything we do, from marketing to negotiations.",
+    title: "Reliability",
+    description: "99.9% platform uptime backed by redundant infrastructure and 24/7 monitoring.",
   },
   {
-    icon: Home,
-    title: "Local Expertise",
-    description: "Deep knowledge of the Peak District, Sheffield, Chesterfield and Nottingham markets.",
+    icon: Users,
+    title: "Dedicated Support",
+    description: "Expert support team available to help you get the most from your tracking solution.",
   },
 ];
 
@@ -90,13 +90,13 @@ export default function About() {
             transition={{ duration: 0.8 }}
             className="max-w-3xl"
           >
-            <p className="text-sm uppercase tracking-[0.3em] text-accent mb-4">About Us</p>
+            <p className="text-sm uppercase tracking-[0.3em] text-accent mb-4">About Travio</p>
             <h1 className="font-serif text-display-3 md:text-display-2 lg:text-display-1 text-foreground mb-6">
-              A new era of <span className="italic-accent">estate agency</span>
+              Smarter <span className="italic-accent">GPS tracking</span> for every vehicle
             </h1>
             <p className="text-lg text-muted-foreground max-w-2xl">
-              Where standards are high, stress is low, and results are market-leading. 
-              We understand that every home has its own story to tell.
+              Trusted by over 94,000 users worldwide, Travio delivers professional GPS tracking 
+              solutions that keep you connected to your vehicles 24/7.
             </p>
           </motion.div>
         </div>
@@ -135,23 +135,24 @@ export default function About() {
             >
               <p className="text-sm uppercase tracking-[0.3em] text-accent mb-4">Our Story</p>
               <h2 className="font-serif text-display-3 text-foreground mb-6">
-                Family values, <span className="italic-accent">exceptional</span> service
+                Built for <span className="italic-accent">visibility</span> and control
               </h2>
               <div className="space-y-4 text-muted-foreground leading-relaxed">
                 <p>
-                  Our homes are everything; we create memories within them. Bring family to them. 
-                  Make friends in the streets around them. As a family-owned business, we understand 
-                  the importance of homes, and the memories locked within their walls.
+                  Travio was founded with a simple mission: give vehicle owners and fleet managers 
+                  the real-time visibility they need to operate with confidence. What started as a 
+                  small team of GPS enthusiasts has grown into one of the most trusted tracking 
+                  platforms in the industry.
                 </p>
                 <p>
-                  We know how to bring out a property's best features, and how to find buyers 
-                  destined to fill the property with the next story. This isn't about us, it's 
-                  about you, it's about your home and it's about your home's story.
+                  Our GPSLive platform delivers live vehicle location, speed monitoring, journey 
+                  history, and comprehensive reports — all accessible from any web browser or our 
+                  dedicated mobile app.
                 </p>
                 <p>
-                  Gone are the days of mediocre, welcome to a new era of estate agency, 
-                  where standards are high, stress is low and results are market leading. 
-                  <strong> Your next move could be your forever move.</strong>
+                  From a single car tracker to enterprise fleet management with thousands of 
+                  vehicles, we provide the technology and support to keep you in control.
+                  <strong> Your vehicles, always within reach.</strong>
                 </p>
               </div>
             </motion.div>
@@ -197,27 +198,25 @@ export default function About() {
               viewport={{ once: true }}
               className="order-1 lg:order-2"
             >
-              <p className="text-sm uppercase tracking-[0.3em] text-accent mb-4">Your Journey</p>
+              <p className="text-sm uppercase tracking-[0.3em] text-accent mb-4">Our Platform</p>
               <h2 className="font-serif text-display-3 text-foreground mb-6">
-                Your <span className="italic-accent">Perfect</span> Move
+                The <span className="italic-accent">GPSLive</span> Advantage
               </h2>
               <div className="space-y-4 text-muted-foreground leading-relaxed">
                 <p>
-                  A home isn't just four walls and we understand there is so much more in the 
-                  decision of buying a home than just the house. The location matters, where 
-                  your kids can go to school, where you can walk your dogs, the local coffee 
-                  shops, the village community.
+                  GPSLive is more than just dots on a map. Our platform provides intelligent 
+                  insights — from driver behaviour scoring and fuel usage analysis to geofence 
+                  alerts and automated journey reports.
                 </p>
                 <p>
-                  Discover vibrant local suburbs, tranquil countryside retreats or idyllic 
-                  semi-rural villages based on your preference. Explore detailed neighbourhood 
-                  profiles, complete with information on schools, parks, shops, restaurants 
-                  and other essential amenities.
+                  Whether you're monitoring a delivery fleet, protecting a personal vehicle, or 
+                  managing company assets, GPSLive adapts to your needs with customisable 
+                  dashboards, instant notifications, and detailed historical data.
                 </p>
               </div>
               <Button asChild className="mt-6 bg-accent hover:bg-accent/90 text-accent-foreground">
-                <Link to="/areas">
-                  Explore Our Areas
+                <Link to="/platform">
+                  Explore GPSLive
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
@@ -281,7 +280,7 @@ export default function About() {
             >
               <p className="text-sm uppercase tracking-[0.3em] text-accent mb-4">Meet The Team</p>
               <h2 className="font-serif text-display-3 text-foreground">
-                The <span className="italic-accent">people</span> behind Dales & Peaks
+                The <span className="italic-accent">people</span> behind Travio
               </h2>
             </motion.div>
             <motion.div
@@ -338,15 +337,15 @@ export default function About() {
             className="text-center"
           >
             <h2 className="font-serif text-display-3 text-accent-foreground mb-6">
-              Ready to work with us?
+              Ready to track smarter?
             </h2>
             <p className="text-accent-foreground/70 mb-8 max-w-xl mx-auto">
-              Whether you're selling, buying, or letting, we'd love to hear from you.
+              Whether you need a single vehicle tracker or a full fleet solution, we're here to help.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
               <Button asChild size="lg" className="bg-background text-foreground hover:bg-background/90">
-                <Link to="/valuation">
-                  Get a Valuation
+                <Link to="/products">
+                  Browse Trackers
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
