@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import {
   MapPin, ArrowRight, Check, Layers, Search, Filter,
   Maximize2, Navigation, Eye, Clock, Globe, Zap,
-  Users, Satellite, MousePointer, Crosshair,
+  Users, Satellite, MousePointer, Crosshair, ChevronLeft, ChevronRight, Car,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
@@ -77,6 +77,10 @@ function InteractiveMap() {
   const markersRef = useRef<L.Marker[]>([]);
   const geoFenceLayersRef = useRef<L.Circle[]>([]);
   const [showGeoFences, setShowGeoFences] = useState(true);
+  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [vehicleStates, setVehicleStates] = useState(
+    sampleVehicles.map((v) => ({ speed: parseInt(v.speed), status: v.status }))
+  );
   const positionsRef = useRef(sampleVehicles.map((v) => ({ lat: v.lat, lng: v.lng })));
   const speedsRef = useRef(sampleVehicles.map((v) => parseInt(v.speed)));
 
@@ -147,17 +151,15 @@ function InteractiveMap() {
 
     // Animate driving vehicles every 3 seconds
     const interval = setInterval(() => {
-      sampleVehicles.forEach((v, i) => {
-        if (v.status === "Stopped") return;
+      const newStates = sampleVehicles.map((v, i) => {
+        if (v.status === "Stopped") return { speed: 0, status: "Stopped" };
 
         const isDriving = v.status === "Driving";
-        // Random drift simulating movement
         const dLat = (Math.random() - 0.5) * (isDriving ? 0.012 : 0.002);
         const dLng = (Math.random() - 0.5) * (isDriving ? 0.018 : 0.003);
         positionsRef.current[i].lat += dLat;
         positionsRef.current[i].lng += dLng;
 
-        // Fluctuate speed
         const baseSpeed = parseInt(v.speed);
         const jitter = isDriving ? Math.round((Math.random() - 0.4) * 12) : Math.round(Math.random() * 5);
         speedsRef.current[i] = Math.max(0, baseSpeed + jitter);
@@ -172,7 +174,9 @@ function InteractiveMap() {
           marker.setIcon(createIcon(color));
           marker.setPopupContent(updatePopup(v, currentSpeed, currentStatus));
         }
+        return { speed: currentSpeed, status: currentStatus };
       });
+      setVehicleStates(newStates);
     }, 3000);
 
     return () => {
@@ -197,21 +201,95 @@ function InteractiveMap() {
     });
   }, [showGeoFences]);
 
+  const handleVehicleClick = (index: number) => {
+    const map = mapInstance.current;
+    const marker = markersRef.current[index];
+    if (map && marker) {
+      map.setView(marker.getLatLng(), 9, { animate: true });
+      marker.openPopup();
+    }
+  };
+
   return (
-    <div className="relative w-full h-full">
-      <div ref={mapRef} className="w-full h-full" />
-      <button
-        onClick={() => setShowGeoFences((v) => !v)}
-        className="absolute top-3 right-3 z-[1000] flex items-center gap-2 px-3 py-2 rounded-sm text-xs font-semibold shadow-elevated border transition-colors"
-        style={{
-          background: showGeoFences ? "hsl(var(--accent))" : "hsl(var(--card))",
-          color: showGeoFences ? "hsl(var(--accent-foreground))" : "hsl(var(--muted-foreground))",
-          borderColor: showGeoFences ? "hsl(var(--accent))" : "hsl(var(--border))",
-        }}
+    <div className="relative w-full h-full flex">
+      {/* Vehicle List Sidebar */}
+      <div
+        className={`relative z-[1000] bg-card border-r border-border flex flex-col transition-all duration-300 ${
+          sidebarOpen ? "w-72" : "w-0"
+        } overflow-hidden`}
       >
-        <Layers className="w-3.5 h-3.5" />
-        {showGeoFences ? "Geo-Fences On" : "Geo-Fences Off"}
+        <div className="flex items-center justify-between px-4 py-3 border-b border-border shrink-0">
+          <div className="flex items-center gap-2">
+            <Car className="w-4 h-4 text-accent" />
+            <span className="text-sm font-semibold text-foreground">Vehicles</span>
+            <span className="text-[10px] bg-accent/15 text-accent px-1.5 py-0.5 rounded-sm font-medium">
+              {sampleVehicles.length}
+            </span>
+          </div>
+        </div>
+        <div className="flex-1 overflow-y-auto">
+          {sampleVehicles.map((v, i) => {
+            const state = vehicleStates[i];
+            const color = statusColor[state.status] || "#6b7280";
+            return (
+              <button
+                key={v.name}
+                onClick={() => handleVehicleClick(i)}
+                className="w-full text-left px-4 py-3 border-b border-border/50 hover:bg-secondary/50 transition-colors"
+              >
+                <div className="flex items-center gap-3">
+                  <span
+                    className="w-2.5 h-2.5 rounded-full shrink-0"
+                    style={{ background: color }}
+                  />
+                  <div className="min-w-0 flex-1">
+                    <p className="text-xs font-semibold text-foreground truncate">{v.name}</p>
+                    <p className="text-[11px] text-muted-foreground">{v.driver}</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3 mt-1.5 ml-[22px]">
+                  <span className="text-[10px] font-medium" style={{ color }}>
+                    {state.status}
+                  </span>
+                  <span className="text-[10px] text-muted-foreground">
+                    {state.speed} mph
+                  </span>
+                </div>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Sidebar Toggle */}
+      <button
+        onClick={() => setSidebarOpen((v) => !v)}
+        className="absolute z-[1001] top-1/2 -translate-y-1/2 w-5 h-10 bg-card border border-border rounded-r-sm flex items-center justify-center hover:bg-secondary transition-colors"
+        style={{ left: sidebarOpen ? "288px" : "0px", transition: "left 0.3s" }}
+      >
+        {sidebarOpen ? (
+          <ChevronLeft className="w-3.5 h-3.5 text-muted-foreground" />
+        ) : (
+          <ChevronRight className="w-3.5 h-3.5 text-muted-foreground" />
+        )}
       </button>
+
+      {/* Map */}
+      <div className="flex-1 relative">
+        <div ref={mapRef} className="w-full h-full" />
+        <button
+          onClick={() => setShowGeoFences((v) => !v)}
+          className="absolute top-3 right-3 z-[1000] flex items-center gap-2 px-3 py-2 rounded-sm text-xs font-semibold shadow-elevated border transition-colors"
+          style={{
+            background: showGeoFences ? "hsl(var(--accent))" : "hsl(var(--card))",
+            color: showGeoFences ? "hsl(var(--accent-foreground))" : "hsl(var(--muted-foreground))",
+            borderColor: showGeoFences ? "hsl(var(--accent))" : "hsl(var(--border))",
+          }}
+        >
+          <Layers className="w-3.5 h-3.5" />
+          {showGeoFences ? "Geo-Fences On" : "Geo-Fences Off"}
+        </button>
+      </div>
     </div>
   );
 }
