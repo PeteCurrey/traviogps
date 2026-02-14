@@ -7,6 +7,8 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { products, categories, type ProductCategory } from "@/data/products";
 import { useState, useMemo } from "react";
+import { CompareButton } from "@/components/store/CompareButton";
+import { CompareBar } from "@/components/store/CompareBar";
 
 type SortOption = "popular" | "price-low" | "price-high" | "rating";
 
@@ -233,6 +235,9 @@ const Products = () => {
                               {product.badge}
                             </Badge>
                           )}
+                          <div className="absolute top-3 right-3">
+                            <CompareButton product={product} />
+                          </div>
                           {product.subscriptionRequired && (
                             <span className="absolute bottom-3 right-3 text-[10px] uppercase tracking-wider text-muted-foreground bg-background/80 px-2 py-0.5 rounded">
                               + subscription
@@ -339,6 +344,7 @@ const Products = () => {
           </motion.div>
         </div>
       </section>
+      <CompareBar />
     </PageWrapper>
   );
 };

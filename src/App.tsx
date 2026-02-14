@@ -18,6 +18,7 @@ import NotFound from "./pages/NotFound";
 // Public pages
 import Products from "./pages/Products";
 import ProductDetail from "./pages/ProductDetail";
+import CompareProducts from "./pages/CompareProducts";
 import Fleet from "./pages/Fleet";
 import Platform from "./pages/Platform";
 
@@ -65,6 +66,7 @@ const App = () => (
             {/* Public routes */}
             <Route path="/" element={<Index />} />
             <Route path="/products" element={<Products />} />
+            <Route path="/products/compare" element={<CompareProducts />} />
             <Route path="/products/:slug" element={<ProductDetail />} />
             <Route path="/fleet" element={<Fleet />} />
             <Route path="/platform" element={<Platform />} />
