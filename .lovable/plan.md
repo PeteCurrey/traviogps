@@ -1,70 +1,84 @@
 
-
-# Enhanced Store Hub with Improved UX and SEO
+# Rebrand Admin Panel for Travio GPS
 
 ## Overview
-Transform the existing StoreFront page (`/products`) into a rich, content-driven store hub that guides users through the product range with informative sections, better navigation cues, and SEO-focused content. Also enhance the category listing page and product detail page for a more polished shopping experience.
+Remove all property/real estate references from the admin panel and rebuild it around managing GPS tracker products, orders, and customer enquiries -- the core operations of a GPS tracking e-commerce business.
 
-## Changes
+## What Gets Removed
+- **Properties page** (`src/pages/admin/Properties.tsx`) -- no longer relevant
+- **PropertyEdit page** (`src/pages/admin/PropertyEdit.tsx`) -- no longer relevant  
+- **Sidebar links**: Properties, Showcase, Developments, Area Guides -- all real estate concepts
+- **Dashboard**: Remove property stats and recent properties panel; replace with product and order stats
+- **Settings**: Remove "Dales & Peaks" company name, email, and address defaults
+- **Login page**: Update subtitle from "manage your properties and leads" to GPS-relevant copy
+- **Leads page**: Remove valuation-specific fields (valuation address, postcode, property type, bedrooms) from the detail modal; update lead types to match GPS business (enquiry, quote, support, demo-request)
 
-### 1. Revamp StoreFront.tsx (`/products`) -- The Store Hub
+## What Gets Added
 
-**New sections to add (in order):**
+### 1. Products Management Page (`src/pages/admin/Products.tsx`)
+- Read-only view of all products from `src/data/products.ts` (since products are currently stored in code, not the database)
+- Table showing: Name, Category, Price, Stock Status, Rating
+- Search and filter by category
+- Note: This is a catalog viewer for now; future enhancement could move products to the database
 
-- **Hero** -- Rewrite with stronger SEO H1 ("GPS Trackers & Vehicle Tracking Devices | UK Store") and a short paragraph with keywords. Add a secondary "Compare Trackers" CTA.
-- **Trust Bar** -- Keep as-is (free delivery, warranty, returns, rating).
-- **"How It Works" Section** -- 3-step visual guide: Choose Your Tracker > Self-Install in Minutes > Track Live on GPSLive. Builds confidence for new visitors and reduces bounce.
-- **Bestsellers** -- Keep, but add a "Why customers love it" one-liner under each card showing the top review highlight or key stat (e.g., "140-day battery | 2,340 reviews").
-- **Shop by Category** -- Keep, but enhance cards with an icon per category (using existing Lucide icons matching the product types) and a slightly larger card layout.
-- **"Which Tracker Is Right For You?" Quiz/Guide** -- A simple interactive section with 3-4 clickable cards (e.g., "I want to track my Car", "I want to track a Trailer", "I need Fleet Tracking", "I need Insurance Approved"). Each card links to the relevant category page. This replaces the generic CTA and provides a better UX funnel.
-- **Featured/New Arrivals** -- Keep featured products section.
-- **Use Cases / Social Proof Strip** -- A horizontal stats bar: "94,000+ devices connected", "185 countries", "2,000+ businesses", "4.8 avg rating". Reinforces trust.
-- **FAQ Section** -- 4-5 common questions with accordion (using existing Accordion component): "Do I need a subscription?", "How do I install a GPS tracker?", "Which tracker has the longest battery?", "Do you offer fleet discounts?", "Is there a money-back guarantee?". Great for SEO and reducing support queries.
-- **CTA** -- Keep the expert advice CTA at the bottom.
+### 2. Orders Page (`src/pages/admin/Orders.tsx`)
+- Placeholder page showing recent orders (from Stripe integration or a future orders table)
+- For now, displays a clean "coming soon" state with a link to view orders in the payment dashboard
+- Stat cards for total orders, revenue, pending orders
 
-**SEO enhancements:**
-- Add a `<Helmet>`-style approach using `document.title` and meta description via a `useEffect` on mount.
-- Use semantic HTML: proper H1, H2, H3 hierarchy.
-- Add structured breadcrumb even on the hub (Home > Store).
-- Add JSON-LD structured data for the store (WebSite + ItemList schema) via a script tag in useEffect.
+### 3. Enquiries (Renamed from Leads)
+- Keep the existing leads table and database integration
+- Rename "Leads" to "Enquiries" in sidebar and page title
+- Remove property-specific valuation fields from the detail modal
+- Update lead type filters to: Enquiry, Quote Request, Support, Demo Request
 
-### 2. Enhance CategoryProducts.tsx
+### 4. Updated Dashboard (`src/pages/admin/Dashboard.tsx`)
+- Replace property stats with: Total Products (from data file), Total Enquiries, New Enquiries, Total Orders (placeholder)
+- Replace "Recent Properties" panel with "Recent Orders" (placeholder or Stripe-linked)
+- Keep "Recent Enquiries" panel (renamed from leads)
 
-- Add a short SEO paragraph below the category heading describing what that category offers (pull from `categories` data -- extend the `description` field to be longer, or add a `longDescription`).
-- Add breadcrumb structured data.
-- Improve the empty state with category suggestions.
+### 5. Updated Sidebar Navigation
+```
+Dashboard
+Products        (new - catalog viewer)
+Orders          (new - placeholder/Stripe)
+Enquiries       (renamed from Leads)
+Marketing       (keep)
+Content
+  - Team Members (keep)
+  - Testimonials (keep)
+Settings        (keep, updated defaults)
+```
 
-### 3. Enhance ProductDetail.tsx
+Remove: Properties, Showcase, Developments, Area Guides
 
-- Add an "In the box" section beneath specs showing what the customer receives.
-- Add structured product data (JSON-LD Product schema with price, rating, availability).
-- Add a "Frequently Bought Together" section showing compatible accessories (based on `bestFor` tag matching).
+### 6. Updated Settings
+- Change company default name from "Dales & Peaks" to "Travio GPS"
+- Change default email to a generic placeholder
+- Change default phone and address
+- Update notification labels: remove "Valuation Requests", add "New Order Notifications"
 
-### 4. Extend Product Data
+### 7. Updated Login
+- Change subtitle to "Sign in to manage your store and enquiries"
 
-- Add a `longDescription` field to the categories array for SEO-rich category pages.
-- Add an `inTheBox` string array to each product for the "What's in the box" section.
-- Add a `highlight` field (short string) to products for the bestseller section callout.
+## Files to Create
+- `src/pages/admin/Products.tsx` -- Product catalog viewer
+- `src/pages/admin/Orders.tsx` -- Orders placeholder page
 
-### 5. SEO Utility
+## Files to Modify
+- `src/components/admin/AdminLayout.tsx` -- Update sidebar nav items
+- `src/pages/admin/Dashboard.tsx` -- Replace property stats with product/order stats
+- `src/pages/admin/Leads.tsx` -- Rename to Enquiries, remove valuation fields
+- `src/pages/admin/Settings.tsx` -- Update company defaults
+- `src/pages/admin/Login.tsx` -- Update subtitle text
+- `src/App.tsx` -- Update admin routes (remove properties/property edit, add products and orders)
 
-- Create a small `src/lib/seo.ts` utility with a `usePageMeta(title, description)` hook that sets `document.title` and the meta description tag on mount.
-- Apply it to StoreFront, CategoryProducts, and ProductDetail pages.
+## Files to Remove (stop importing)
+- `src/pages/admin/Properties.tsx` -- no longer imported or routed
+- `src/pages/admin/PropertyEdit.tsx` -- no longer imported or routed
 
-## Technical Details
-
-### Files to create:
-- `src/lib/seo.ts` -- `usePageMeta` hook
-
-### Files to modify:
-- `src/data/products.ts` -- Add `highlight`, `inTheBox` fields to Product interface and product entries; add `longDescription` to categories
-- `src/pages/StoreFront.tsx` -- Full rewrite with new sections (How It Works, Quiz Guide, Stats Strip, FAQ, breadcrumbs, JSON-LD)
-- `src/pages/CategoryProducts.tsx` -- Add long description, improved empty state, page meta
-- `src/pages/ProductDetail.tsx` -- Add "In the Box", "Frequently Bought Together", JSON-LD Product schema, page meta
-
-### Component patterns:
-- Uses existing Accordion component for FAQ
-- Uses existing motion/framer-motion patterns for scroll animations
-- Follows the existing design system (font-serif headings, italic-accent spans, section-padding, container-premium, text-accent colour)
-- All new sections follow the alternating bg-background / bg-card pattern already established
-
+## Technical Notes
+- Products are currently stored in `src/data/products.ts` as static data, so the Products admin page will import and display from there (read-only catalog viewer)
+- The leads database table remains as-is since it stores enquiries -- just the UI labels change
+- No database migrations needed for this change
+- The existing Marketing, Team Members, and Testimonials pages are GPS-agnostic and can stay as-is
