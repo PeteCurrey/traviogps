@@ -94,15 +94,19 @@ function InteractiveMap() {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
     }).addTo(map);
 
-    const createIcon = (color: string) =>
-      L.divIcon({
+    const createIcon = (color: string, status: string) => {
+      const isMoving = status === "Driving";
+      return L.divIcon({
         className: "",
-        html: `<div style="width:32px;height:32px;border-radius:50%;background:${color};border:3px solid white;box-shadow:0 2px 8px rgba(0,0,0,0.3);display:flex;align-items:center;justify-content:center;transition:transform 0.3s ease">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9L18 10l-2-4H8L6 10l-2.5 1.1C2.7 11.3 2 12.1 2 13v3c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg>
-        </div>`,
-        iconSize: [32, 32],
-        iconAnchor: [16, 16],
+        html: `<div style="position:relative;width:36px;height:36px;display:flex;align-items:center;justify-content:center">
+          ${isMoving ? `<div style="position:absolute;inset:-4px;border-radius:50%;border:2px solid ${color};opacity:0.4;animation:ping 1.5s cubic-bezier(0,0,0.2,1) infinite"></div>` : ""}
+          <div style="width:12px;height:12px;border-radius:50%;background:${color};border:2.5px solid white;box-shadow:0 1px 6px rgba(0,0,0,0.35),0 0 0 1px rgba(0,0,0,0.08);transition:all 0.3s ease"></div>
+        </div>
+        <style>@keyframes ping{75%,100%{transform:scale(2.2);opacity:0}}</style>`,
+        iconSize: [36, 36],
+        iconAnchor: [18, 18],
       });
+    };
 
     const updatePopup = (v: typeof sampleVehicles[0], speed: number, status: string) => {
       const color = statusColor[status] || "#6b7280";
@@ -119,7 +123,7 @@ function InteractiveMap() {
 
     sampleVehicles.forEach((v, i) => {
       const color = statusColor[v.status] || "#6b7280";
-      const marker = L.marker([v.lat, v.lng], { icon: createIcon(color) })
+      const marker = L.marker([v.lat, v.lng], { icon: createIcon(color, v.status) })
         .addTo(map)
         .bindPopup(updatePopup(v, parseInt(v.speed), v.status));
       markersRef.current.push(marker);
@@ -171,7 +175,7 @@ function InteractiveMap() {
         const marker = markersRef.current[i];
         if (marker) {
           marker.setLatLng([positionsRef.current[i].lat, positionsRef.current[i].lng]);
-          marker.setIcon(createIcon(color));
+          marker.setIcon(createIcon(color, currentStatus));
           marker.setPopupContent(updatePopup(v, currentSpeed, currentStatus));
         }
         return { speed: currentSpeed, status: currentStatus };
