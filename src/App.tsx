@@ -22,6 +22,8 @@ import ProductDetail from "./pages/ProductDetail";
 import CompareProducts from "./pages/CompareProducts";
 import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
+import PaymentSuccess from "./pages/PaymentSuccess";
+import PaymentCancelled from "./pages/PaymentCancelled";
 import Fleet from "./pages/Fleet";
 import Platform from "./pages/Platform";
 
@@ -77,6 +79,8 @@ const App = () => (
             <Route path="/products/:slug" element={<ProductDetail />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/checkout" element={<Checkout />} />
+            <Route path="/payment-success" element={<PaymentSuccess />} />
+            <Route path="/payment-cancelled" element={<PaymentCancelled />} />
             
             <Route path="/fleet" element={<Fleet />} />
             <Route path="/platform" element={<Platform />} />

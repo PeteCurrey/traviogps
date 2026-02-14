@@ -1,16 +1,18 @@
 import { PageWrapper } from "@/components/layout/PageWrapper";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { ArrowLeft, ShoppingCart, Lock, ArrowRight } from "lucide-react";
+import { ArrowLeft, ShoppingCart, Lock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useCartStore } from "@/stores/cartStore";
 import { useState } from "react";
 import { toast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 
 const Checkout = () => {
-  const { items, totalPrice, clearCart } = useCartStore();
+  const { items, totalPrice } = useCartStore();
+  const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -25,13 +27,37 @@ const Checkout = () => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: Integrate with Stripe checkout
-    toast({
-      title: "Order Submitted",
-      description: "Stripe payment integration coming soon. We'll be in touch!",
-    });
+    setIsLoading(true);
+
+    try {
+      const { data, error } = await supabase.functions.invoke("create-checkout", {
+        body: {
+          items: items.map((item) => ({
+            name: item.product.name,
+            price: item.product.price,
+            quantity: item.quantity,
+          })),
+          customerEmail: formData.email,
+          customerName: `${formData.firstName} ${formData.lastName}`,
+        },
+      });
+
+      if (error) throw error;
+      if (data?.url) {
+        window.location.href = data.url;
+      } else {
+        throw new Error("No checkout URL returned");
+      }
+    } catch (err: any) {
+      toast({
+        title: "Payment Error",
+        description: err.message || "Something went wrong. Please try again.",
+        variant: "destructive",
+      });
+      setIsLoading(false);
+    }
   };
 
   if (items.length === 0) {
@@ -72,7 +98,6 @@ const Checkout = () => {
             </h1>
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-              {/* Form */}
               <form onSubmit={handleSubmit} className="lg:col-span-2 space-y-6">
                 <div className="bg-card rounded-sm border border-border p-6">
                   <h2 className="font-serif text-xl text-foreground mb-4">Contact Details</h2>
@@ -116,15 +141,25 @@ const Checkout = () => {
                   </div>
                 </div>
 
-                <Button type="submit" size="lg" className="w-full btn-premium bg-accent hover:bg-accent/90 text-accent-foreground">
-                  <Lock className="mr-2 h-4 w-4" /> Pay £{totalPrice().toFixed(2)}
+                <Button
+                  type="submit"
+                  size="lg"
+                  disabled={isLoading}
+                  className="w-full btn-premium bg-accent hover:bg-accent/90 text-accent-foreground"
+                >
+                  {isLoading ? (
+                    "Redirecting to payment..."
+                  ) : (
+                    <>
+                      <Lock className="mr-2 h-4 w-4" /> Pay £{totalPrice().toFixed(2)}
+                    </>
+                  )}
                 </Button>
                 <p className="text-xs text-muted-foreground text-center">
                   Secure payment powered by Stripe. Your details are encrypted.
                 </p>
               </form>
 
-              {/* Order Summary */}
               <div className="lg:col-span-1">
                 <div className="sticky top-40 bg-card rounded-sm border border-border p-6 space-y-4">
                   <h2 className="font-serif text-xl text-foreground mb-2">Order Summary</h2>
