@@ -6,29 +6,30 @@ const Boats = () => (
   <TrackingApplicationPage
     title="Boat & Marine Tracking"
     heroImage={heroImage}
-    subtitle="Marine GPS Security"
-    description="Waterproof GPS trackers for boats, yachts, jet skis, and marine equipment. Track your vessel from anywhere and get alerts if it's moved."
-    heroStat="IP67 waterproof rated"
+    subtitle="Coastal & Inland Waterway GPS Security"
+    description="Purpose-built waterproof GPS trackers for boats, yachts, jet skis, narrowboats, and marine equipment. Full coverage across UK coastal waters, rivers, canals, and inland waterways — track your vessel from anywhere."
+    heroStat="UK coastal & inland coverage"
     keyStats={[
       { value: "IP67", label: "Waterproof" },
       { value: "5 Years", label: "Battery option" },
-      { value: "Coastal", label: "UK coverage" },
-      { value: "24/7", label: "Monitoring" },
+      { value: "Full UK", label: "Coastal & inland" },
+      { value: "24/7", label: "Live monitoring" },
     ]}
     benefits={[
-      { title: "Marina Security", description: "Get instant alerts if your boat is moved from its mooring or marina berth.", icon: Anchor },
-      { title: "Waterproof Design", description: "IP67-rated trackers built for the harsh marine environment.", icon: Waves },
-      { title: "Theft Recovery", description: "Real-time tracking to help locate and recover stolen vessels quickly.", icon: Shield },
+      { title: "Coastal & Marina Security", description: "Get instant alerts if your boat is moved from its mooring, marina berth, or harbour — covering every UK coastal port.", icon: Anchor },
+      { title: "Inland Waterway Tracking", description: "Full GPS coverage across canals, rivers, lakes, and reservoirs for narrowboats, canal boats, and leisure craft.", icon: Waves },
+      { title: "Rapid Theft Recovery", description: "Real-time tracking with live location sharing to police, coastguard, and the Canal & River Trust for fast recovery.", icon: Shield },
     ]}
     features={[
-      { title: "Marina Geo-fencing", description: "Set boundaries around marinas and moorings.", icon: MapPin },
-      { title: "Movement Alerts", description: "Instant notification when your vessel moves unexpectedly.", icon: Bell },
-      { title: "Waterproof Casing", description: "Sealed unit designed for marine conditions.", icon: Waves },
-      { title: "Long Battery Life", description: "Battery-powered options for vessels without power.", icon: Battery },
-      { title: "Journey Logging", description: "Record all trips and voyages automatically.", icon: MapPin },
-      { title: "Recovery Assistance", description: "Share live location link with coastguard or police.", icon: Shield },
+      { title: "Marina & Harbour Geo-fencing", description: "Set boundaries around marinas, moorings, harbours, and canal basins.", icon: MapPin },
+      { title: "Movement Alerts", description: "Instant notification when your vessel moves unexpectedly — day or night.", icon: Bell },
+      { title: "Waterproof IP67 Casing", description: "Sealed unit built for salt water, fresh water, and harsh marine conditions.", icon: Waves },
+      { title: "Long Battery Life", description: "Up to 5-year battery for vessels without shore power or engine charging.", icon: Battery },
+      { title: "Coastal & Canal Journey Log", description: "Record all trips, voyages, and cruises with route playback and distance.", icon: MapPin },
+      { title: "Emergency Location Sharing", description: "Share a live location link with coastguard, police, or marina staff instantly.", icon: Shield },
     ]}
     ctaButtonText="Get a Quote"
+    ctaDescription="Protect your vessel on coastal waters or inland waterways — speak with our team today."
   />
 );
 
