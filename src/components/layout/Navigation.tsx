@@ -14,10 +14,15 @@ const leftNavLinks = [
     href: "/products",
     submenu: [
       { label: "Car Trackers", href: "/tracking/cars" },
+      { label: "Van Trackers", href: "/tracking/vans" },
       { label: "Motorbike Trackers", href: "/tracking/motorbikes" },
-      { label: "Plant & Machinery", href: "/tracking/plant-machinery" },
+      { label: "Supercar Trackers", href: "/tracking/supercars" },
+      { label: "Classic Car Trackers", href: "/tracking/classic-cars" },
       { label: "Caravan Trackers", href: "/tracking/caravans" },
-      { label: "Asset Trackers", href: "/tracking/trailers" },
+      { label: "Boat & Marine", href: "/tracking/boats" },
+      { label: "Plant & Machinery", href: "/tracking/plant-machinery" },
+      { label: "Trailer Trackers", href: "/tracking/trailers" },
+      { label: "Tools & Equipment", href: "/tracking/tools-equipment" },
     ]
   },
   { 
