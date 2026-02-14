@@ -2,7 +2,7 @@ import { useRef } from "react";
 import { Link } from "react-router-dom";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowRight, Smartphone, Globe, Shield } from "lucide-react";
-import liveMapImg from "@/assets/platform/live-map.webp";
+import aboutMapImg from "@/assets/platform/about-map.webp";
 
 export function AboutSection() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -25,7 +25,7 @@ export function AboutSection() {
           >
             <div className="aspect-[4/5] overflow-hidden rounded-sm relative">
               <motion.img
-                src={liveMapImg}
+                src={aboutMapImg}
                 alt="GPSLive real-time fleet map with live vehicle positions"
                 className="absolute inset-0 w-full object-cover"
                 style={{ y: imgY, height: "120%" }}
