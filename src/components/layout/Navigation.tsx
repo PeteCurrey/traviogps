@@ -43,9 +43,16 @@ const rightNavLinks = [
       { label: "Mobile App", href: "/platform" },
     ]
   },
-  { label: "Store", href: "/products" },
-  { label: "About", href: "/about" },
-  { label: "Contact", href: "/contact" },
+  { 
+    label: "Store", 
+    href: "/products",
+    submenu: [
+      { label: "All Products", href: "/products" },
+      { label: "Vehicle Trackers", href: "/products/category/vehicle-trackers" },
+      { label: "Asset Trackers", href: "/products/category/asset-trackers" },
+      { label: "Compare Products", href: "/products/compare" },
+    ]
+  },
 ];
 
 const allNavLinks = [...leftNavLinks, ...rightNavLinks];
