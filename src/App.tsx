@@ -37,6 +37,7 @@ import Boats from "./pages/tracking/Boats";
 import Supercars from "./pages/tracking/Supercars";
 import ClassicCars from "./pages/tracking/ClassicCars";
 import Vans from "./pages/tracking/Vans";
+import Cars from "./pages/tracking/Cars";
 
 // Platform sub-pages
 import ReportsAnalytics from "./pages/platform/ReportsAnalytics";
@@ -113,6 +114,7 @@ const App = () => (
             <Route path="/tracking/boats" element={<Boats />} />
             <Route path="/tracking/supercars" element={<Supercars />} />
             <Route path="/tracking/classic-cars" element={<ClassicCars />} />
+            <Route path="/tracking/cars" element={<Cars />} />
             <Route path="/tracking/vans" element={<Vans />} />
 
             {/* Fleet sub-routes */}

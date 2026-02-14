@@ -13,7 +13,7 @@ const leftNavLinks = [
     label: "GPS Trackers", 
     href: "/products",
     submenu: [
-      { label: "Vehicle Trackers", href: "/products" },
+      { label: "Car Trackers", href: "/tracking/cars" },
       { label: "Motorbike Trackers", href: "/tracking/motorbikes" },
       { label: "Plant & Machinery", href: "/tracking/plant-machinery" },
       { label: "Caravan Trackers", href: "/tracking/caravans" },
