@@ -35,8 +35,8 @@
     --muted: 160 10% 15%;
     --muted-foreground: 45 10% 65%;
 
-    /* Accent - Copper/bronze highlights */
-    --accent: 25 45% 50%;
+    /* Accent - Tech blue highlights */
+    --accent: 210 70% 55%;
     --accent-foreground: 45 20% 98%;
 
     /* Destructive states */
@@ -99,7 +99,7 @@
     --muted: 45 15% 92%;
     --muted-foreground: 160 10% 45%;
 
-    --accent: 25 45% 50%;
+    --accent: 210 70% 55%;
     --accent-foreground: 45 30% 97%;
 
     --destructive: 0 65% 50%;
