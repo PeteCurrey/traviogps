@@ -1,84 +1,73 @@
 
-# Rebrand Admin Panel for Travio GPS
 
-## Overview
-Remove all property/real estate references from the admin panel and rebuild it around managing GPS tracker products, orders, and customer enquiries -- the core operations of a GPS tracking e-commerce business.
+## Plan: New Hero Images + Cars Page + Navigation Update
 
-## What Gets Removed
-- **Properties page** (`src/pages/admin/Properties.tsx`) -- no longer relevant
-- **PropertyEdit page** (`src/pages/admin/PropertyEdit.tsx`) -- no longer relevant  
-- **Sidebar links**: Properties, Showcase, Developments, Area Guides -- all real estate concepts
-- **Dashboard**: Remove property stats and recent properties panel; replace with product and order stats
-- **Settings**: Remove "Dales & Peaks" company name, email, and address defaults
-- **Login page**: Update subtitle from "manage your properties and leads" to GPS-relevant copy
-- **Leads page**: Remove valuation-specific fields (valuation address, postcode, property type, bedrooms) from the detail modal; update lead types to match GPS business (enquiry, quote, support, demo-request)
+### 1. Generate Premium Hero Images for All Application Pages
 
-## What Gets Added
+Generate new, high-quality hero images for each tracking/fleet page using photorealistic, industry-specific imagery showing GPS tracking hardware and real-time mapping interfaces (per style guidelines). Each image will be saved to its existing path.
 
-### 1. Products Management Page (`src/pages/admin/Products.tsx`)
-- Read-only view of all products from `src/data/products.ts` (since products are currently stored in code, not the database)
-- Table showing: Name, Category, Price, Stock Status, Rating
-- Search and filter by category
-- Note: This is a catalog viewer for now; future enhancement could move products to the database
+Pages receiving new hero images:
+- **Plant & Machinery** -- excavator on construction site with GPS tracking overlay
+- **Motorbikes** -- motorcycle with discreet tracker hardware close-up
+- **Caravans** -- touring caravan with GPS device and map dashboard
+- **Trailers** -- commercial trailer with magnetic GPS tracker attached
+- **Boats** -- yacht/boat with marine GPS tracking equipment
+- **Vans** -- commercial van fleet with tracking dashboard overlay
+- **Tools & Equipment** -- power tools with compact GPS tracker
+- **Classic Cars** -- vintage car in garage with hidden tracker
+- **Supercars** -- prestige vehicle with Thatcham-approved tracker
+- **Couriers** -- delivery van fleet with route map overlay
+- **Construction** -- construction site vehicles with multi-site dashboard
+- **Haulage** -- HGV truck with fleet management dashboard
 
-### 2. Orders Page (`src/pages/admin/Orders.tsx`)
-- Placeholder page showing recent orders (from Stripe integration or a future orders table)
-- For now, displays a clean "coming soon" state with a link to view orders in the payment dashboard
-- Stat cards for total orders, revenue, pending orders
+### 2. Create New "Car Tracker" Page
 
-### 3. Enquiries (Renamed from Leads)
-- Keep the existing leads table and database integration
-- Rename "Leads" to "Enquiries" in sidebar and page title
-- Remove property-specific valuation fields from the detail modal
-- Update lead type filters to: Enquiry, Quote Request, Support, Demo Request
+Create `src/pages/tracking/Cars.tsx` using the `TrackingApplicationPage` template, focused on **everyday car tracking** (theft recovery, insurance savings, family safety). This fills the gap where "Vehicle Trackers" in the nav currently points to `/products`.
 
-### 4. Updated Dashboard (`src/pages/admin/Dashboard.tsx`)
-- Replace property stats with: Total Products (from data file), Total Enquiries, New Enquiries, Total Orders (placeholder)
-- Replace "Recent Properties" panel with "Recent Orders" (placeholder or Stripe-linked)
-- Keep "Recent Enquiries" panel (renamed from leads)
+Content outline:
+- **Title**: "Car GPS Tracking"
+- **Subtitle**: "Vehicle Security & Recovery"
+- **Description**: Focused on theft prevention, insurance discounts, and family vehicle monitoring
+- **Key stats**: Insurance savings, recovery rate, update frequency, monitoring
+- **Benefits**: Theft recovery, insurance discounts, family safety
+- **Features**: Live tracking, tamper alerts, journey history, geo-fencing, battery backup, mobile app
 
-### 5. Updated Sidebar Navigation
+Generate a hero image: `src/assets/tracking/cars-hero.webp`
+
+### 3. Update Supercars Page
+
+Review and refresh the existing Supercars page content to better differentiate it from the new Cars page -- emphasising Thatcham S5/S7 certification, 24/7 monitoring centre, and prestige vehicle specialisation. The existing page content is already well-differentiated, so only minor tweaks if needed.
+
+### 4. Update Navigation
+
+Update `src/components/layout/Navigation.tsx`:
+
+**Before:**
 ```
-Dashboard
-Products        (new - catalog viewer)
-Orders          (new - placeholder/Stripe)
-Enquiries       (renamed from Leads)
-Marketing       (keep)
-Content
-  - Team Members (keep)
-  - Testimonials (keep)
-Settings        (keep, updated defaults)
+{ label: "Vehicle Trackers", href: "/products" },
 ```
 
-Remove: Properties, Showcase, Developments, Area Guides
+**After:**
+```
+{ label: "Car Trackers", href: "/tracking/cars" },
+```
 
-### 6. Updated Settings
-- Change company default name from "Dales & Peaks" to "Travio GPS"
-- Change default email to a generic placeholder
-- Change default phone and address
-- Update notification labels: remove "Valuation Requests", add "New Order Notifications"
+This points "Car Trackers" to the new dedicated page instead of the generic store.
 
-### 7. Updated Login
-- Change subtitle to "Sign in to manage your store and enquiries"
+### 5. Add Route
 
-## Files to Create
-- `src/pages/admin/Products.tsx` -- Product catalog viewer
-- `src/pages/admin/Orders.tsx` -- Orders placeholder page
+Add the new route to `src/App.tsx`:
+```
+<Route path="/tracking/cars" element={<Cars />} />
+```
 
-## Files to Modify
-- `src/components/admin/AdminLayout.tsx` -- Update sidebar nav items
-- `src/pages/admin/Dashboard.tsx` -- Replace property stats with product/order stats
-- `src/pages/admin/Leads.tsx` -- Rename to Enquiries, remove valuation fields
-- `src/pages/admin/Settings.tsx` -- Update company defaults
-- `src/pages/admin/Login.tsx` -- Update subtitle text
-- `src/App.tsx` -- Update admin routes (remove properties/property edit, add products and orders)
+### Technical Summary
 
-## Files to Remove (stop importing)
-- `src/pages/admin/Properties.tsx` -- no longer imported or routed
-- `src/pages/admin/PropertyEdit.tsx` -- no longer imported or routed
+| Task | Files |
+|------|-------|
+| Generate 13 hero images | `src/assets/tracking/*.webp`, `src/assets/fleet/*.webp` |
+| New Cars page | `src/pages/tracking/Cars.tsx` |
+| New Cars hero image | `src/assets/tracking/cars-hero.webp` |
+| Navigation update | `src/components/layout/Navigation.tsx` |
+| Route registration | `src/App.tsx` |
 
-## Technical Notes
-- Products are currently stored in `src/data/products.ts` as static data, so the Products admin page will import and display from there (read-only catalog viewer)
-- The leads database table remains as-is since it stores enquiries -- just the UI labels change
-- No database migrations needed for this change
-- The existing Marketing, Team Members, and Testimonials pages are GPS-agnostic and can stay as-is
