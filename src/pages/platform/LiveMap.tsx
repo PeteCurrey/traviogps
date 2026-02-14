@@ -66,6 +66,9 @@ const statusColor: Record<string, string> = {
 function InteractiveMap() {
   const mapRef = useRef<HTMLDivElement>(null);
   const mapInstance = useRef<L.Map | null>(null);
+  const markersRef = useRef<L.Marker[]>([]);
+  const positionsRef = useRef(sampleVehicles.map((v) => ({ lat: v.lat, lng: v.lng })));
+  const speedsRef = useRef(sampleVehicles.map((v) => parseInt(v.speed)));
 
   useEffect(() => {
     if (!mapRef.current || mapInstance.current) return;
@@ -77,35 +80,72 @@ function InteractiveMap() {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
     }).addTo(map);
 
-    sampleVehicles.forEach((v) => {
-      const color = statusColor[v.status] || "#6b7280";
-      const icon = L.divIcon({
+    const createIcon = (color: string) =>
+      L.divIcon({
         className: "",
-        html: `<div style="width:32px;height:32px;border-radius:50%;background:${color};border:3px solid white;box-shadow:0 2px 8px rgba(0,0,0,0.3);display:flex;align-items:center;justify-content:center;">
+        html: `<div style="width:32px;height:32px;border-radius:50%;background:${color};border:3px solid white;box-shadow:0 2px 8px rgba(0,0,0,0.3);display:flex;align-items:center;justify-content:center;transition:transform 0.3s ease">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9L18 10l-2-4H8L6 10l-2.5 1.1C2.7 11.3 2 12.1 2 13v3c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg>
         </div>`,
         iconSize: [32, 32],
         iconAnchor: [16, 16],
       });
 
-      L.marker([v.lat, v.lng], { icon })
+    const updatePopup = (v: typeof sampleVehicles[0], speed: number, status: string) => {
+      const color = statusColor[status] || "#6b7280";
+      return `<div style="font-family:system-ui;min-width:180px">
+        <strong style="font-size:13px">${v.name}</strong>
+        <hr style="margin:6px 0;border-color:#e5e7eb"/>
+        <div style="font-size:12px;line-height:1.8">
+          <div><span style="color:#6b7280">Driver:</span> ${v.driver}</div>
+          <div><span style="color:#6b7280">Speed:</span> ${speed} mph</div>
+          <div><span style="color:#6b7280">Status:</span> <span style="color:${color};font-weight:600">${status}</span></div>
+        </div>
+      </div>`;
+    };
+
+    sampleVehicles.forEach((v, i) => {
+      const color = statusColor[v.status] || "#6b7280";
+      const marker = L.marker([v.lat, v.lng], { icon: createIcon(color) })
         .addTo(map)
-        .bindPopup(
-          `<div style="font-family:system-ui;min-width:180px">
-            <strong style="font-size:13px">${v.name}</strong>
-            <hr style="margin:6px 0;border-color:#e5e7eb"/>
-            <div style="font-size:12px;line-height:1.8">
-              <div><span style="color:#6b7280">Driver:</span> ${v.driver}</div>
-              <div><span style="color:#6b7280">Speed:</span> ${v.speed}</div>
-              <div><span style="color:#6b7280">Status:</span> <span style="color:${color};font-weight:600">${v.status}</span></div>
-            </div>
-          </div>`
-        );
+        .bindPopup(updatePopup(v, parseInt(v.speed), v.status));
+      markersRef.current.push(marker);
     });
 
+    // Animate driving vehicles every 3 seconds
+    const interval = setInterval(() => {
+      sampleVehicles.forEach((v, i) => {
+        if (v.status === "Stopped") return;
+
+        const isDriving = v.status === "Driving";
+        // Random drift simulating movement
+        const dLat = (Math.random() - 0.5) * (isDriving ? 0.012 : 0.002);
+        const dLng = (Math.random() - 0.5) * (isDriving ? 0.018 : 0.003);
+        positionsRef.current[i].lat += dLat;
+        positionsRef.current[i].lng += dLng;
+
+        // Fluctuate speed
+        const baseSpeed = parseInt(v.speed);
+        const jitter = isDriving ? Math.round((Math.random() - 0.4) * 12) : Math.round(Math.random() * 5);
+        speedsRef.current[i] = Math.max(0, baseSpeed + jitter);
+
+        const currentSpeed = speedsRef.current[i];
+        const currentStatus = currentSpeed === 0 ? "Idle" : v.status;
+        const color = statusColor[currentStatus] || "#6b7280";
+
+        const marker = markersRef.current[i];
+        if (marker) {
+          marker.setLatLng([positionsRef.current[i].lat, positionsRef.current[i].lng]);
+          marker.setIcon(createIcon(color));
+          marker.setPopupContent(updatePopup(v, currentSpeed, currentStatus));
+        }
+      });
+    }, 3000);
+
     return () => {
+      clearInterval(interval);
       map.remove();
       mapInstance.current = null;
+      markersRef.current = [];
     };
   }, []);
 
