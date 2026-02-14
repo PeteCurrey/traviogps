@@ -1,9 +1,11 @@
 import { TrackingApplicationPage } from "@/components/tracking/TrackingApplicationPage";
 import { Shield, Battery, MapPin, Bell, Magnet, BarChart3 } from "lucide-react";
+import heroImage from "@/assets/tracking/trailers-hero.webp";
 
 const Trailers = () => (
   <TrackingApplicationPage
     title="Trailer GPS Tracking"
+    heroImage={heroImage}
     subtitle="Asset & Logistics Tracking"
     description="Rugged, long-life GPS trackers for trailers, containers, and non-powered assets. Magnetic mount, 5-year battery, no wiring required."
     heroStat="5-year battery | Magnetic mount"

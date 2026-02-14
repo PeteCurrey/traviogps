@@ -1,9 +1,11 @@
 import { TrackingApplicationPage } from "@/components/tracking/TrackingApplicationPage";
 import { Shield, Truck, MapPin, Bell, Users, BarChart3 } from "lucide-react";
+import heroImage from "@/assets/tracking/vans-hero.webp";
 
 const Vans = () => (
   <TrackingApplicationPage
     title="Van Tracker Solutions"
+    heroImage={heroImage}
     subtitle="Commercial Vehicle Tracking"
     description="GPS tracking for single vans or small fleets. Monitor driver behaviour, prevent tool theft, and optimise routes to save time and fuel."
     heroStat="From £9.99/month"

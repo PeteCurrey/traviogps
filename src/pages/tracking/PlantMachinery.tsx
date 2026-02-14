@@ -1,9 +1,11 @@
 import { TrackingApplicationPage } from "@/components/tracking/TrackingApplicationPage";
 import { Shield, Battery, MapPin, Bell, Wifi, Clock } from "lucide-react";
+import heroImage from "@/assets/tracking/plant-machinery-hero.webp";
 
 const PlantMachinery = () => (
   <TrackingApplicationPage
     title="Plant & Machinery Tracking"
+    heroImage={heroImage}
     subtitle="Construction & Industrial"
     description="Protect your plant and machinery with rugged, battery-powered GPS trackers designed for construction sites, quarries, and industrial environments."
     heroStat="Reduce theft by up to 85%"

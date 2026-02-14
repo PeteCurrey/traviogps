@@ -1,9 +1,11 @@
 import { TrackingApplicationPage } from "@/components/tracking/TrackingApplicationPage";
 import { Shield, Anchor, MapPin, Bell, Waves, Battery } from "lucide-react";
+import heroImage from "@/assets/tracking/boats-hero.webp";
 
 const Boats = () => (
   <TrackingApplicationPage
     title="Boat & Marine Tracking"
+    heroImage={heroImage}
     subtitle="Marine GPS Security"
     description="Waterproof GPS trackers for boats, yachts, jet skis, and marine equipment. Track your vessel from anywhere and get alerts if it's moved."
     heroStat="IP67 waterproof rated"

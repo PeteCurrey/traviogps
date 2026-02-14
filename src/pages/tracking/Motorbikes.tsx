@@ -1,9 +1,11 @@
 import { TrackingApplicationPage } from "@/components/tracking/TrackingApplicationPage";
 import { Shield, Zap, MapPin, Bell, CloudRain, PoundSterling } from "lucide-react";
+import heroImage from "@/assets/tracking/motorbikes-hero.webp";
 
 const Motorbikes = () => (
   <TrackingApplicationPage
     title="Motorbike GPS Tracking"
+    heroImage={heroImage}
     subtitle="Two-Wheel Protection"
     description="Compact, weatherproof GPS trackers designed for motorcycles. Get theft alerts, journey history, and insurance-approved security."
     heroStat="Insurance discounts up to 20%"

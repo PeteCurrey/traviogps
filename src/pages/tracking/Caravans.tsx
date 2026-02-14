@@ -1,9 +1,11 @@
 import { TrackingApplicationPage } from "@/components/tracking/TrackingApplicationPage";
 import { Shield, Battery, MapPin, Bell, Sun, Tent } from "lucide-react";
+import heroImage from "@/assets/tracking/caravans-hero.webp";
 
 const Caravans = () => (
   <TrackingApplicationPage
     title="Caravan & Motorhome Tracking"
+    heroImage={heroImage}
     subtitle="Leisure Vehicle Security"
     description="Long-life GPS trackers for caravans, motorhomes, and camper vans. Peace of mind whether you're on holiday or your vehicle is in storage."
     heroStat="5-year battery life"

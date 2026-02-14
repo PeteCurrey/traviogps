@@ -1,9 +1,11 @@
 import { TrackingApplicationPage } from "@/components/tracking/TrackingApplicationPage";
 import { Shield, Battery, MapPin, Bell, Eye, Clock } from "lucide-react";
+import heroImage from "@/assets/tracking/classic-cars-hero.webp";
 
 const ClassicCars = () => (
   <TrackingApplicationPage
     title="Classic Car GPS Tracking"
+    heroImage={heroImage}
     subtitle="Heritage Vehicle Security"
     description="Discreet GPS trackers for classic cars, vintage vehicles, and collectible automobiles. No OBD port required — works with any vehicle, any age."
     heroStat="No OBD required"
