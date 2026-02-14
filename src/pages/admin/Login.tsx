@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useAuth } from "@/hooks/useAuth";
 import { useToast } from "@/hooks/use-toast";
-import { DalesAndPeaksLogo } from "@/components/layout/DalesAndPeaksLogo";
+import { TravioLogo } from "@/components/layout/TravioLogo";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -51,7 +51,7 @@ export default function Login() {
         {/* Logo */}
         <div className="text-center mb-8">
           <Link to="/" className="inline-flex justify-center mb-6">
-            <DalesAndPeaksLogo size="md" />
+            <TravioLogo size="md" />
           </Link>
           <h1 className="font-serif text-2xl text-foreground mb-2">Admin Portal</h1>
           <p className="text-muted-foreground text-sm">
