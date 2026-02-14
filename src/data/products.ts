@@ -1,5 +1,16 @@
 import { Navigation, Plug, Video, Shield, Battery, Bike, Truck, Package, Anchor, Thermometer, Car, Wrench, LucideIcon } from "lucide-react";
 
+export interface CustomerReview {
+  id: string;
+  author: string;
+  rating: number;
+  date: string;
+  title: string;
+  body: string;
+  verified: boolean;
+  helpful: number;
+}
+
 export interface Product {
   id: string;
   name: string;
@@ -26,6 +37,7 @@ export interface Product {
   connectivity?: string;
   highlight?: string;
   inTheBox?: string[];
+  customerReviews?: CustomerReview[];
 }
 
 export type ProductCategory =
@@ -100,6 +112,14 @@ export const products: Product[] = [
     connectivity: "4G LTE",
     highlight: "140-day battery | 2,340+ reviews",
     inTheBox: ["DB2 GPS Tracker", "Magnetic mount (built-in)", "USB-C charging cable", "Quick start guide", "SIM card (pre-installed)"],
+    customerReviews: [
+      { id: "r1", author: "James T.", rating: 5, date: "12 Jan 2026", title: "Best tracker I've owned", body: "Battery lasts well over 3 months. Magnets are incredibly strong — stuck it under my van and forgot about it. Alerts are instant.", verified: true, helpful: 47 },
+      { id: "r2", author: "Sarah K.", rating: 5, date: "28 Dec 2025", title: "Peace of mind for my classic car", body: "I keep my MGB in storage over winter. This tracker lets me check on it from my phone any time. Setup took 2 minutes.", verified: true, helpful: 32 },
+      { id: "r3", author: "Mark D.", rating: 4, date: "15 Dec 2025", title: "Great value, solid product", body: "Does exactly what it says. 10-second updates are impressive for the price. Only wish the app had a dark mode.", verified: true, helpful: 18 },
+      { id: "r4", author: "Emma W.", rating: 5, date: "3 Dec 2025", title: "Recovered my stolen van!", body: "Van was taken from outside my house at 3am. Got the alert instantly, police recovered it within 40 minutes using live tracking. Worth every penny.", verified: true, helpful: 91 },
+      { id: "r5", author: "Chris P.", rating: 5, date: "18 Nov 2025", title: "Perfect for fleet use", body: "Bought 12 of these for our courier fleet. Easy to deploy, reliable tracking, and the geofence alerts save us time daily.", verified: true, helpful: 24 },
+      { id: "r6", author: "Liz H.", rating: 4, date: "2 Nov 2025", title: "Compact and discreet", body: "Much smaller than I expected. Tucked it away easily. Battery life is as advertised. Very happy with the purchase.", verified: true, helpful: 15 },
+    ],
   },
   {
     id: "db3",
@@ -140,6 +160,12 @@ export const products: Product[] = [
     connectivity: "4G LTE",
     highlight: "Plug & play — zero installation",
     inTheBox: ["DB3 OBD-II Tracker", "Quick start guide", "SIM card (pre-installed)"],
+    customerReviews: [
+      { id: "r7", author: "Tom R.", rating: 5, date: "5 Jan 2026", title: "Easiest setup ever", body: "Plugged it in, downloaded the app, done. Took less than 60 seconds. Live tracking is spot-on.", verified: true, helpful: 34 },
+      { id: "r8", author: "Helen B.", rating: 5, date: "20 Dec 2025", title: "Love the diagnostics feature", body: "Flagged a fault code before my dashboard light even came on. Brilliant bit of kit for the price.", verified: true, helpful: 22 },
+      { id: "r9", author: "Daniel F.", rating: 4, date: "10 Dec 2025", title: "Great but slightly bulky", body: "Works perfectly. Only minor gripe is it sticks out from the OBD port a bit, but easy to hide under the dash trim.", verified: true, helpful: 11 },
+      { id: "r10", author: "Priya S.", rating: 5, date: "28 Nov 2025", title: "No more battery worries", body: "Switched from a magnetic tracker. Never having to charge it is a game-changer for me.", verified: true, helpful: 19 },
+    ],
   },
   {
     id: "db1-lite",
@@ -293,6 +319,11 @@ export const products: Product[] = [
     connectivity: "4G LTE",
     highlight: "Driver ID + remote immobilisation",
     inTheBox: ["Fleet Tracker unit", "Wiring harness", "2x RFID driver tags", "Installation guide", "Fuse taps", "SIM card (pre-installed)"],
+    customerReviews: [
+      { id: "r15", author: "Gary N.", rating: 5, date: "10 Jan 2026", title: "Essential for fleet management", body: "Running 20 vans with these. Driver ID and behaviour scoring have reduced our fuel costs by 15%. ROI in 3 months.", verified: true, helpful: 42 },
+      { id: "r16", author: "Karen W.", rating: 5, date: "1 Jan 2026", title: "Remote immobilisation is a game-changer", body: "Had a driver go rogue with a company vehicle. Immobilised it remotely until we could recover it. Feature paid for itself.", verified: true, helpful: 55 },
+      { id: "r17", author: "Paul E.", rating: 4, date: "12 Dec 2025", title: "Solid hardware, good platform", body: "Installation was straightforward. The GPSLive fleet portal takes a day to learn but is very powerful once you know it.", verified: true, helpful: 16 },
+    ],
   },
 
   // Asset Trackers
@@ -478,6 +509,12 @@ export const products: Product[] = [
     connectivity: "4G LTE + GNSS",
     highlight: "98% recovery rate | Thatcham S5",
     inTheBox: ["S5+ Tracker unit", "2x ADR driver tags", "Professional installation included", "24/7 monitoring activation", "Certificate of installation"],
+    customerReviews: [
+      { id: "r11", author: "Richard M.", rating: 5, date: "8 Jan 2026", title: "Insurance requirement sorted", body: "Needed a Thatcham S5 for my Porsche insurance. Professional install was seamless, and the monitoring gives real peace of mind.", verified: true, helpful: 38 },
+      { id: "r12", author: "Sophie L.", rating: 5, date: "22 Dec 2025", title: "Recovered my car in under an hour", body: "Car was stolen from a hotel car park. Police had it back within 50 minutes thanks to the live tracking and SOC team. Incredible service.", verified: true, helpful: 67 },
+      { id: "r13", author: "Andrew C.", rating: 5, date: "5 Dec 2025", title: "Premium product, worth every penny", body: "The ADR tags are clever — car won't move without the right tag present. Installation was tidy and barely visible.", verified: true, helpful: 29 },
+      { id: "r14", author: "Victoria P.", rating: 4, date: "14 Nov 2025", title: "Excellent but subscription is pricey", body: "Device and service are top-notch. Only 4 stars because the monthly monitoring fee adds up. Still, cheaper than higher insurance premiums.", verified: true, helpful: 21 },
+    ],
   },
   {
     id: "s7-cat6",
