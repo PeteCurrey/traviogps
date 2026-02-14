@@ -7,7 +7,7 @@ const useCases = [
     name: "For Cars",
     description: "Protect your vehicle with real-time GPS tracking, theft alerts, and journey history",
     icon: Car,
-    href: "/products",
+    href: "/tracking/vans",
     stat: "From £34.99"
   },
   {
@@ -18,17 +18,17 @@ const useCases = [
     stat: "2,000+ Fleets"
   },
   {
-    name: "For People",
-    description: "Personal GPS trackers for lone workers, children, and elderly family members",
+    name: "For Motorbikes",
+    description: "Compact, weatherproof trackers with insurance-approved theft protection",
     icon: Users,
-    href: "/products",
-    stat: "SOS Button"
+    href: "/tracking/motorbikes",
+    stat: "20% Insurance Saving"
   },
   {
-    name: "For Assets",
+    name: "For Plant & Assets",
     description: "Track trailers, plant machinery, containers and high-value assets anywhere",
     icon: Package,
-    href: "/products",
+    href: "/tracking/plant-machinery",
     stat: "5-Year Battery"
   }
 ];
