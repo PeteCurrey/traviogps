@@ -1,5 +1,6 @@
 import { TrackingApplicationPage } from "@/components/tracking/TrackingApplicationPage";
 import { Package, MapPin, Clock, Bell, Users, BarChart3 } from "lucide-react";
+import couriersHero from "@/assets/fleet/couriers-hero.webp";
 
 const Couriers = () => (
   <TrackingApplicationPage
@@ -7,6 +8,7 @@ const Couriers = () => (
     subtitle="Logistics & Last Mile"
     description="Fleet tracking built for courier companies and delivery services. Proof of delivery, route replay, ETA sharing, and driver performance monitoring."
     heroStat="Used by 500+ delivery fleets"
+    heroImage={couriersHero}
     keyStats={[
       { value: "500+", label: "Delivery fleets" },
       { value: "20%", label: "Route efficiency gain" },
