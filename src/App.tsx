@@ -54,6 +54,7 @@ import TeamMembers from "./pages/admin/TeamMembers";
 import Testimonials from "./pages/admin/Testimonials";
 import Settings from "./pages/admin/Settings";
 import Marketing from "./pages/admin/Marketing";
+import UserManagement from "./pages/admin/UserManagement";
 
 const queryClient = new QueryClient();
 
@@ -118,6 +119,7 @@ const App = () => (
               <Route path="testimonials" element={<Testimonials />} />
               <Route path="settings" element={<Settings />} />
               <Route path="marketing" element={<Marketing />} />
+              <Route path="users" element={<UserManagement />} />
             </Route>
 
             <Route path="*" element={<NotFound />} />
