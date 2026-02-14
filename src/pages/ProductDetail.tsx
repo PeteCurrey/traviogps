@@ -1,16 +1,29 @@
 import { useParams, Link } from "react-router-dom";
 import { PageWrapper } from "@/components/layout/PageWrapper";
 import { motion } from "framer-motion";
-import { Star, Check, ArrowRight, ArrowLeft, Phone, Truck, Shield, RotateCcw } from "lucide-react";
+import { Star, Check, ArrowRight, ArrowLeft, Phone, Truck, Shield, RotateCcw, Package } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { getProductBySlug, products } from "@/data/products";
 import { AddToCartButton } from "@/components/store/AddToCartButton";
+import {
+  Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator, BreadcrumbPage,
+} from "@/components/ui/breadcrumb";
+import { usePageMeta, useJsonLd } from "@/lib/seo";
+import { useMemo } from "react";
 
 const ProductDetail = () => {
   const { slug } = useParams();
   const product = getProductBySlug(slug || "");
+
+  // Frequently bought together — products sharing bestFor tags
+  const frequentlyBoughtTogether = useMemo(() => {
+    if (!product) return [];
+    return products
+      .filter((p) => p.id !== product.id && p.bestFor.some((tag) => product.bestFor.includes(tag)))
+      .slice(0, 3);
+  }, [product]);
 
   if (!product) {
     return (
@@ -32,17 +45,66 @@ const ProductDetail = () => {
   const related = products.filter((p) => p.category === product.category && p.id !== product.id).slice(0, 3);
 
   return (
+    <ProductDetailContent product={product} related={related} frequentlyBoughtTogether={frequentlyBoughtTogether} />
+  );
+};
+
+function ProductDetailContent({ product, related, frequentlyBoughtTogether }: {
+  product: NonNullable<ReturnType<typeof getProductBySlug>>;
+  related: typeof products;
+  frequentlyBoughtTogether: typeof products;
+}) {
+  usePageMeta(
+    `${product.name} — Buy Online | Travio GPS Tracker Store`,
+    `${product.shortDescription}. From £${product.price.toFixed(2)} with free UK delivery. ${product.rating}★ rated (${product.reviews.toLocaleString()} reviews).`,
+  );
+
+  useJsonLd({
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: product.name,
+    description: product.description,
+    brand: { "@type": "Brand", name: "Travio" },
+    offers: {
+      "@type": "Offer",
+      price: product.price,
+      priceCurrency: "GBP",
+      availability: product.inStock ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
+      url: window.location.href,
+    },
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: product.rating,
+      reviewCount: product.reviews,
+    },
+  });
+
+  return (
     <PageWrapper>
       {/* Breadcrumb */}
       <section className="pt-28 pb-2 bg-background">
         <div className="container-premium">
-          <nav className="flex items-center gap-2 text-xs text-muted-foreground">
-            <Link to="/products" className="hover:text-foreground transition-colors">Store</Link>
-            <span>/</span>
-            <Link to={`/products/category/${encodeURIComponent(product.category)}`} className="hover:text-foreground transition-colors">{product.category}</Link>
-            <span>/</span>
-            <span className="text-foreground">{product.name}</span>
-          </nav>
+          <Breadcrumb>
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild><Link to="/">Home</Link></BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild><Link to="/products">Store</Link></BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild>
+                  <Link to={`/products/category/${encodeURIComponent(product.category)}`}>{product.category}</Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbPage>{product.name}</BreadcrumbPage>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
         </div>
       </section>
 
@@ -158,13 +220,16 @@ const ProductDetail = () => {
         </div>
       </section>
 
-      {/* Tabs: Features / Specs */}
+      {/* Tabs: Features / Specs / In the Box */}
       <section className="section-padding bg-card">
         <div className="container-premium max-w-4xl">
           <Tabs defaultValue="features">
             <TabsList className="w-full justify-start bg-background border border-border mb-8">
               <TabsTrigger value="features">Features</TabsTrigger>
               <TabsTrigger value="specs">Specifications</TabsTrigger>
+              {product.inTheBox && product.inTheBox.length > 0 && (
+                <TabsTrigger value="inbox">In the Box</TabsTrigger>
+              )}
             </TabsList>
 
             <TabsContent value="features">
@@ -188,18 +253,66 @@ const ProductDetail = () => {
                 ))}
               </div>
             </TabsContent>
+
+            {product.inTheBox && product.inTheBox.length > 0 && (
+              <TabsContent value="inbox">
+                <div className="bg-background rounded-sm border border-border p-6">
+                  <div className="flex items-center gap-2 mb-4">
+                    <Package className="h-5 w-5 text-accent" />
+                    <h3 className="font-serif text-lg text-foreground">What's Included</h3>
+                  </div>
+                  <ul className="space-y-3">
+                    {product.inTheBox.map((item) => (
+                      <li key={item} className="flex items-center gap-3">
+                        <Check className="h-4 w-4 text-accent flex-shrink-0" />
+                        <span className="text-sm text-foreground">{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </TabsContent>
+            )}
           </Tabs>
         </div>
       </section>
 
+      {/* Frequently Bought Together */}
+      {frequentlyBoughtTogether.length > 0 && (
+        <section className="section-padding bg-background">
+          <div className="container-premium">
+            <h2 className="font-serif text-2xl text-foreground mb-8">Frequently Bought <span className="italic-accent">Together</span></h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {frequentlyBoughtTogether.map((p) => (
+                <Link key={p.id} to={`/products/${p.slug}`} className="group block bg-card rounded-sm border border-border overflow-hidden hover:border-accent/50 transition-all">
+                  <div className="aspect-[4/3] bg-secondary/20 flex items-center justify-center">
+                    <p.icon className="w-12 h-12 text-accent/40 group-hover:text-accent/70 transition-colors" />
+                  </div>
+                  <div className="p-4">
+                    <span className="text-[10px] uppercase tracking-wider text-accent">{p.category}</span>
+                    <h3 className="font-serif text-base text-foreground mt-1 group-hover:text-accent transition-colors">{p.name}</h3>
+                    <div className="flex items-center justify-between mt-2">
+                      <span className="font-medium">{p.price === 0 ? "Quote" : `£${p.price.toFixed(2)}`}</span>
+                      <div className="flex items-center gap-1">
+                        <Star className="h-3 w-3 fill-accent text-accent" />
+                        <span className="text-xs">{p.rating}</span>
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* Related Products */}
       {related.length > 0 && (
-        <section className="section-padding bg-background">
+        <section className="section-padding bg-card">
           <div className="container-premium">
             <h2 className="font-serif text-2xl text-foreground mb-8">Related <span className="italic-accent">Products</span></h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {related.map((p) => (
-                <Link key={p.id} to={`/products/${p.slug}`} className="group block bg-card rounded-sm border border-border overflow-hidden hover:border-accent/50 transition-all">
+                <Link key={p.id} to={`/products/${p.slug}`} className="group block bg-background rounded-sm border border-border overflow-hidden hover:border-accent/50 transition-all">
                   <div className="aspect-[4/3] bg-secondary/20 flex items-center justify-center">
                     <p.icon className="w-12 h-12 text-accent/40 group-hover:text-accent/70 transition-colors" />
                   </div>
@@ -222,6 +335,6 @@ const ProductDetail = () => {
       )}
     </PageWrapper>
   );
-};
+}
 
 export default ProductDetail;

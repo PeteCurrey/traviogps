@@ -8,6 +8,10 @@ import { products, categories, type ProductCategory } from "@/data/products";
 import { useState, useMemo } from "react";
 import { ProductCard } from "@/components/store/ProductCard";
 import { CompareBar } from "@/components/store/CompareBar";
+import {
+  Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator, BreadcrumbPage,
+} from "@/components/ui/breadcrumb";
+import { usePageMeta, useJsonLd } from "@/lib/seo";
 
 type SortOption = "popular" | "price-low" | "price-high" | "rating";
 
@@ -17,9 +21,28 @@ const CategoryProducts = () => {
   const decodedCategory = category ? decodeURIComponent(category) : null;
   const isAll = !decodedCategory;
 
-  const categoryInfo = !isAll
-    ? categories.find((c) => c.name === decodedCategory)
-    : null;
+  const categoryInfo = !isAll ? categories.find((c) => c.name === decodedCategory) : null;
+
+  const pageTitle = isAll
+    ? "All GPS Trackers & Tracking Devices — Travio Store"
+    : `${decodedCategory} — Buy Online | Travio Store`;
+  const pageDescription = isAll
+    ? "Browse our full range of GPS trackers, dashcams, and fleet tracking solutions. Free UK delivery on all orders."
+    : categoryInfo?.longDescription || categoryInfo?.description || "";
+
+  usePageMeta(pageTitle, pageDescription);
+
+  useJsonLd({
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: window.location.origin + "/" },
+      { "@type": "ListItem", position: 2, name: "Store", item: window.location.origin + "/products" },
+      ...(isAll
+        ? [{ "@type": "ListItem", position: 3, name: "All Products" }]
+        : [{ "@type": "ListItem", position: 3, name: decodedCategory }]),
+    ],
+  });
 
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState<SortOption>("popular");
@@ -57,14 +80,24 @@ const CategoryProducts = () => {
 
   return (
     <PageWrapper>
-      {/* Breadcrumb + Hero */}
+      {/* Breadcrumb */}
       <section className="pt-28 pb-2 bg-background">
         <div className="container-premium">
-          <nav className="flex items-center gap-2 text-xs text-muted-foreground mb-6">
-            <Link to="/products" className="hover:text-foreground transition-colors">Store</Link>
-            <span>/</span>
-            <span className="text-foreground">{isAll ? "All Products" : decodedCategory}</span>
-          </nav>
+          <Breadcrumb>
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild><Link to="/">Home</Link></BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild><Link to="/products">Store</Link></BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbPage>{isAll ? "All Products" : decodedCategory}</BreadcrumbPage>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
         </div>
       </section>
 
@@ -82,7 +115,7 @@ const CategoryProducts = () => {
               )}
             </h1>
             {categoryInfo && (
-              <p className="text-muted-foreground max-w-2xl text-lg">{categoryInfo.description}</p>
+              <p className="text-muted-foreground max-w-3xl text-base leading-relaxed">{categoryInfo.longDescription}</p>
             )}
           </motion.div>
         </div>
@@ -101,10 +134,7 @@ const CategoryProducts = () => {
                 className="pl-10 bg-background border-border"
               />
               {search && (
-                <button
-                  onClick={() => setSearch("")}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
-                >
+                <button onClick={() => setSearch("")} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground">
                   <X className="w-4 h-4" />
                 </button>
               )}
@@ -170,9 +200,17 @@ const CategoryProducts = () => {
             <div className="flex-1">
               {filteredProducts.length === 0 ? (
                 <div className="text-center py-20">
-                  <p className="text-muted-foreground text-lg mb-4">No products found.</p>
+                  <p className="text-muted-foreground text-lg mb-2">No products found.</p>
+                  <p className="text-sm text-muted-foreground mb-6">Try browsing a different category or clearing your search.</p>
+                  <div className="flex flex-wrap justify-center gap-3 mb-6">
+                    {categories.slice(0, 4).map((cat) => (
+                      <Button key={cat.name} variant="outline" size="sm" asChild>
+                        <Link to={`/products/category/${encodeURIComponent(cat.name)}`}>{cat.name}</Link>
+                      </Button>
+                    ))}
+                  </div>
                   <Button variant="outline" onClick={() => { setSearch(""); navigate("/products/all"); }}>
-                    Clear Filters
+                    View All Products
                   </Button>
                 </div>
               ) : (

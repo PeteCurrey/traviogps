@@ -24,6 +24,8 @@ export interface Product {
   updateFrequency?: string;
   waterproofRating?: string;
   connectivity?: string;
+  highlight?: string;
+  inTheBox?: string[];
 }
 
 export type ProductCategory =
@@ -35,14 +37,22 @@ export type ProductCategory =
   | "Fleet Solutions"
   | "Accessories";
 
-export const categories: { name: ProductCategory; count: number; description: string }[] = [
-  { name: "Vehicle Trackers", count: 6, description: "GPS trackers for cars, vans, and motorcycles" },
-  { name: "Asset Trackers", count: 4, description: "Long-life trackers for trailers, plant, and equipment" },
-  { name: "Insurance Approved", count: 2, description: "Thatcham S5 & S7 certified trackers" },
-  { name: "Dashcams", count: 3, description: "Connected dashcams with GPS tracking" },
-  { name: "Fleet Solutions", count: 3, description: "Multi-vehicle fleet tracking bundles" },
-  { name: "Personal Trackers", count: 2, description: "Compact trackers for people and pets" },
-  { name: "Accessories", count: 4, description: "Mounts, cables, and extending accessories" },
+export interface Category {
+  name: ProductCategory;
+  count: number;
+  description: string;
+  longDescription: string;
+  icon: LucideIcon;
+}
+
+export const categories: Category[] = [
+  { name: "Vehicle Trackers", count: 6, description: "GPS trackers for cars, vans, and motorcycles", longDescription: "Our range of vehicle GPS trackers covers everything from budget daily-check-in devices to real-time 10-second update trackers with 4G connectivity. Whether you need a magnetic self-install tracker for your car, a hardwired solution for your van, or a covert unit for a motorbike, we have the right device. All vehicle trackers include free access to the GPSLive tracking platform and mobile app.", icon: Car },
+  { name: "Asset Trackers", count: 4, description: "Long-life trackers for trailers, plant, and equipment", longDescription: "Protect valuable assets that don't have their own power supply. Our asset trackers feature ultra-long battery lives of up to 5 years, powerful magnetic mounts, and weatherproof casings rated IP67 or higher. Ideal for trailers, containers, plant machinery, generators, boats, and construction equipment. Motion-activated tracking ensures you only use power when it matters.", icon: Package },
+  { name: "Insurance Approved", count: 2, description: "Thatcham S5 & S7 certified trackers", longDescription: "Meet your insurance requirements with our Thatcham-certified GPS trackers. Our S5 and S7 approved devices include professional installation, 24/7 secure operating centre monitoring, automatic police notification, and ADR driver recognition. With a 98% stolen vehicle recovery rate, these trackers provide the ultimate protection for high-value and prestige vehicles.", icon: Shield },
+  { name: "Dashcams", count: 3, description: "Connected dashcams with GPS tracking", longDescription: "More than just a dashcam — our connected camera solutions combine HD video recording with real-time GPS tracking and 4G cloud connectivity. Live stream footage remotely, receive event-triggered alerts, and access AI-powered driver assistance features including fatigue detection and forward collision warnings. Perfect for personal use or fleet-wide deployment.", icon: Video },
+  { name: "Fleet Solutions", count: 3, description: "Multi-vehicle fleet tracking bundles", longDescription: "Purpose-built fleet tracking packages designed to save you money and simplify fleet management. From 5-vehicle starter packs to enterprise solutions for 25+ vehicles, our fleet bundles include hardwired trackers, RFID driver ID tags, and full access to the GPSLive fleet management portal with driver behaviour scoring, fuel monitoring, and maintenance scheduling.", icon: Truck },
+  { name: "Personal Trackers", count: 2, description: "Compact trackers for people and pets", longDescription: "Compact, lightweight GPS trackers designed for personal safety and pet tracking. Features include SOS panic buttons, two-way voice calling, fall detection, and geo-zone alerts. Our personal trackers are ideal for lone workers, elderly family members, children, and pets. Small enough to clip onto a collar or slip into a pocket.", icon: Navigation },
+  { name: "Accessories", count: 4, description: "Mounts, cables, and extending accessories", longDescription: "Extend the capabilities of your GPS tracker with our range of accessories. From extended battery packs that double your tracker's battery life to hardwire installation kits for permanent fitting, RFID driver ID tags for fleet management, and weatherproof magnetic cases for covert placement. All accessories are designed to work seamlessly with our tracker range.", icon: Plug },
 ];
 
 export const products: Product[] = [
@@ -88,6 +98,8 @@ export const products: Product[] = [
     updateFrequency: "10 seconds",
     waterproofRating: "IP67",
     connectivity: "4G LTE",
+    highlight: "140-day battery | 2,340+ reviews",
+    inTheBox: ["DB2 GPS Tracker", "Magnetic mount (built-in)", "USB-C charging cable", "Quick start guide", "SIM card (pre-installed)"],
   },
   {
     id: "db3",
@@ -126,6 +138,8 @@ export const products: Product[] = [
     bestFor: ["Cars", "Vans", "Fleet"],
     updateFrequency: "10 seconds",
     connectivity: "4G LTE",
+    highlight: "Plug & play — zero installation",
+    inTheBox: ["DB3 OBD-II Tracker", "Quick start guide", "SIM card (pre-installed)"],
   },
   {
     id: "db1-lite",
@@ -165,6 +179,8 @@ export const products: Product[] = [
     updateFrequency: "Daily",
     waterproofRating: "IP65",
     connectivity: "2G",
+    highlight: "From just £24.99 + £2.99/mo",
+    inTheBox: ["DB1 Lite Tracker", "Magnetic mount (built-in)", "USB charging cable", "Quick start guide", "SIM card (pre-installed)"],
   },
   {
     id: "db2-mini",
@@ -275,6 +291,8 @@ export const products: Product[] = [
     bestFor: ["Fleet", "Vans", "HGV", "Commercial"],
     updateFrequency: "10 seconds",
     connectivity: "4G LTE",
+    highlight: "Driver ID + remote immobilisation",
+    inTheBox: ["Fleet Tracker unit", "Wiring harness", "2x RFID driver tags", "Installation guide", "Fuse taps", "SIM card (pre-installed)"],
   },
 
   // Asset Trackers
@@ -458,6 +476,8 @@ export const products: Product[] = [
     bestFor: ["Supercars", "Prestige", "High-Value Vehicles"],
     updateFrequency: "10 seconds",
     connectivity: "4G LTE + GNSS",
+    highlight: "98% recovery rate | Thatcham S5",
+    inTheBox: ["S5+ Tracker unit", "2x ADR driver tags", "Professional installation included", "24/7 monitoring activation", "Certificate of installation"],
   },
   {
     id: "s7-cat6",
