@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowRight, Smartphone, Globe, Shield } from "lucide-react";
+import liveMapImg from "@/assets/platform/live-map.webp";
 
 export function AboutSection() {
   return (
@@ -15,23 +16,28 @@ export function AboutSection() {
             viewport={{ once: true, margin: "-100px" }}
             className="relative"
           >
-            <div className="aspect-[4/5] overflow-hidden rounded-sm bg-secondary/30 flex items-center justify-center">
-              <div className="text-center p-8">
-                <Globe className="w-20 h-20 text-accent mx-auto mb-6" />
-                <h3 className="font-serif text-2xl text-foreground mb-2">GPSLive Platform</h3>
-                <p className="text-muted-foreground text-sm">Track vehicles in real-time from any device</p>
-                <div className="grid grid-cols-3 gap-4 mt-8">
-                  <div className="text-center">
+            <div className="aspect-[4/5] overflow-hidden rounded-sm relative">
+              <img
+                src={liveMapImg}
+                alt="GPSLive real-time fleet map with live vehicle positions"
+                className="absolute inset-0 w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/40 to-background/10" />
+              <div className="relative z-10 flex flex-col justify-end h-full p-8">
+                <h3 className="font-serif text-2xl text-white mb-2">GPSLive Platform</h3>
+                <p className="text-white/70 text-sm mb-6">Track vehicles in real-time from any device</p>
+                <div className="grid grid-cols-3 gap-4">
+                  <div className="text-center bg-background/30 backdrop-blur-sm rounded-sm py-3">
                     <div className="font-serif text-2xl text-accent">24/7</div>
-                    <div className="text-[10px] uppercase tracking-wider text-muted-foreground">Monitoring</div>
+                    <div className="text-[10px] uppercase tracking-wider text-white/60">Monitoring</div>
                   </div>
-                  <div className="text-center">
+                  <div className="text-center bg-background/30 backdrop-blur-sm rounded-sm py-3">
                     <div className="font-serif text-2xl text-accent">10s</div>
-                    <div className="text-[10px] uppercase tracking-wider text-muted-foreground">Updates</div>
+                    <div className="text-[10px] uppercase tracking-wider text-white/60">Updates</div>
                   </div>
-                  <div className="text-center">
+                  <div className="text-center bg-background/30 backdrop-blur-sm rounded-sm py-3">
                     <div className="font-serif text-2xl text-accent">GPS</div>
-                    <div className="text-[10px] uppercase tracking-wider text-muted-foreground">Precision</div>
+                    <div className="text-[10px] uppercase tracking-wider text-white/60">Precision</div>
                   </div>
                 </div>
               </div>
