@@ -9,6 +9,8 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { AnimatedCounter } from "@/components/ui/animated-counter";
 import liveMapImg from "@/assets/platform/live-map.webp";
+import { useEffect, useRef } from "react";
+import L from "leaflet";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -43,6 +45,72 @@ const useCases = [
   { title: "Customer ETAs", desc: "Share a live map link with customers so they can see their delivery approaching in real time.", icon: Navigation },
   { title: "Operations Oversight", desc: "Monitor your entire fleet from a single screen. Spot issues before they become problems.", icon: Eye },
 ];
+
+const sampleVehicles = [
+  { lat: 51.5074, lng: -0.1278, name: "Van 01 – London HQ", speed: "34 mph", status: "Driving", driver: "James Wilson" },
+  { lat: 51.4545, lng: -2.5879, name: "Van 07 – Bristol Depot", speed: "0 mph", status: "Stopped", driver: "Sarah Chen" },
+  { lat: 53.4808, lng: -2.2426, name: "HGV 12 – Manchester", speed: "56 mph", status: "Driving", driver: "Tom Baker" },
+  { lat: 52.4862, lng: -1.8904, name: "Van 03 – Birmingham", speed: "12 mph", status: "Idle", driver: "Priya Patel" },
+  { lat: 51.4816, lng: -3.1791, name: "Van 19 – Cardiff", speed: "41 mph", status: "Driving", driver: "Owen Davies" },
+  { lat: 55.9533, lng: -3.1883, name: "HGV 05 – Edinburgh", speed: "0 mph", status: "Stopped", driver: "Liam Scott" },
+  { lat: 53.8008, lng: -1.5491, name: "Van 11 – Leeds", speed: "28 mph", status: "Driving", driver: "Amy Rhodes" },
+  { lat: 50.3755, lng: -4.1427, name: "Van 22 – Plymouth", speed: "0 mph", status: "Idle", driver: "Dan Morris" },
+];
+
+const statusColor: Record<string, string> = {
+  Driving: "#22c55e",
+  Idle: "#f59e0b",
+  Stopped: "#ef4444",
+};
+
+function InteractiveMap() {
+  const mapRef = useRef<HTMLDivElement>(null);
+  const mapInstance = useRef<L.Map | null>(null);
+
+  useEffect(() => {
+    if (!mapRef.current || mapInstance.current) return;
+
+    const map = L.map(mapRef.current, { zoomControl: true, scrollWheelZoom: true }).setView([53.0, -1.5], 6);
+    mapInstance.current = map;
+
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+    }).addTo(map);
+
+    sampleVehicles.forEach((v) => {
+      const color = statusColor[v.status] || "#6b7280";
+      const icon = L.divIcon({
+        className: "",
+        html: `<div style="width:32px;height:32px;border-radius:50%;background:${color};border:3px solid white;box-shadow:0 2px 8px rgba(0,0,0,0.3);display:flex;align-items:center;justify-content:center;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9L18 10l-2-4H8L6 10l-2.5 1.1C2.7 11.3 2 12.1 2 13v3c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg>
+        </div>`,
+        iconSize: [32, 32],
+        iconAnchor: [16, 16],
+      });
+
+      L.marker([v.lat, v.lng], { icon })
+        .addTo(map)
+        .bindPopup(
+          `<div style="font-family:system-ui;min-width:180px">
+            <strong style="font-size:13px">${v.name}</strong>
+            <hr style="margin:6px 0;border-color:#e5e7eb"/>
+            <div style="font-size:12px;line-height:1.8">
+              <div><span style="color:#6b7280">Driver:</span> ${v.driver}</div>
+              <div><span style="color:#6b7280">Speed:</span> ${v.speed}</div>
+              <div><span style="color:#6b7280">Status:</span> <span style="color:${color};font-weight:600">${v.status}</span></div>
+            </div>
+          </div>`
+        );
+    });
+
+    return () => {
+      map.remove();
+      mapInstance.current = null;
+    };
+  }, []);
+
+  return <div ref={mapRef} className="w-full h-full" />;
+}
 
 const LiveMap = () => (
   <PageWrapper>
@@ -96,6 +164,32 @@ const LiveMap = () => (
               </div>
             </div>
           </motion.div>
+        </div>
+      </div>
+    </section>
+
+    {/* Interactive Map Demo */}
+    <section className="section-padding bg-background">
+      <div className="container-premium">
+        <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-10">
+          <p className="text-sm uppercase tracking-[0.3em] text-accent mb-3">Interactive Demo</p>
+          <h2 className="text-display-3 md:text-display-2 text-foreground mb-4">
+            Explore the <span className="italic-accent">Live Map</span>
+          </h2>
+          <p className="text-muted-foreground max-w-2xl mx-auto">
+            Click any vehicle marker below to see live details. This demo shows 8 sample vehicles across the UK.
+          </p>
+        </motion.div>
+        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="rounded-sm overflow-hidden border border-border shadow-elevated" style={{ height: 520 }}>
+          <InteractiveMap />
+        </motion.div>
+        <div className="flex flex-wrap justify-center gap-6 mt-6">
+          {Object.entries(statusColor).map(([status, color]) => (
+            <div key={status} className="flex items-center gap-2 text-sm text-muted-foreground">
+              <span className="w-3 h-3 rounded-full" style={{ background: color }} />
+              {status}
+            </div>
+          ))}
         </div>
       </div>
     </section>
