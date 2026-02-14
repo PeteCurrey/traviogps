@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Truck, Users, BarChart3, Thermometer, Shield, Clock, ArrowRight, Package, HardHat } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import { ROICalculator } from "@/components/fleet/ROICalculator";
 
 const features = [
   { icon: Truck, title: "Fleet Tracking", description: "Real-time GPS tracking for your entire fleet with 10-second updates" },
@@ -77,6 +78,8 @@ const Fleet = () => {
           </div>
         </div>
       </section>
+
+      <ROICalculator />
     </PageWrapper>
   );
 };
