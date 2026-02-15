@@ -101,7 +101,7 @@ export function HeroSection() {
 
   return (
     <section ref={containerRef} className="relative bg-background pt-20 lg:pt-[104px]">
-      <div className="min-h-[calc(100vh-80px)] lg:min-h-[calc(100vh-104px)] flex flex-col lg:flex-row">
+      <div className="lg:h-[calc(100vh-104px)] flex flex-col lg:flex-row">
         <motion.div
           initial={{ opacity: 0, scale: 1.05 }}
           animate={{ opacity: 1, scale: 1 }}
