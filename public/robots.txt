@@ -12,3 +12,10 @@ Allow: /
 
 User-agent: *
 Allow: /
+Disallow: /admin/
+Disallow: /cart
+Disallow: /checkout
+Disallow: /payment-success
+Disallow: /payment-cancelled
+
+Sitemap: https://traviogps.lovable.app/sitemap.xml
