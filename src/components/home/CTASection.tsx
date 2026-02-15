@@ -27,7 +27,7 @@ export function CTASection() {
             Get Started
           </motion.p>
           <motion.h2 
-            className="font-serif text-display-3 md:text-display-2 text-foreground mb-6"
+            className="font-serif text-2xl sm:text-display-3 md:text-display-2 text-foreground mb-6"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.6 }}

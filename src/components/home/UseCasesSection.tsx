@@ -72,7 +72,7 @@ export function UseCasesSection() {
           >
             Use Cases
           </motion.p>
-          <h2 className="font-serif text-display-3 md:text-display-2 text-primary mb-4">
+          <h2 className="font-serif text-2xl sm:text-display-3 md:text-display-2 text-primary mb-4">
             Tracking for <span className="italic-accent">every</span> need
           </h2>
           <p className="text-primary/70 max-w-2xl mx-auto text-lg">
@@ -90,8 +90,8 @@ export function UseCasesSection() {
         >
           {useCases.map((useCase) => (
             <motion.div key={useCase.name} variants={itemVariants}>
-              <Link to={useCase.href} className="group block relative overflow-hidden rounded-sm bg-background/10 backdrop-blur-sm border border-primary/10 hover:border-primary/30 transition-all duration-500 p-8">
-                <div className="flex items-start gap-6">
+              <Link to={useCase.href} className="group block relative overflow-hidden rounded-sm bg-background/10 backdrop-blur-sm border border-primary/10 hover:border-primary/30 transition-all duration-500 p-5 sm:p-8">
+                <div className="flex items-start gap-4 sm:gap-6">
                   <motion.div
                     className="flex-shrink-0 w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center"
                     whileHover={{ scale: 1.1 }}

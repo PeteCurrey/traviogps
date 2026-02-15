@@ -149,11 +149,13 @@
 
   html {
     scroll-behavior: smooth;
+    overflow-x: hidden;
   }
 
   body {
     @apply bg-background text-foreground antialiased font-light;
     font-family: 'Montserrat', sans-serif;
+    overflow-x: hidden;
   }
 
   /* Clean modern typography */

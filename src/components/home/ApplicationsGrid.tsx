@@ -35,7 +35,7 @@ export function ApplicationsGrid() {
           className="text-center mb-16"
         >
           <p className="text-sm uppercase tracking-[0.3em] text-accent mb-3">Applications</p>
-          <h2 className="font-serif text-display-3 md:text-display-2 text-foreground mb-4">
+          <h2 className="font-serif text-2xl sm:text-display-3 md:text-display-2 text-foreground mb-4">
             Track <span className="italic-accent">anything</span>, anywhere
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto text-lg">

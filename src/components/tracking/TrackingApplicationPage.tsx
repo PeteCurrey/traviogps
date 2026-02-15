@@ -63,7 +63,7 @@ export function TrackingApplicationPage({
   return (
     <PageWrapper>
       {/* Hero */}
-      <section className="relative pt-32 lg:pt-40 pb-20 bg-background overflow-hidden">
+      <section className="relative pt-24 sm:pt-32 lg:pt-40 pb-12 sm:pb-20 bg-background overflow-hidden">
         {heroImage && (
           <div className="absolute inset-0">
             <img src={heroImage} alt="" className="w-full h-full object-cover opacity-50 dark:opacity-40" />
@@ -73,7 +73,7 @@ export function TrackingApplicationPage({
         <div className="container-premium relative z-10">
           <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="max-w-3xl">
             <p className="text-sm uppercase tracking-[0.3em] text-accent mb-3">{subtitle}</p>
-            <h1 className="font-serif text-display-3 md:text-display-2 text-foreground mb-4">
+            <h1 className="font-serif text-3xl sm:text-display-3 md:text-display-2 text-foreground mb-4">
               {title.split(" ").slice(0, -1).join(" ")}{" "}
               <span className="italic-accent">{title.split(" ").slice(-1)}</span>
             </h1>
@@ -112,7 +112,7 @@ export function TrackingApplicationPage({
         <div className="container-premium">
           <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-16">
             <p className="text-sm uppercase tracking-[0.3em] text-accent mb-3">Why Choose Travio</p>
-            <h2 className="font-serif text-display-3 md:text-display-2 text-foreground">
+            <h2 className="font-serif text-2xl sm:text-display-3 md:text-display-2 text-foreground">
               Key <span className="italic-accent">Benefits</span>
             </h2>
           </motion.div>
@@ -133,7 +133,7 @@ export function TrackingApplicationPage({
         <div className="container-premium">
           <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-16">
             <p className="text-sm uppercase tracking-[0.3em] text-accent mb-3">Features</p>
-            <h2 className="font-serif text-display-3 md:text-display-2 text-foreground">
+            <h2 className="font-serif text-2xl sm:text-display-3 md:text-display-2 text-foreground">
               Everything You <span className="italic-accent">Need</span>
             </h2>
           </motion.div>
@@ -155,7 +155,7 @@ export function TrackingApplicationPage({
       <section className="section-padding bg-background">
         <div className="container-premium text-center">
           <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-            <h2 className="font-serif text-display-3 md:text-display-2 text-foreground mb-4">{ctaTitle}</h2>
+            <h2 className="font-serif text-2xl sm:text-display-3 md:text-display-2 text-foreground mb-4">{ctaTitle}</h2>
             <p className="text-muted-foreground text-lg max-w-xl mx-auto mb-8">{ctaDescription}</p>
             <div className="flex flex-wrap justify-center gap-4">
               <Button asChild size="lg" className="btn-premium bg-accent hover:bg-accent/90 text-accent-foreground">
