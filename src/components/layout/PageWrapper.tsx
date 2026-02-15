@@ -4,6 +4,7 @@ import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import { Navigation } from "./Navigation";
 import { Footer } from "./Footer";
+import { useBreadcrumbJsonLd } from "@/lib/seo";
 
 const SITE_URL = "https://traviogps.lovable.app";
 
@@ -39,6 +40,7 @@ const pageTransition: Transition = {
 
 export function PageWrapper({ children }: PageWrapperProps) {
   useCanonical();
+  useBreadcrumbJsonLd();
   return (
     <div className="min-h-screen flex flex-col">
       <Navigation />
