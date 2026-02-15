@@ -107,6 +107,7 @@ export function TrackingApplicationPage({
   usePageMeta(
     `${title} | Travio GPS Tracking`,
     description,
+    heroImage,
   );
 
   useJsonLd({
