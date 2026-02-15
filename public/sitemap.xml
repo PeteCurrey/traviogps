@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://traviogps.lovable.app</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://traviogps.lovable.app/about</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://traviogps.lovable.app/about/team</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://traviogps.lovable.app/contact</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://traviogps.lovable.app/blog</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://traviogps.lovable.app/products</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://traviogps.lovable.app/products/all</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://traviogps.lovable.app/products/compare</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://traviogps.lovable.app/platform</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://traviogps.lovable.app/platform/live-map</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://traviogps.lovable.app/platform/reports-analytics</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://traviogps.lovable.app/platform/alerts-notifications</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://traviogps.lovable.app/platform/mobile-app</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://traviogps.lovable.app/fleet</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://traviogps.lovable.app/fleet/couriers</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://traviogps.lovable.app/fleet/construction</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://traviogps.lovable.app/fleet/haulage</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://traviogps.lovable.app/tracking/cars</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://traviogps.lovable.app/tracking/vans</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://traviogps.lovable.app/tracking/supercars</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://traviogps.lovable.app/tracking/classic-cars</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://traviogps.lovable.app/tracking/motorbikes</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://traviogps.lovable.app/tracking/boats</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://traviogps.lovable.app/tracking/caravans</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://traviogps.lovable.app/tracking/trailers</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://traviogps.lovable.app/tracking/plant-machinery</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://traviogps.lovable.app/tracking/tools-equipment</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://traviogps.lovable.app/privacy</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://traviogps.lovable.app/terms</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+</urlset>
