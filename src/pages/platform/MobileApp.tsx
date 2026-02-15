@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { AnimatedCounter } from "@/components/ui/animated-counter";
 import mobileAppImg from "@/assets/platform/mobile-app.webp";
+import { usePageMeta } from "@/lib/seo";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -46,7 +47,10 @@ const appHighlights = [
   "Available in multiple languages",
 ];
 
-const MobileApp = () => (
+const MobileApp = () => {
+  usePageMeta("GPS Tracking Mobile App | iOS & Android | Travio", "Track your vehicles from anywhere with Travio's free mobile app for iOS and Android. Real-time maps, alerts, and journey history on your phone.");
+
+  return (
   <PageWrapper>
     {/* Hero */}
     <section className="relative pt-32 lg:pt-40 pb-20 bg-background overflow-hidden">
@@ -192,6 +196,7 @@ const MobileApp = () => (
       </div>
     </section>
   </PageWrapper>
-);
+  );
+};
 
 export default MobileApp;

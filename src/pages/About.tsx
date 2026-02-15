@@ -5,6 +5,7 @@ import { PageWrapper } from "@/components/layout/PageWrapper";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { useQuery } from "@tanstack/react-query";
+import { usePageMeta } from "@/lib/seo";
 
 import heroBanner from "@/assets/hero-banner.webp";
 
@@ -56,6 +57,8 @@ const itemVariants = {
 };
 
 export default function About() {
+  usePageMeta("About Travio | GPS Tracking Company", "Learn about Travio — 15+ years of GPS tracking innovation. Trusted by 94,000+ users across 185 countries for vehicle, fleet, and asset tracking.");
+
   // Fetch team members from database
   const { data: teamMembers = [] } = useQuery({
     queryKey: ['team-members'],

@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { AnimatedCounter } from "@/components/ui/animated-counter";
 import reportsImg from "@/assets/platform/reports-analytics.webp";
+import { usePageMeta } from "@/lib/seo";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -37,7 +38,10 @@ const capabilities = [
   { icon: FileText, title: "Custom Templates", desc: "Build report templates that match your KPIs. Save and reuse across fleet groups." },
 ];
 
-const ReportsAnalytics = () => (
+const ReportsAnalytics = () => {
+  usePageMeta("GPS Tracking Reports & Analytics | Travio", "Automated fleet reports including mileage, driver behaviour, fuel consumption, and compliance. Schedule daily reports by email.");
+
+  return (
   <PageWrapper>
     {/* Hero */}
     <section className="relative pt-32 lg:pt-40 pb-20 bg-background overflow-hidden">
@@ -187,6 +191,7 @@ const ReportsAnalytics = () => (
       </div>
     </section>
   </PageWrapper>
-);
+  );
+};
 
 export default ReportsAnalytics;

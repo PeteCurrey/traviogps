@@ -5,6 +5,7 @@ import { PageWrapper } from "@/components/layout/PageWrapper";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { useQuery } from "@tanstack/react-query";
+import { usePageMeta } from "@/lib/seo";
 
 import heroBanner from "@/assets/hero-banner.webp";
 
@@ -26,6 +27,8 @@ const itemVariants = {
 };
 
 export default function Team() {
+  usePageMeta("Our Team | Travio GPS Tracking", "Meet the Travio team — experienced professionals dedicated to providing the best GPS tracking solutions for vehicles, fleets, and assets.");
+
   const { data: teamMembers = [], isLoading } = useQuery({
     queryKey: ['team-members-public'],
     queryFn: async () => {

@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
+import { usePageMeta } from "@/lib/seo";
 
 const offices = [
   {
@@ -47,6 +48,8 @@ const enquiryTypes = [
 ];
 
 export default function Contact() {
+  usePageMeta("Contact Travio | Get a Quote for GPS Tracking", "Get in touch with Travio for GPS tracking quotes, fleet management enquiries, or technical support. Call us or fill in our contact form.");
+
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [formData, setFormData] = useState({
     enquiryType: "",

@@ -1,7 +1,13 @@
 import { motion } from "framer-motion";
 import { PageWrapper } from "@/components/layout/PageWrapper";
+import { usePageMeta } from "@/lib/seo";
 
 export default function Terms() {
+  usePageMeta(
+    "Terms & Conditions | Travio GPS Tracking",
+    "Read Travio's terms and conditions for GPS tracking products and services. Understand your rights and obligations.",
+  );
+
   return (
     <PageWrapper>
       {/* Hero Section */}

@@ -4,6 +4,7 @@ import { Truck, Users, BarChart3, Thermometer, Shield, Clock, ArrowRight, Packag
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { ROICalculator } from "@/components/fleet/ROICalculator";
+import { usePageMeta } from "@/lib/seo";
 
 const features = [
   { icon: Truck, title: "Fleet Tracking", description: "Real-time GPS tracking for your entire fleet with 10-second updates" },
@@ -21,6 +22,8 @@ const industries = [
 ];
 
 const Fleet = () => {
+  usePageMeta("Fleet Management & GPS Tracking | Travio", "Professional fleet tracking solutions for businesses. Real-time vehicle monitoring, driver behaviour analysis, fuel reports, and compliance tools.");
+
   return (
     <PageWrapper>
       <section className="pt-32 lg:pt-40 pb-16 bg-background">

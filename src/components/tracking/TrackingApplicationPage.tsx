@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { ArrowRight, Check, LucideIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import { usePageMeta } from "@/lib/seo";
 
 interface Benefit {
   title: string;
@@ -60,6 +61,11 @@ export function TrackingApplicationPage({
   ctaButtonText = "Get a Quote",
   ctaButtonLink = "/contact",
 }: TrackingApplicationPageProps) {
+  usePageMeta(
+    `${title} | Travio GPS Tracking`,
+    description,
+  );
+
   return (
     <PageWrapper>
       {/* Hero */}

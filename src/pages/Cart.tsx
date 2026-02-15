@@ -4,8 +4,10 @@ import { Link } from "react-router-dom";
 import { Plus, Minus, Trash2, ArrowRight, ShoppingCart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useCartStore } from "@/stores/cartStore";
+import { usePageMeta } from "@/lib/seo";
 
 const Cart = () => {
+  usePageMeta("Your Cart | Travio GPS Tracker Store", "Review your GPS tracker order. Free UK delivery on all orders with 2-year warranty and 30-day returns.");
   const { items, removeItem, updateQuantity, totalPrice, clearCart } = useCartStore();
 
   return (
