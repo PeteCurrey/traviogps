@@ -56,6 +56,7 @@ import AdminLayout from "./components/admin/AdminLayout";
 import Dashboard from "./pages/admin/Dashboard";
 import AdminProducts from "./pages/admin/Products";
 import Orders from "./pages/admin/Orders";
+import Bookings from "./pages/admin/Bookings";
 import Leads from "./pages/admin/Leads";
 import TeamMembers from "./pages/admin/TeamMembers";
 import Testimonials from "./pages/admin/Testimonials";
@@ -128,6 +129,7 @@ const App = () => (
               <Route index element={<Dashboard />} />
               <Route path="products" element={<AdminProducts />} />
               <Route path="orders" element={<Orders />} />
+              <Route path="bookings" element={<Bookings />} />
               <Route path="enquiries" element={<Leads />} />
               <Route path="team" element={<TeamMembers />} />
               <Route path="testimonials" element={<Testimonials />} />

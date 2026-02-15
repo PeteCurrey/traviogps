@@ -491,6 +491,84 @@ export type Database = {
         }
         Relationships: []
       }
+      fitting_bookings: {
+        Row: {
+          admin_notes: string | null
+          assigned_fitter_name: string | null
+          assigned_to: string | null
+          completed_at: string | null
+          confirmed_at: string | null
+          created_at: string
+          customer_email: string
+          customer_name: string
+          customer_notes: string | null
+          customer_phone: string | null
+          fitting_address: string
+          fitting_city: string | null
+          fitting_postcode: string
+          id: string
+          preferred_date: string
+          preferred_time: string
+          product_name: string
+          product_slug: string | null
+          status: Database["public"]["Enums"]["booking_status"]
+          updated_at: string
+          vehicle_make: string
+          vehicle_model: string
+          vehicle_reg: string
+        }
+        Insert: {
+          admin_notes?: string | null
+          assigned_fitter_name?: string | null
+          assigned_to?: string | null
+          completed_at?: string | null
+          confirmed_at?: string | null
+          created_at?: string
+          customer_email: string
+          customer_name: string
+          customer_notes?: string | null
+          customer_phone?: string | null
+          fitting_address: string
+          fitting_city?: string | null
+          fitting_postcode: string
+          id?: string
+          preferred_date: string
+          preferred_time: string
+          product_name: string
+          product_slug?: string | null
+          status?: Database["public"]["Enums"]["booking_status"]
+          updated_at?: string
+          vehicle_make: string
+          vehicle_model: string
+          vehicle_reg: string
+        }
+        Update: {
+          admin_notes?: string | null
+          assigned_fitter_name?: string | null
+          assigned_to?: string | null
+          completed_at?: string | null
+          confirmed_at?: string | null
+          created_at?: string
+          customer_email?: string
+          customer_name?: string
+          customer_notes?: string | null
+          customer_phone?: string | null
+          fitting_address?: string
+          fitting_city?: string | null
+          fitting_postcode?: string
+          id?: string
+          preferred_date?: string
+          preferred_time?: string
+          product_name?: string
+          product_slug?: string | null
+          status?: Database["public"]["Enums"]["booking_status"]
+          updated_at?: string
+          vehicle_make?: string
+          vehicle_model?: string
+          vehicle_reg?: string
+        }
+        Relationships: []
+      }
       lead_scores: {
         Row: {
           calculated_at: string
@@ -1406,6 +1484,13 @@ export type Database = {
     }
     Enums: {
       app_role: "admin" | "agent" | "viewer"
+      booking_status:
+        | "pending"
+        | "confirmed"
+        | "assigned"
+        | "in_progress"
+        | "completed"
+        | "cancelled"
       content_status:
         | "draft"
         | "pending_review"
@@ -1578,6 +1663,14 @@ export const Constants = {
   public: {
     Enums: {
       app_role: ["admin", "agent", "viewer"],
+      booking_status: [
+        "pending",
+        "confirmed",
+        "assigned",
+        "in_progress",
+        "completed",
+        "cancelled",
+      ],
       content_status: [
         "draft",
         "pending_review",

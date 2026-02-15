@@ -16,6 +16,7 @@ import {
   Megaphone,
   Building2,
   Shield,
+  Wrench,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/useAuth";
@@ -26,6 +27,7 @@ const navItems = [
   { label: "Dashboard", href: "/admin", icon: LayoutDashboard },
   { label: "Products", href: "/admin/products", icon: Home },
   { label: "Orders", href: "/admin/orders", icon: Building2 },
+  { label: "Bookings", href: "/admin/bookings", icon: Wrench },
   { label: "Enquiries", href: "/admin/enquiries", icon: MessageSquare },
   { label: "Marketing", href: "/admin/marketing", icon: Megaphone },
   {

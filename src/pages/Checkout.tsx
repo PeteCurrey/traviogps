@@ -10,11 +10,13 @@ import { useState } from "react";
 import { toast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { usePageMeta } from "@/lib/seo";
+import { FittingBookingForm, INITIAL_FITTING, type FittingData } from "@/components/checkout/FittingBookingForm";
 
 const Checkout = () => {
   usePageMeta("Secure Checkout | Travio GPS Tracker Store", "Complete your GPS tracker purchase securely. Fast UK delivery, 2-year warranty, and 30-day money-back guarantee.");
   const { items, totalPrice } = useCartStore();
   const [isLoading, setIsLoading] = useState(false);
+  const [fittingData, setFittingData] = useState<FittingData>(INITIAL_FITTING);
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -29,11 +31,61 @@ const Checkout = () => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
+  const validateFitting = (): boolean => {
+    if (!fittingData.enabled) return true;
+    if (!fittingData.vehicleMake || !fittingData.vehicleModel || !fittingData.vehicleReg) {
+      toast({ title: "Missing vehicle details", description: "Please fill in your vehicle make, model, and registration.", variant: "destructive" });
+      return false;
+    }
+    if (!fittingData.preferredDate || !fittingData.preferredTime) {
+      toast({ title: "Missing date/time", description: "Please select a preferred fitting date and time slot.", variant: "destructive" });
+      return false;
+    }
+    if (!fittingData.fittingAddress || !fittingData.fittingPostcode) {
+      toast({ title: "Missing fitting address", description: "Please provide the address where the fitting should take place.", variant: "destructive" });
+      return false;
+    }
+    if (!fittingData.selectedProduct) {
+      toast({ title: "Missing product", description: "Please select which tracker you'd like fitted.", variant: "destructive" });
+      return false;
+    }
+    return true;
+  };
+
+  const submitFittingBooking = async () => {
+    if (!fittingData.enabled) return;
+    
+    const { error } = await supabase.from("fitting_bookings").insert({
+      customer_name: `${formData.firstName} ${formData.lastName}`.trim(),
+      customer_email: formData.email,
+      customer_phone: formData.phone || null,
+      vehicle_make: fittingData.vehicleMake.trim(),
+      vehicle_model: fittingData.vehicleModel.trim(),
+      vehicle_reg: fittingData.vehicleReg.trim(),
+      product_name: fittingData.selectedProduct,
+      preferred_date: fittingData.preferredDate!.toISOString().split("T")[0],
+      preferred_time: fittingData.preferredTime,
+      fitting_address: fittingData.fittingAddress.trim(),
+      fitting_postcode: fittingData.fittingPostcode.trim(),
+      fitting_city: fittingData.fittingCity.trim() || null,
+      customer_notes: fittingData.notes.trim() || null,
+    });
+
+    if (error) {
+      console.error("Fitting booking error:", error);
+      // Don't block checkout — log but continue
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!validateFitting()) return;
     setIsLoading(true);
 
     try {
+      // Submit fitting booking if enabled
+      await submitFittingBooking();
+
       const { data, error } = await supabase.functions.invoke("create-checkout", {
         body: {
           items: items.map((item) => ({
@@ -143,6 +195,12 @@ const Checkout = () => {
                   </div>
                 </div>
 
+                {/* Fitting booking option */}
+                <FittingBookingForm
+                  fittingData={fittingData}
+                  onChange={setFittingData}
+                />
+
                 <Button
                   type="submit"
                   size="lg"
@@ -185,6 +243,12 @@ const Checkout = () => {
                       <span className="text-muted-foreground">Delivery</span>
                       <span className="text-accent">FREE</span>
                     </div>
+                    {fittingData.enabled && (
+                      <div className="flex justify-between text-sm">
+                        <span className="text-muted-foreground">Professional Fitting</span>
+                        <span className="text-accent">Included</span>
+                      </div>
+                    )}
                     <div className="flex justify-between font-medium text-lg border-t border-border pt-3">
                       <span>Total</span>
                       <span>£{totalPrice().toFixed(2)}</span>
