@@ -2,8 +2,8 @@ import { PageWrapper } from "@/components/layout/PageWrapper";
 import { motion } from "framer-motion";
 import { ArrowRight, Check, LucideIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
-import { usePageMeta } from "@/lib/seo";
+import { Link, useLocation } from "react-router-dom";
+import { usePageMeta, useJsonLd } from "@/lib/seo";
 
 interface Benefit {
   title: string;
@@ -61,10 +61,39 @@ export function TrackingApplicationPage({
   ctaButtonText = "Get a Quote",
   ctaButtonLink = "/contact",
 }: TrackingApplicationPageProps) {
+  const { pathname } = useLocation();
+  const SITE_URL = "https://traviogps.lovable.app";
+
   usePageMeta(
     `${title} | Travio GPS Tracking`,
     description,
   );
+
+  useJsonLd({
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: title,
+    description,
+    provider: {
+      "@type": "Organization",
+      name: "Travio GPS",
+      url: SITE_URL,
+    },
+    url: `${SITE_URL}${pathname}`,
+    areaServed: "GB",
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      name: `${title} Features`,
+      itemListElement: features.map((f, i) => ({
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: f.title,
+          description: f.description,
+        },
+      })),
+    },
+  });
 
   return (
     <PageWrapper>
