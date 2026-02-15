@@ -28,6 +28,12 @@ const Couriers = () => (
       { title: "Geo-fence Alerts", description: "Notifications when vehicles enter or leave depots and zones.", icon: Bell },
       { title: "Daily Reports", description: "Automated mileage, journey, and exception reports.", icon: BarChart3 },
     ]}
+    faqs={[
+      { question: "Can customers see the driver's live location?", answer: "Yes. Our ETA sharing feature lets you send a live tracking link to customers so they can see exactly when their delivery will arrive." },
+      { question: "Does it provide proof of delivery?", answer: "Yes. Every stop is GPS-stamped with time, location, and duration, giving you verifiable proof of delivery for every drop." },
+      { question: "How does driver scoring work?", answer: "Drivers are scored on speed, braking, acceleration, and idle time. Scores are ranked across your fleet to identify top performers and areas for improvement." },
+      { question: "Can I get automated daily reports?", answer: "Yes. You can schedule daily and weekly reports covering mileage, journeys, stops, and exceptions — delivered straight to your inbox." },
+    ]}
     ctaButtonText="Request Demo"
     ctaButtonLink="/contact"
   />

@@ -28,6 +28,12 @@ const Construction = () => (
       { title: "Utilisation Reports", description: "Optimise equipment allocation across projects.", icon: BarChart3 },
       { title: "Driver ID", description: "RFID tags identify which operator is using each vehicle.", icon: Shield },
     ]}
+    faqs={[
+      { question: "Can I track both vehicles and plant machinery?", answer: "Yes. Our platform tracks everything from transit vans to excavators, all visible on a single dashboard across all your sites." },
+      { question: "How do battery trackers work for unpowered equipment?", answer: "Our battery-powered trackers use magnetic mounting and last up to 5 years on standby, so no wiring or power connection is needed." },
+      { question: "Can I set different geo-fences for each construction site?", answer: "Yes. You can create unlimited geo-fence zones around every site, depot, and compound, with instant alerts when assets cross boundaries." },
+      { question: "Does Driver ID work with plant machinery?", answer: "Yes. RFID tags can be assigned to each operator so you know exactly who is using which piece of equipment at any time." },
+    ]}
     ctaButtonText="Request Demo"
     ctaButtonLink="/contact"
   />

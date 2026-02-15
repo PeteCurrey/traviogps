@@ -28,6 +28,12 @@ const Trailers = () => (
       { title: "Utilisation Reports", description: "Track which trailers are active and which are sitting idle.", icon: BarChart3 },
       { title: "European Roaming", description: "Track trailers across the UK and Europe.", icon: MapPin },
     ]}
+    faqs={[
+      { question: "How does a trailer tracker work without a power supply?", answer: "Our trailer trackers use ultra-long-life batteries with up to 5 years of standby, so no external power or wiring is required." },
+      { question: "How do I attach the tracker to my trailer?", answer: "The tracker has powerful built-in magnets, so you can attach it in seconds without drilling or wiring — just place and go." },
+      { question: "Can I track trailers across Europe?", answer: "Yes. Our trackers include European roaming as standard, so you can track trailers anywhere in the UK and across the continent." },
+      { question: "Will I know if a trailer is being used without permission?", answer: "Yes. You'll get instant movement alerts if any trailer moves outside of authorised hours or leaves a geo-fenced zone." },
+    ]}
     ctaButtonText="Get a Quote"
   />
 );

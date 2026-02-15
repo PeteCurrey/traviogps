@@ -28,6 +28,12 @@ const Haulage = () => (
       { title: "Fuel Reports", description: "Track fuel consumption and identify waste.", icon: BarChart3 },
       { title: "Automated Reports", description: "Daily fleet reports delivered by email.", icon: BarChart3 },
     ]}
+    faqs={[
+      { question: "Can I track both HGVs and trailers together?", answer: "Yes. Our platform tracks powered HGVs in real time alongside unpowered trailers using 5-year battery trackers — all on one dashboard." },
+      { question: "Does it support temperature monitoring for cold chain?", answer: "Yes. Remote temperature probes provide continuous monitoring with instant alerts if temperatures breach your set thresholds — ideal for food and pharmaceutical logistics." },
+      { question: "How does it help with DVSA compliance?", answer: "Our system monitors driver hours, integrates with tachograph data, and supports vehicle check records to help you stay compliant with DVSA regulations." },
+      { question: "Can I get fuel consumption reports?", answer: "Yes. Our fuel reports track consumption per vehicle, identify excessive idling, and highlight wasteful driving habits to help you reduce costs." },
+    ]}
     ctaButtonText="Request Demo"
     ctaButtonLink="/contact"
   />

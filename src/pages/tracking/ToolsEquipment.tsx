@@ -28,6 +28,12 @@ const ToolsEquipment = () => (
       { title: "Mobile App", description: "Track all your tools from your smartphone anywhere.", icon: Wifi },
       { title: "Shareable Links", description: "Share live location with police during theft recovery.", icon: Search },
     ]}
+    faqs={[
+      { question: "How small are the tool trackers?", answer: "Our compact trackers are small enough to fit inside tool cases, equipment bags, and storage boxes without being detected." },
+      { question: "How long does the battery last?", answer: "Up to 30 days on a single charge, with motion-activated tracking to conserve power when tools are stationary." },
+      { question: "Can I share the location with police if my tools are stolen?", answer: "Yes. You can generate a shareable live location link to send directly to police, helping them recover your stolen tools quickly." },
+      { question: "How many tools can I track on one account?", answer: "There's no limit. You can track as many tools and equipment items as you need from a single app or dashboard." },
+    ]}
     ctaButtonText="Get a Quote"
   />
 );

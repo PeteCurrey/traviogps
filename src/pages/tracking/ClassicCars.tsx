@@ -28,6 +28,12 @@ const ClassicCars = () => (
       { title: "Geo-fencing", description: "Set safe zones around garages and event venues.", icon: MapPin },
       { title: "Covert Install", description: "Hidden so well that thieves won't find it.", icon: Eye },
     ]}
+    faqs={[
+      { question: "Will a GPS tracker work on a classic car without an OBD port?", answer: "Yes. Our trackers wire directly to the vehicle battery or use their own internal power supply, so they work with any vehicle regardless of age." },
+      { question: "Will installation damage or alter my classic car?", answer: "No. Our engineers specialise in discreet, non-invasive installations that preserve the originality and aesthetics of your classic vehicle." },
+      { question: "How long does the backup battery last?", answer: "The internal backup battery provides several days of tracking if the main vehicle battery is disconnected, giving you time to respond." },
+      { question: "Can I track my classic car at shows and rallies?", answer: "Yes. You can follow your journey in real time and review full route playback afterwards — perfect for logging rally routes and show trips." },
+    ]}
     ctaButtonText="Get a Quote"
     ctaDescription="Protect your classic with discreet, reliable GPS tracking."
   />
