@@ -9,8 +9,10 @@ import { useCartStore } from "@/stores/cartStore";
 import { useState } from "react";
 import { toast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
+import { usePageMeta } from "@/lib/seo";
 
 const Checkout = () => {
+  usePageMeta("Secure Checkout | Travio GPS Tracker Store", "Complete your GPS tracker purchase securely. Fast UK delivery, 2-year warranty, and 30-day money-back guarantee.");
   const { items, totalPrice } = useCartStore();
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({

@@ -10,9 +10,15 @@ import { FeaturesSection } from "@/components/home/FeaturesSection";
 import { TestimonialsSection } from "@/components/home/TestimonialsSection";
 import { CTASection } from "@/components/home/CTASection";
 import { SplashScreen } from "@/components/SplashScreen";
+import { usePageMeta } from "@/lib/seo";
 
 const Index = () => {
   const [showSplash, setShowSplash] = useState(true);
+
+  usePageMeta(
+    "Travio | Smart GPS Tracking Systems for Vehicles, Fleets & Assets",
+    "Professional GPS tracking solutions. Real-time vehicle tracking, fleet management, and asset monitoring trusted by 94,000+ users across 185 countries.",
+  );
 
   const handleSplashComplete = () => {
     setShowSplash(false);

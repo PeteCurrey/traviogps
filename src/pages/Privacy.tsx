@@ -1,7 +1,13 @@
 import { motion } from "framer-motion";
 import { PageWrapper } from "@/components/layout/PageWrapper";
+import { usePageMeta } from "@/lib/seo";
 
 export default function Privacy() {
+  usePageMeta(
+    "Privacy Policy | Travio GPS Tracking",
+    "Read Travio's privacy policy. Learn how we collect, use, and protect your personal data when using our GPS tracking services.",
+  );
+
   return (
     <PageWrapper>
       {/* Hero Section */}

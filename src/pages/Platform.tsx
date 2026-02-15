@@ -8,6 +8,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { AnimatedCounter } from "@/components/ui/animated-counter";
+import { usePageMeta } from "@/lib/seo";
 
 import dashboardHero from "@/assets/platform/dashboard-hero.webp";
 import liveMapImg from "@/assets/platform/live-map.webp";
@@ -70,6 +71,8 @@ const featureShowcase = [
 ];
 
 const Platform = () => {
+  usePageMeta("GPS Tracking Platform | Live Map, Reports & Alerts | Travio", "Explore Travio's GPS tracking platform. Live maps, automated reports, smart alerts, mobile app, and fleet management tools in one dashboard.");
+
   return (
     <PageWrapper>
       {/* Hero with dashboard screenshot */}

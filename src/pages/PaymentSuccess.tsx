@@ -5,8 +5,10 @@ import { CheckCircle, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useCartStore } from "@/stores/cartStore";
 import { useEffect } from "react";
+import { usePageMeta } from "@/lib/seo";
 
 const PaymentSuccess = () => {
+  usePageMeta("Payment Successful | Travio", "Your GPS tracker order has been confirmed. Thank you for choosing Travio.");
   const { clearCart } = useCartStore();
 
   useEffect(() => {

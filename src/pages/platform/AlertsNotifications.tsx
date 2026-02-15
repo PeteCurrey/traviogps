@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { AnimatedCounter } from "@/components/ui/animated-counter";
 import alertsImg from "@/assets/platform/alerts-geofence.webp";
+import { usePageMeta } from "@/lib/seo";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -42,7 +43,10 @@ const advancedFeatures = [
   { icon: Bell, title: "Alert Escalation", desc: "If the first recipient doesn't acknowledge, the alert escalates to the next contact automatically." },
 ];
 
-const AlertsNotifications = () => (
+const AlertsNotifications = () => {
+  usePageMeta("GPS Tracking Alerts & Notifications | Travio", "Smart alerts for speed, geofencing, tampering, and driver behaviour. Get instant push, email, and SMS notifications from your GPS trackers.");
+
+  return (
   <PageWrapper>
     {/* Hero */}
     <section className="relative pt-32 lg:pt-40 pb-20 bg-background overflow-hidden">
@@ -192,6 +196,7 @@ const AlertsNotifications = () => (
       </div>
     </section>
   </PageWrapper>
-);
+  );
+};
 
 export default AlertsNotifications;

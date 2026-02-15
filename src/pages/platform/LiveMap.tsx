@@ -11,6 +11,7 @@ import { AnimatedCounter } from "@/components/ui/animated-counter";
 import liveMapImg from "@/assets/platform/live-map.webp";
 import { useEffect, useRef, useState } from "react";
 import L from "leaflet";
+import { usePageMeta } from "@/lib/seo";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -298,7 +299,10 @@ function InteractiveMap() {
   );
 }
 
-const LiveMap = () => (
+const LiveMap = () => {
+  usePageMeta("Live GPS Tracking Map | Real-Time Vehicle Locations | Travio", "Track all your vehicles on one live map with real-time GPS updates every 10 seconds. Multi-layer views, geofencing, and instant alerts.");
+
+  return (
   <PageWrapper>
     {/* Hero */}
     <section className="relative pt-32 lg:pt-40 pb-20 bg-background overflow-hidden">
@@ -474,6 +478,7 @@ const LiveMap = () => (
       </div>
     </section>
   </PageWrapper>
-);
+  );
+};
 
 export default LiveMap;

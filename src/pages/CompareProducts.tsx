@@ -5,8 +5,10 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Star, Check, Minus, X } from "lucide-react";
 import { AddToCartButton } from "@/components/store/AddToCartButton";
+import { usePageMeta } from "@/lib/seo";
 
 const CompareProducts = () => {
+  usePageMeta("Compare GPS Trackers | Travio", "Compare GPS tracker features, prices, and specifications side by side. Find the perfect tracker for your vehicle or fleet.");
   const { items, remove, clear } = useCompareStore();
 
   if (items.length < 2) {

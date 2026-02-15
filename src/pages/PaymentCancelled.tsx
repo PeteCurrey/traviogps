@@ -3,8 +3,11 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { XCircle, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { usePageMeta } from "@/lib/seo";
 
 const PaymentCancelled = () => {
+  usePageMeta("Payment Cancelled | Travio", "Your payment was cancelled. Your cart items have been saved — return to checkout when you're ready.");
+
   return (
     <PageWrapper>
       <section className="pt-32 lg:pt-40 pb-20 bg-background">

@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { supabase } from "@/integrations/supabase/client";
 import { useQuery } from "@tanstack/react-query";
+import { usePageMeta } from "@/lib/seo";
 
 import heroBanner from "@/assets/hero-banner.webp";
 
@@ -27,6 +28,8 @@ const itemVariants = {
 };
 
 export default function Blog() {
+  usePageMeta("GPS Tracking Blog & News | Travio", "Latest news, guides, and insights on GPS tracking, fleet management, vehicle security, and asset monitoring from Travio.");
+
   const { data: posts = [], isLoading } = useQuery({
     queryKey: ['blog-posts-public'],
     queryFn: async () => {
