@@ -2,24 +2,45 @@ import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
 const SITE_URL = "https://traviogps.lovable.app";
+const DEFAULT_OG_IMAGE = `${SITE_URL}/og-default.png`;
 
-export function usePageMeta(title: string, description: string) {
+function setMeta(property: string, content: string, isProperty = false) {
+  const attr = isProperty ? "property" : "name";
+  let el = document.querySelector(`meta[${attr}="${property}"]`);
+  if (!el) {
+    el = document.createElement("meta");
+    el.setAttribute(attr, property);
+    document.head.appendChild(el);
+  }
+  el.setAttribute("content", content);
+}
+
+export function usePageMeta(title: string, description: string, image?: string) {
   const { pathname } = useLocation();
 
   useEffect(() => {
     document.title = title;
-
-    // Meta description
-    let meta = document.querySelector('meta[name="description"]');
-    if (!meta) {
-      meta = document.createElement("meta");
-      meta.setAttribute("name", "description");
-      document.head.appendChild(meta);
-    }
-    meta.setAttribute("content", description);
-
-    // Canonical URL
     const canonicalUrl = `${SITE_URL}${pathname === "/" ? "" : pathname}`;
+    const ogImage = image || DEFAULT_OG_IMAGE;
+
+    // Standard meta
+    setMeta("description", description);
+
+    // Open Graph
+    setMeta("og:title", title, true);
+    setMeta("og:description", description, true);
+    setMeta("og:url", canonicalUrl, true);
+    setMeta("og:image", ogImage, true);
+    setMeta("og:type", "website", true);
+    setMeta("og:site_name", "Travio GPS", true);
+
+    // Twitter Card
+    setMeta("twitter:card", "summary_large_image");
+    setMeta("twitter:title", title);
+    setMeta("twitter:description", description);
+    setMeta("twitter:image", ogImage);
+
+    // Canonical
     let link = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
     if (!link) {
       link = document.createElement("link");
@@ -27,7 +48,7 @@ export function usePageMeta(title: string, description: string) {
       document.head.appendChild(link);
     }
     link.setAttribute("href", canonicalUrl);
-  }, [title, description, pathname]);
+  }, [title, description, pathname, image]);
 }
 
 export function useJsonLd(data: Record<string, unknown>) {
