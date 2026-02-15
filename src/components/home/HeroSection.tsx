@@ -117,13 +117,13 @@ export function HeroSection() {
             transition={{ duration: 0.8, delay: 0.5 }}
             className="absolute bottom-8 left-6 right-6 lg:bottom-16 lg:left-12 lg:right-auto lg:max-w-xl"
           >
-            <span className="text-xs uppercase tracking-[0.25em] text-primary/80 mb-3 block">Smart GPS Tracking</span>
-            <h1 className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl text-primary leading-[1.1] mb-4">
+            <span className="text-xs uppercase tracking-[0.25em] text-white/70 mb-3 block">Smart GPS Tracking</span>
+            <h1 className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl text-white leading-[1.1] mb-4">
               Track Your Vehicles
               <br />
               <span className="italic-accent">in Real Time</span>
             </h1>
-            <p className="text-primary/70 text-sm md:text-base max-w-md hidden sm:block">
+            <p className="text-white/80 text-sm md:text-base max-w-md hidden sm:block">
               Professional GPS tracking systems for cars, vans, fleets and assets. Monitor location, speed and driver behaviour 24/7.
             </p>
           </motion.div>
@@ -139,10 +139,10 @@ export function HeroSection() {
               { value: 185, suffix: "", label: "Countries" },
             ].map((stat, i) => (
               <div key={stat.label} className="text-right">
-                <div className="font-serif text-2xl lg:text-3xl text-primary">
+                <div className="font-serif text-2xl lg:text-3xl text-white">
                   <AnimatedCounter value={stat.value} suffix={stat.suffix} delay={i * 0.2} />
                 </div>
-                <div className="text-[10px] uppercase tracking-[0.15em] text-primary/60">{stat.label}</div>
+                <div className="text-[10px] uppercase tracking-[0.15em] text-white/60">{stat.label}</div>
               </div>
             ))}
           </motion.div>
