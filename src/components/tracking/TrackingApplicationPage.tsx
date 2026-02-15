@@ -4,6 +4,13 @@ import { ArrowRight, Check, LucideIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link, useLocation } from "react-router-dom";
 import { usePageMeta, useJsonLd } from "@/lib/seo";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import { useEffect } from "react";
 
 interface Benefit {
   title: string;
@@ -22,6 +29,11 @@ interface KeyStat {
   label: string;
 }
 
+interface FAQ {
+  question: string;
+  answer: string;
+}
+
 interface TrackingApplicationPageProps {
   title: string;
   subtitle: string;
@@ -31,6 +43,7 @@ interface TrackingApplicationPageProps {
   keyStats: KeyStat[];
   benefits: Benefit[];
   features: Feature[];
+  faqs?: FAQ[];
   ctaTitle?: string;
   ctaDescription?: string;
   ctaButtonText?: string;
@@ -47,6 +60,32 @@ const itemVariants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.25, 0.46, 0.45, 0.94] as const } },
 };
 
+function useFaqJsonLd(faqs?: FAQ[]) {
+  useEffect(() => {
+    if (!faqs || faqs.length === 0) return;
+    const data = {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: faqs.map((faq) => ({
+        "@type": "Question",
+        name: faq.question,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: faq.answer,
+        },
+      })),
+    };
+    const script = document.createElement("script");
+    script.type = "application/ld+json";
+    script.setAttribute("data-faq", "true");
+    script.textContent = JSON.stringify(data);
+    document.head.appendChild(script);
+    return () => {
+      document.head.removeChild(script);
+    };
+  }, [faqs]);
+}
+
 export function TrackingApplicationPage({
   title,
   subtitle,
@@ -56,6 +95,7 @@ export function TrackingApplicationPage({
   keyStats,
   benefits,
   features,
+  faqs,
   ctaTitle = "Ready to Get Started?",
   ctaDescription = "Speak with our team to find the right tracker for your needs.",
   ctaButtonText = "Get a Quote",
@@ -94,6 +134,8 @@ export function TrackingApplicationPage({
       })),
     },
   });
+
+  useFaqJsonLd(faqs);
 
   return (
     <PageWrapper>
@@ -185,6 +227,34 @@ export function TrackingApplicationPage({
           </motion.div>
         </div>
       </section>
+
+      {/* FAQ */}
+      {faqs && faqs.length > 0 && (
+        <section className="section-padding bg-background">
+          <div className="container-premium max-w-3xl">
+            <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-12">
+              <p className="text-sm uppercase tracking-[0.3em] text-accent mb-3">Common Questions</p>
+              <h2 className="font-serif text-2xl sm:text-display-3 md:text-display-2 text-foreground">
+                Frequently <span className="italic-accent">Asked</span>
+              </h2>
+            </motion.div>
+            <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+              <Accordion type="single" collapsible className="w-full">
+                {faqs.map((faq, i) => (
+                  <AccordionItem key={i} value={`faq-${i}`} className="border-border">
+                    <AccordionTrigger className="text-left font-medium text-foreground hover:text-accent">
+                      {faq.question}
+                    </AccordionTrigger>
+                    <AccordionContent className="text-muted-foreground">
+                      {faq.answer}
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
+            </motion.div>
+          </div>
+        </section>
+      )}
 
       {/* CTA */}
       <section className="section-padding bg-background">

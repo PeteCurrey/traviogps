@@ -28,6 +28,12 @@ const Caravans = () => (
       { title: "European Coverage", description: "Track across the UK and Europe on your travels.", icon: Sun },
       { title: "Theft Recovery", description: "Real-time tracking to assist police with stolen vehicle recovery.", icon: Shield },
     ]}
+    faqs={[
+      { question: "Does the tracker work when my caravan is in storage?", answer: "Yes. Our trackers are designed for long-term storage use, with up to 5-year battery life and instant movement alerts if your caravan is moved." },
+      { question: "Do I need to wire the tracker into my caravan?", answer: "No. Our magnetic battery-powered units require no wiring — simply attach and go. Perfect for seasonal use." },
+      { question: "Will the tracker work abroad on holiday?", answer: "Yes. Our trackers provide full coverage across the UK and Europe, so you can track your caravan or motorhome on continental tours." },
+      { question: "Can it help reduce my caravan insurance premium?", answer: "Many insurers offer discounts when a GPS tracker is fitted, as it significantly increases the chance of recovery if your caravan is stolen." },
+    ]}
     ctaButtonText="Get a Quote"
   />
 );

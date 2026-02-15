@@ -28,6 +28,12 @@ const Vans = () => (
       { title: "Geo-fencing", description: "Set zones around depots, offices, and customer sites.", icon: Shield },
       { title: "Fleet Reports", description: "Automated daily and weekly reports by email.", icon: BarChart3 },
     ]}
+    faqs={[
+      { question: "Can I track multiple vans on one account?", answer: "Yes. Our platform lets you track an unlimited number of vans from a single dashboard, with individual vehicle views and fleet-wide reports." },
+      { question: "Will the tracker help prevent tool theft from my van?", answer: "Absolutely. You'll get instant alerts if your van is opened or moved outside working hours, helping protect the valuable tools inside." },
+      { question: "How accurate is the GPS tracking?", answer: "Our trackers provide location accuracy to within 5 metres, with updates every 10 seconds when the vehicle is moving." },
+      { question: "Is there a contract?", answer: "We offer flexible monthly subscriptions from £9.99/month with no long-term contract required. You can cancel anytime." },
+    ]}
     ctaButtonText="Get a Quote"
   />
 );

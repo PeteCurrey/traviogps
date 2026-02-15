@@ -28,6 +28,12 @@ const Motorbikes = () => (
       { title: "Geo-fence Alerts", description: "Set safe zones around your home or garage.", icon: Shield },
       { title: "Battery Backup", description: "Continues tracking even if the main battery is disconnected.", icon: Zap },
     ]}
+    faqs={[
+      { question: "Is the tracker weatherproof for all-year riding?", answer: "Yes. Our motorbike trackers are IP67-rated, meaning they're fully sealed against rain, mud, and extreme temperatures." },
+      { question: "Will fitting a tracker lower my motorbike insurance?", answer: "Many insurers offer up to 20% discount with an approved GPS tracker fitted to your motorbike, as it greatly increases the chance of recovery." },
+      { question: "Can the tracker be hidden on my bike?", answer: "Absolutely. The compact design allows for discreet installation that won't affect the look or performance of your motorcycle." },
+      { question: "What happens if the battery is disconnected?", answer: "The tracker has an internal backup battery that continues tracking and sends you an alert if the main power supply is cut." },
+    ]}
     ctaButtonText="Get a Quote"
   />
 );

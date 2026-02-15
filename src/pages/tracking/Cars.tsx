@@ -28,6 +28,13 @@ const Cars = () => (
       { title: "Battery Backup", description: "Built-in backup battery keeps tracking even if the main power is disconnected.", icon: Battery },
       { title: "Mobile App", description: "Track your car from anywhere using the free iOS and Android app.", icon: Smartphone },
     ]}
+    faqs={[
+      { question: "How does a car GPS tracker work?", answer: "A GPS tracker uses satellite positioning to determine your car's location. It transmits this data over the mobile network to our platform, which you can access via the app or web dashboard in real time." },
+      { question: "Will fitting a tracker affect my car's warranty?", answer: "No. Our trackers are professionally installed and do not interfere with your vehicle's electronics or void any manufacturer warranty." },
+      { question: "Can a GPS tracker reduce my car insurance?", answer: "Yes. Many UK insurers offer up to 20% discount when an approved GPS tracker is fitted, as it significantly increases the chance of vehicle recovery." },
+      { question: "How long does installation take?", answer: "Professional installation typically takes 30–60 minutes. The tracker is hidden in a covert location so it cannot be found or tampered with." },
+      { question: "What happens if my car is stolen?", answer: "You'll receive an instant alert. Our 24/7 monitoring team can share the live location with police to assist with rapid recovery." },
+    ]}
     ctaButtonText="Get a Quote"
     ctaDescription="Find the right car tracker for your needs — speak with our team today."
   />

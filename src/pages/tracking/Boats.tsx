@@ -28,6 +28,12 @@ const Boats = () => (
       { title: "Coastal & Canal Journey Log", description: "Record all trips, voyages, and cruises with route playback and distance.", icon: MapPin },
       { title: "Emergency Location Sharing", description: "Share a live location link with coastguard, police, or marina staff instantly.", icon: Shield },
     ]}
+    faqs={[
+      { question: "Does the tracker work on inland waterways as well as coastal?", answer: "Yes. Our marine trackers provide full GPS coverage across UK coastal waters, rivers, canals, lakes, and reservoirs." },
+      { question: "Is the tracker waterproof?", answer: "Yes. All our marine trackers are IP67-rated, meaning they're fully sealed against salt water, fresh water, and harsh marine conditions." },
+      { question: "Can I use it on a narrowboat or canal boat?", answer: "Absolutely. Our trackers are popular with narrowboat owners for both security at moorings and logging canal cruises." },
+      { question: "How long does the battery last without shore power?", answer: "Our battery-powered marine trackers offer up to 5 years of standby life, making them ideal for vessels without permanent power." },
+    ]}
     ctaButtonText="Get a Quote"
     ctaDescription="Protect your vessel on coastal waters or inland waterways — speak with our team today."
   />
