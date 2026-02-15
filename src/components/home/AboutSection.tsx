@@ -51,7 +51,7 @@ export function AboutSection() {
               </div>
             </div>
             <motion.div 
-              className="absolute -bottom-6 -right-6 w-32 h-32 bg-accent/10 rounded-sm"
+              className="absolute -bottom-6 -right-6 w-32 h-32 bg-accent/10 rounded-sm hidden sm:block"
               initial={{ opacity: 0, scale: 0 }}
               whileInView={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.5, duration: 0.6 }}
@@ -75,7 +75,7 @@ export function AboutSection() {
             >
               About Travio
             </motion.p>
-            <h2 className="font-serif text-display-3 md:text-display-2 text-foreground mb-6 leading-tight">
+            <h2 className="font-serif text-2xl sm:text-display-3 md:text-display-2 text-foreground mb-6 leading-tight">
               Locate your vehicles <span className="italic-accent">24/7 from anywhere.</span>
             </h2>
             <motion.div 

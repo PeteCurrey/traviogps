@@ -100,13 +100,13 @@ export function HeroSection() {
   const imageScale = useTransform(scrollYProgress, [0, 1], prefersReducedMotion ? [1, 1] : [1, 1.1]);
 
   return (
-    <section ref={containerRef} className="relative min-h-screen bg-background pt-20 lg:pt-[104px]">
-      <div className="h-[calc(100vh-80px)] lg:h-[calc(100vh-104px)] flex flex-col lg:flex-row">
+    <section ref={containerRef} className="relative bg-background pt-20 lg:pt-[104px]">
+      <div className="min-h-[calc(100vh-80px)] lg:min-h-[calc(100vh-104px)] flex flex-col lg:flex-row">
         <motion.div
           initial={{ opacity: 0, scale: 1.05 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1.2, ease: "easeOut" }}
-          className="relative h-[45vh] lg:h-full lg:w-[60%] overflow-hidden"
+          className="relative h-[35vh] sm:h-[40vh] lg:h-full lg:w-[60%] overflow-hidden"
         >
           <motion.img src={heroBanner} alt="GPS tracking dashboard showing real-time vehicle locations" className="w-full h-full object-cover" style={{ y: imageY, scale: imageScale }} />
           <div className="absolute inset-0 bg-gradient-to-r from-background/60 via-background/20 to-transparent lg:from-background/40 lg:via-transparent lg:to-background/80" />
@@ -118,7 +118,7 @@ export function HeroSection() {
             className="absolute bottom-8 left-6 right-6 lg:bottom-16 lg:left-12 lg:right-auto lg:max-w-xl"
           >
             <span className="text-xs uppercase tracking-[0.25em] text-primary/80 mb-3 block">Smart GPS Tracking</span>
-            <h1 className="font-serif text-3xl md:text-4xl lg:text-5xl xl:text-6xl text-primary leading-[1.1] mb-4">
+            <h1 className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl text-primary leading-[1.1] mb-4">
               Track Your Vehicles
               <br />
               <span className="italic-accent">in Real Time</span>
