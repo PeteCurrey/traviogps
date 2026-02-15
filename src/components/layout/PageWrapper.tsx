@@ -1,7 +1,25 @@
 import { ReactNode } from "react";
 import { motion, type Transition } from "framer-motion";
+import { useLocation } from "react-router-dom";
+import { useEffect } from "react";
 import { Navigation } from "./Navigation";
 import { Footer } from "./Footer";
+
+const SITE_URL = "https://traviogps.lovable.app";
+
+function useCanonical() {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    const canonicalUrl = `${SITE_URL}${pathname === "/" ? "" : pathname}`;
+    let link = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
+    if (!link) {
+      link = document.createElement("link");
+      link.setAttribute("rel", "canonical");
+      document.head.appendChild(link);
+    }
+    link.setAttribute("href", canonicalUrl);
+  }, [pathname]);
+}
 
 interface PageWrapperProps {
   children: ReactNode;
@@ -20,6 +38,7 @@ const pageTransition: Transition = {
 };
 
 export function PageWrapper({ children }: PageWrapperProps) {
+  useCanonical();
   return (
     <div className="min-h-screen flex flex-col">
       <Navigation />
