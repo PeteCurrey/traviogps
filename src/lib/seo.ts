@@ -1,8 +1,15 @@
 import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
+
+const SITE_URL = "https://traviogps.lovable.app";
 
 export function usePageMeta(title: string, description: string) {
+  const { pathname } = useLocation();
+
   useEffect(() => {
     document.title = title;
+
+    // Meta description
     let meta = document.querySelector('meta[name="description"]');
     if (!meta) {
       meta = document.createElement("meta");
@@ -10,7 +17,17 @@ export function usePageMeta(title: string, description: string) {
       document.head.appendChild(meta);
     }
     meta.setAttribute("content", description);
-  }, [title, description]);
+
+    // Canonical URL
+    const canonicalUrl = `${SITE_URL}${pathname === "/" ? "" : pathname}`;
+    let link = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
+    if (!link) {
+      link = document.createElement("link");
+      link.setAttribute("rel", "canonical");
+      document.head.appendChild(link);
+    }
+    link.setAttribute("href", canonicalUrl);
+  }, [title, description, pathname]);
 }
 
 export function useJsonLd(data: Record<string, unknown>) {
