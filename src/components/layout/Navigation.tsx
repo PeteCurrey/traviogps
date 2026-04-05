@@ -188,7 +188,7 @@ export function Navigation() {
 
             <div className="hidden lg:flex items-center gap-1 flex-1 justify-start">
               {leftNavLinks.map((link) => (
-                <NavLinkItem key={link.label} link={link} activeSubmenu={activeSubmenu} setActiveSubmenu={setActiveSubmenu} pathname={location.pathname} />
+                <NavLinkItem key={link.label} link={link} activeSubmenu={activeSubmenu} setActiveSubmenu={setActiveSubmenu} pathname={pathname} />
               ))}
             </div>
 
@@ -198,7 +198,7 @@ export function Navigation() {
 
             <div className="hidden lg:flex items-center gap-1 flex-1 justify-end">
               {rightNavLinks.map((link) => (
-                <NavLinkItem key={link.label} link={link} activeSubmenu={activeSubmenu} setActiveSubmenu={setActiveSubmenu} pathname={location.pathname} />
+                <NavLinkItem key={link.label} link={link} activeSubmenu={activeSubmenu} setActiveSubmenu={setActiveSubmenu} pathname={pathname} />
               ))}
               <div className="ml-2">
                 <CartDrawer />
