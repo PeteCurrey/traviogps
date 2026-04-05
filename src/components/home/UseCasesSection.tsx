@@ -1,4 +1,6 @@
-import { Link } from "react-router-dom";
+"use client";
+
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight, Car, Truck, Users, Package } from "lucide-react";
 
@@ -90,7 +92,7 @@ export function UseCasesSection() {
         >
           {useCases.map((useCase) => (
             <motion.div key={useCase.name} variants={itemVariants}>
-              <Link to={useCase.href} className="group block relative overflow-hidden rounded-sm bg-background/10 backdrop-blur-sm border border-primary/10 hover:border-primary/30 transition-all duration-500 p-5 sm:p-8">
+              <Link href={useCase.href} className="group block relative overflow-hidden rounded-sm bg-background/10 backdrop-blur-sm border border-primary/10 hover:border-primary/30 transition-all duration-500 p-5 sm:p-8">
                 <div className="flex items-start gap-4 sm:gap-6">
                   <motion.div
                     className="flex-shrink-0 w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center"

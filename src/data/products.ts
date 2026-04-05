@@ -1,4 +1,4 @@
-import { Navigation, Plug, Video, Shield, Battery, Bike, Truck, Package, Anchor, Thermometer, Car, Wrench, LucideIcon } from "lucide-react";
+import { Navigation, Plug, Video, Shield, Battery, Bike, Truck, Package, Anchor, Thermometer, Car, Wrench, LucideIcon, Smartphone, MapPin, Search, MousePointerClick, RotateCcw, Star } from "lucide-react";
 
 export interface CustomerReview {
   id: string;
@@ -25,7 +25,7 @@ export interface Product {
   description: string;
   features: string[];
   specs: { label: string; value: string }[];
-  icon: LucideIcon;
+  icon: typeof Navigation;
   badge?: string;
   inStock: boolean;
   subscriptionRequired?: boolean;
@@ -54,14 +54,14 @@ export interface Category {
   count: number;
   description: string;
   longDescription: string;
-  icon: LucideIcon;
+  icon: typeof Navigation;
 }
 
 export const categories: Category[] = [
   { name: "Vehicle Trackers", count: 6, description: "GPS trackers for cars, vans, and motorcycles", longDescription: "Our range of vehicle GPS trackers covers everything from budget daily-check-in devices to real-time 10-second update trackers with 4G connectivity. Whether you need a magnetic self-install tracker for your car, a hardwired solution for your van, or a covert unit for a motorbike, we have the right device. All vehicle trackers include free access to the GPSLive tracking platform and mobile app.", icon: Car },
   { name: "Asset Trackers", count: 4, description: "Long-life trackers for trailers, plant, and equipment", longDescription: "Protect valuable assets that don't have their own power supply. Our asset trackers feature ultra-long battery lives of up to 5 years, powerful magnetic mounts, and weatherproof casings rated IP67 or higher. Ideal for trailers, containers, plant machinery, generators, boats, and construction equipment. Motion-activated tracking ensures you only use power when it matters.", icon: Package },
   { name: "Insurance Approved", count: 2, description: "Thatcham S5 & S7 certified trackers", longDescription: "Meet your insurance requirements with our Thatcham-certified GPS trackers. Our S5 and S7 approved devices include professional installation, 24/7 secure operating centre monitoring, automatic police notification, and ADR driver recognition. With a 98% stolen vehicle recovery rate, these trackers provide the ultimate protection for high-value and prestige vehicles.", icon: Shield },
-  { name: "Dashcams", count: 3, description: "Connected dashcams with GPS tracking", longDescription: "More than just a dashcam — our connected camera solutions combine HD video recording with real-time GPS tracking and 4G cloud connectivity. Live stream footage remotely, receive event-triggered alerts, and access AI-powered driver assistance features including fatigue detection and forward collision warnings. Perfect for personal use or fleet-wide deployment.", icon: Video },
+  { name: "Dashcams", count: 3, description: "Connected dashcams with GPS tracking", longDescription: "More than just a dashcam — our connected camera solutions combine HD video recording with real-time GPS tracking and 4G cloud connectivity. Live stream footage remotely, receive event triggered alerts, and access AI-powered driver assistance features including fatigue detection and forward collision warnings. Perfect for personal use or fleet-wide deployment.", icon: Video },
   { name: "Fleet Solutions", count: 3, description: "Multi-vehicle fleet tracking bundles", longDescription: "Purpose-built fleet tracking packages designed to save you money and simplify fleet management. From 5-vehicle starter packs to enterprise solutions for 25+ vehicles, our fleet bundles include hardwired trackers, RFID driver ID tags, and full access to the GPSLive fleet management portal with driver behaviour scoring, fuel monitoring, and maintenance scheduling.", icon: Truck },
   { name: "Personal Trackers", count: 2, description: "Compact trackers for people and pets", longDescription: "Compact, lightweight GPS trackers designed for personal safety and pet tracking. Features include SOS panic buttons, two-way voice calling, fall detection, and geo-zone alerts. Our personal trackers are ideal for lone workers, elderly family members, children, and pets. Small enough to clip onto a collar or slip into a pocket.", icon: Navigation },
   { name: "Accessories", count: 4, description: "Mounts, cables, and extending accessories", longDescription: "Extend the capabilities of your GPS tracker with our range of accessories. From extended battery packs that double your tracker's battery life to hardwire installation kits for permanent fitting, RFID driver ID tags for fleet management, and weatherproof magnetic cases for covert placement. All accessories are designed to work seamlessly with our tracker range.", icon: Plug },
@@ -509,12 +509,6 @@ export const products: Product[] = [
     connectivity: "4G LTE + GNSS",
     highlight: "98% recovery rate | Thatcham S5",
     inTheBox: ["S5+ Tracker unit", "2x ADR driver tags", "Professional installation included", "24/7 monitoring activation", "Certificate of installation"],
-    customerReviews: [
-      { id: "r11", author: "Richard M.", rating: 5, date: "8 Jan 2026", title: "Insurance requirement sorted", body: "Needed a Thatcham S5 for my Porsche insurance. Professional install was seamless, and the monitoring gives real peace of mind.", verified: true, helpful: 38 },
-      { id: "r12", author: "Sophie L.", rating: 5, date: "22 Dec 2025", title: "Recovered my car in under an hour", body: "Car was stolen from a hotel car park. Police had it back within 50 minutes thanks to the live tracking and SOC team. Incredible service.", verified: true, helpful: 67 },
-      { id: "r13", author: "Andrew C.", rating: 5, date: "5 Dec 2025", title: "Premium product, worth every penny", body: "The ADR tags are clever — car won't move without the right tag present. Installation was tidy and barely visible.", verified: true, helpful: 29 },
-      { id: "r14", author: "Victoria P.", rating: 4, date: "14 Nov 2025", title: "Excellent but subscription is pricey", body: "Device and service are top-notch. Only 4 stars because the monthly monitoring fee adds up. Still, cheaper than higher insurance premiums.", verified: true, helpful: 21 },
-    ],
   },
   {
     id: "s7-cat6",
@@ -798,137 +792,27 @@ export const products: Product[] = [
       "Real-time GPS tracking",
       "Safe zone alerts",
       "Activity monitoring",
-      "5-day battery life",
-      "Waterproof (IP67)",
     ],
     specs: [
-      { label: "Dimensions", value: "42 x 42 x 18mm" },
-      { label: "Weight", value: "32g" },
-      { label: "Battery", value: "800mAh" },
-      { label: "Standby", value: "5 days" },
-      { label: "Network", value: "4G LTE-M" },
-      { label: "Waterproof", value: "IP67" },
+        { label: "Dimensions", value: "42 x 42 x 12mm" },
+        { label: "Weight", value: "28g" },
+        { label: "Battery", value: "500mAh" },
+        { label: "Standby", value: "5 days" },
+        { label: "Network", value: "4G LTE" },
+        { label: "Waterproof", value: "IP67" },
     ],
     icon: Navigation,
     inStock: true,
     subscriptionRequired: true,
     subscriptionPrice: "£3.99/month",
-    bestFor: ["Dogs", "Cats", "Horses"],
+    bestFor: ["Dogs", "Cats", "Pets"],
     batteryLife: "5 days",
     waterproofRating: "IP67",
-    connectivity: "4G LTE-M",
-  },
-
-  // Accessories
-  {
-    id: "ext-battery",
-    name: "Extended Battery Pack",
-    slug: "extended-battery",
-    price: 24.99,
-    category: "Accessories",
-    rating: 4.7,
-    reviews: 345,
-    shortDescription: "Double your tracker's battery life with this external battery pack",
-    description: "Connect to your DB2 or DB2 Mini tracker to double the battery life. Magnetic mount and weatherproof casing.",
-    features: [
-      "10,000mAh capacity",
-      "Magnetic mount",
-      "Weatherproof (IP65)",
-      "USB-C connection",
-      "Compatible with DB2 & DB2 Mini",
-    ],
-    specs: [
-      { label: "Capacity", value: "10,000mAh" },
-      { label: "Dimensions", value: "90 x 60 x 25mm" },
-      { label: "Waterproof", value: "IP65" },
-      { label: "Compatibility", value: "DB2, DB2 Mini" },
-    ],
-    icon: Battery,
-    inStock: true,
-    bestFor: ["DB2", "DB2 Mini"],
-  },
-  {
-    id: "hardwire-kit",
-    name: "Hardwire Installation Kit",
-    slug: "hardwire-kit",
-    price: 14.99,
-    category: "Accessories",
-    rating: 4.6,
-    reviews: 567,
-    shortDescription: "Wire your magnetic tracker permanently to the vehicle battery",
-    description: "Convert your DB2 magnetic tracker to a permanent hardwired installation. Includes wiring harness, fuse tap, and step-by-step guide.",
-    features: [
-      "Universal wiring harness",
-      "Fuse tap included",
-      "Fits 9-36V systems",
-      "Step-by-step guide",
-    ],
-    specs: [
-      { label: "Input Voltage", value: "9-36V DC" },
-      { label: "Cable Length", value: "2m" },
-      { label: "Compatibility", value: "DB2, Asset Pro" },
-    ],
-    icon: Plug,
-    inStock: true,
-    bestFor: ["DB2", "Asset Tracker Pro"],
-  },
-  {
-    id: "driver-id-tags",
-    name: "Driver ID Tag Pack (5)",
-    slug: "driver-id-tags",
-    price: 19.99,
-    category: "Accessories",
-    rating: 4.8,
-    reviews: 234,
-    shortDescription: "Additional RFID driver identification tags for fleet trackers",
-    description: "Pack of 5 RFID driver ID tags compatible with all hardwired fleet trackers. Assign drivers to vehicles for accurate reporting.",
-    features: [
-      "5x RFID key fobs",
-      "Works with all fleet trackers",
-      "Instant driver identification",
-      "Durable and waterproof",
-    ],
-    specs: [
-      { label: "Quantity", value: "5 tags" },
-      { label: "Type", value: "RFID 125kHz" },
-      { label: "Compatibility", value: "All fleet trackers" },
-    ],
-    icon: Car,
-    inStock: true,
-    bestFor: ["Fleet Trackers"],
-  },
-  {
-    id: "magnetic-case",
-    name: "Weatherproof Magnetic Case",
-    slug: "magnetic-case",
-    price: 19.99,
-    category: "Accessories",
-    rating: 4.5,
-    reviews: 189,
-    shortDescription: "Rugged waterproof case with powerful magnets for covert placement",
-    description: "IP67-rated waterproof case with 50kg-pull magnets. Fits the DB2 Mini and Personal Tracker for covert external placement on vehicles or assets.",
-    features: [
-      "IP67 waterproof",
-      "50kg magnetic pull force",
-      "Fits DB2 Mini & Personal Tracker",
-      "Rugged construction",
-    ],
-    specs: [
-      { label: "Dimensions", value: "80 x 60 x 30mm" },
-      { label: "Magnet Pull", value: "50kg" },
-      { label: "Waterproof", value: "IP67" },
-      { label: "Compatibility", value: "DB2 Mini, Personal Tracker" },
-    ],
-    icon: Shield,
-    inStock: true,
-    bestFor: ["DB2 Mini", "Personal Tracker"],
-  },
+    connectivity: "4G LTE",
+  }
 ];
 
-export function getProductBySlug(slug: string): Product | undefined {
+export function getProductBySlug(slug: string) {
   return products.find((p) => p.slug === slug);
 }
 
-export function getProductsByCategory(category: ProductCategory): Product[] {
-  return products.filter((p) => p.category === category);
-}

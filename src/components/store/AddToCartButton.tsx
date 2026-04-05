@@ -1,3 +1,5 @@
+"use client";
+
 import { ShoppingCart, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useCartStore } from "@/stores/cartStore";

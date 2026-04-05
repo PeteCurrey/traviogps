@@ -1,0 +1,207 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    /* Core brand colors - Deep forest green palette */
+    --background: 160 20% 8%;
+    --foreground: 45 20% 95%;
+
+    /* Card surfaces with subtle depth */
+    --card: 160 18% 10%;
+    --card-foreground: 45 20% 95%;
+
+    /* Popover - slightly elevated */
+    --popover: 160 16% 12%;
+    --popover-foreground: 45 20% 95%;
+
+    /* Primary - Warm cream/gold accent */
+    --primary: 38 35% 85%;
+    --primary-foreground: 160 20% 8%;
+
+    /* Secondary - Muted forest tones */
+    --secondary: 160 12% 18%;
+    --secondary-foreground: 45 20% 90%;
+
+    /* Muted - Subtle backgrounds */
+    --muted: 160 10% 15%;
+    --muted-foreground: 45 10% 65%;
+
+    /* Accent - Tech blue highlights */
+    --accent: 210 70% 55%;
+    --accent-foreground: 45 20% 98%;
+
+    /* Destructive states */
+    --destructive: 0 65% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* Borders and inputs */
+    --border: 160 10% 20%;
+    --input: 160 10% 18%;
+    --ring: 38 35% 75%;
+
+    /* Border radius */
+    --radius: 0.25rem;
+
+    /* Sidebar colors */
+    --sidebar-background: 160 18% 10%;
+    --sidebar-foreground: 45 20% 90%;
+    --sidebar-primary: 38 35% 85%;
+    --sidebar-primary-foreground: 160 20% 8%;
+    --sidebar-accent: 160 12% 18%;
+    --sidebar-accent-foreground: 45 20% 90%;
+    --sidebar-border: 160 10% 20%;
+    --sidebar-ring: 38 35% 75%;
+
+    /* Custom premium tokens */
+    --gold: 38 55% 65%;
+    --gold-muted: 38 25% 45%;
+    --cream: 45 30% 92%;
+    --forest: 160 25% 12%;
+    --forest-light: 160 20% 18%;
+    --charcoal: 160 15% 6%;
+
+    /* Premium shadows */
+    --shadow-soft: 0 4px 20px -4px hsl(0 0% 0% / 0.3);
+    --shadow-elevated: 0 8px 40px -8px hsl(0 0% 0% / 0.4);
+    --shadow-glow: 0 0 40px -10px hsl(38 55% 65% / 0.2);
+
+    --font-sans: Montserrat, ui-sans-serif, system-ui, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+    --font-serif: "Playfair Display", ui-serif, Georgia, Cambria, Times New Roman, Times, serif;
+  }
+
+  /* Light mode - maintaining premium feel */
+  .light {
+    --background: 45 20% 96%;
+    --foreground: 160 30% 10%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 160 30% 10%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 160 30% 10%;
+
+    --primary: 160 30% 18%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 160 8% 90%;
+    --secondary-foreground: 160 30% 12%;
+
+    --muted: 160 6% 91%;
+    --muted-foreground: 160 10% 40%;
+
+    --accent: 210 70% 50%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 65% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 160 8% 82%;
+    --input: 160 6% 86%;
+    --ring: 210 70% 50%;
+
+    --gold: 38 55% 50%;
+    --gold-muted: 38 25% 40%;
+    --cream: 45 20% 92%;
+    --forest: 160 20% 92%;
+    --forest-light: 160 15% 95%;
+    --charcoal: 160 10% 94%;
+
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 160 30% 10%;
+    --sidebar-primary: 160 30% 18%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 160 8% 90%;
+    --sidebar-accent-foreground: 160 30% 12%;
+    --sidebar-border: 160 8% 82%;
+    --sidebar-ring: 210 70% 50%;
+
+    --shadow-soft: 0 4px 20px -4px hsl(0 0% 0% / 0.08);
+    --shadow-elevated: 0 8px 40px -8px hsl(0 0% 0% / 0.12);
+    --shadow-glow: 0 0 40px -10px hsl(210 70% 50% / 0.15);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+  }
+
+  body {
+    background: hsl(var(--background));
+    color: hsl(var(--foreground));
+    @apply antialiased font-light;
+    font-family: 'Montserrat', sans-serif;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Montserrat', sans-serif;
+    @apply font-semibold tracking-tight;
+  }
+}
+
+@layer components {
+  .btn-premium {
+    @apply relative overflow-hidden transition-all duration-500 ease-out;
+  }
+
+  .btn-premium::before {
+    content: '';
+    @apply absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent;
+    transform: translateX(-100%);
+    transition: transform 0.6s ease;
+  }
+
+  .btn-premium:hover::before {
+    transform: translateX(100%);
+  }
+
+  .text-gradient {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--accent)) 100%);
+  }
+
+  .glass {
+    @apply backdrop-blur-md bg-background/80 border border-border/50;
+  }
+
+  .section-padding {
+    @apply py-16 md:py-24 lg:py-32;
+  }
+
+  .container-premium {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .link-underline {
+    @apply relative;
+  }
+
+  .link-underline::after {
+    content: '';
+    @apply absolute bottom-0 left-0 w-0 h-px bg-current transition-all duration-300;
+  }
+
+  .link-underline:hover::after {
+    @apply w-full;
+  }
+
+  .card-hover {
+    @apply transition-all duration-500 ease-out;
+  }
+
+  .card-hover:hover {
+    @apply -translate-y-1;
+    box-shadow: var(--shadow-elevated);
+  }
+
+  .italic-accent {
+    font-family: 'Montserrat', sans-serif;
+    @apply italic font-light;
+  }
+}

@@ -1,10 +1,13 @@
+"use client";
+
 import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { usePathname } from "next/navigation";
 
 const SITE_URL = "https://traviogps.lovable.app";
 const DEFAULT_OG_IMAGE = `${SITE_URL}/og-default.png`;
 
 function setMeta(property: string, content: string, isProperty = false) {
+  if (typeof document === "undefined") return;
   const attr = isProperty ? "property" : "name";
   let el = document.querySelector(`meta[${attr}="${property}"]`);
   if (!el) {
@@ -16,9 +19,10 @@ function setMeta(property: string, content: string, isProperty = false) {
 }
 
 export function usePageMeta(title: string, description: string, image?: string) {
-  const { pathname } = useLocation();
+  const pathname = usePathname();
 
   useEffect(() => {
+    if (typeof document === "undefined") return;
     document.title = title;
     const canonicalUrl = `${SITE_URL}${pathname === "/" ? "" : pathname}`;
     const ogImage = image || DEFAULT_OG_IMAGE;
@@ -53,6 +57,7 @@ export function usePageMeta(title: string, description: string, image?: string) 
 
 export function useJsonLd(data: Record<string, unknown>) {
   useEffect(() => {
+    if (typeof document === "undefined") return;
     const script = document.createElement("script");
     script.type = "application/ld+json";
     script.textContent = JSON.stringify(data);
@@ -60,7 +65,7 @@ export function useJsonLd(data: Record<string, unknown>) {
     return () => {
       document.head.removeChild(script);
     };
-  }, []);
+  }, [data]);
 }
 
 const BREADCRUMB_LABELS: Record<string, string> = {
@@ -98,9 +103,10 @@ const BREADCRUMB_LABELS: Record<string, string> = {
 };
 
 export function useBreadcrumbJsonLd() {
-  const { pathname } = useLocation();
+  const pathname = usePathname();
 
   useEffect(() => {
+    if (typeof document === "undefined") return;
     if (pathname === "/") return;
 
     const segments = pathname.split("/").filter(Boolean);
@@ -127,7 +133,9 @@ export function useBreadcrumbJsonLd() {
     document.head.appendChild(script);
 
     return () => {
-      document.head.removeChild(script);
+      if (document.head.contains(script)) {
+        document.head.removeChild(script);
+      }
     };
   }, [pathname]);
 }

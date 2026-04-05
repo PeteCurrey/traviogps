@@ -1,4 +1,6 @@
-import { Link } from "react-router-dom";
+"use client";
+
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight, Package, HardHat, Truck, Thermometer } from "lucide-react";
 
@@ -49,7 +51,7 @@ export function FleetIndustriesSection() {
           {industries.map((industry) => (
             <motion.div key={industry.name} variants={itemVariants}>
               <Link
-                to={industry.href}
+                href={industry.href}
                 className="group block p-6 bg-card rounded-sm border border-border hover:border-accent/30 transition-all duration-300 h-full"
               >
                 <industry.icon className="w-10 h-10 text-accent mb-4" />

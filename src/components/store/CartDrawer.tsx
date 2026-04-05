@@ -1,8 +1,10 @@
+"use client";
+
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { ShoppingCart, Plus, Minus, Trash2 } from "lucide-react";
 import { useCartStore } from "@/stores/cartStore";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { useState } from "react";
 
 export function CartDrawer() {
@@ -32,7 +34,7 @@ export function CartDrawer() {
             <ShoppingCart className="h-16 w-16 text-muted-foreground/30 mb-4" />
             <p className="text-muted-foreground mb-4">Your cart is empty</p>
             <Button variant="outline" onClick={() => setOpen(false)} asChild>
-              <Link to="/products">Browse Products</Link>
+              <Link href="/products">Browse Products</Link>
             </Button>
           </div>
         ) : (
@@ -103,10 +105,10 @@ export function CartDrawer() {
                 onClick={() => setOpen(false)}
                 asChild
               >
-                <Link to="/checkout">Checkout</Link>
+                <Link href="/checkout">Checkout</Link>
               </Button>
               <Button variant="ghost" className="w-full" onClick={() => setOpen(false)} asChild>
-                <Link to="/products">Continue Shopping</Link>
+                <Link href="/products">Continue Shopping</Link>
               </Button>
             </div>
           </>

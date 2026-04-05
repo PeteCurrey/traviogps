@@ -1,9 +1,11 @@
-import { Link } from "react-router-dom";
+"use client";
+
+import Link from "next/link";
 import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
 import { useState, useRef } from "react";
 import { ArrowRight, Navigation, Truck, Monitor } from "lucide-react";
 import { AnimatedCounter } from "@/components/ui/animated-counter";
-import heroBanner from "@/assets/hero-banner.webp";
+import Image from "next/image";
 
 interface ServiceCard {
   icon: React.ElementType;
@@ -54,7 +56,7 @@ function ServiceCardItem({ card, index }: { card: ServiceCard; index: number }) 
       onMouseLeave={() => setIsHovered(false)}
     >
       <Link
-        to={card.href}
+        href={card.href}
         className="group relative block p-6 lg:p-8 bg-card/50 backdrop-blur-sm border border-border/30 hover:border-accent/50 transition-all duration-500 overflow-hidden"
       >
         <motion.div
@@ -108,7 +110,18 @@ export function HeroSection() {
           transition={{ duration: 1.2, ease: "easeOut" }}
           className="relative h-[35vh] sm:h-[40vh] lg:h-full lg:w-[60%] overflow-hidden"
         >
-          <motion.img src={heroBanner} alt="GPS tracking dashboard showing real-time vehicle locations" className="w-full h-full object-cover" style={{ y: imageY, scale: imageScale }} />
+          <motion.div 
+            className="w-full h-full relative"
+            style={{ y: imageY, scale: imageScale }}
+          >
+            <Image 
+              src="/assets/hero-banner.webp" 
+              alt="GPS tracking dashboard showing real-time vehicle locations" 
+              fill
+              className="object-cover"
+              priority
+            />
+          </motion.div>
           <div className="absolute inset-0 bg-gradient-to-r from-background/60 via-background/20 to-transparent lg:from-background/40 lg:via-transparent lg:to-background/80" />
           
           <motion.div
@@ -170,7 +183,7 @@ export function HeroSection() {
                   Call us on <a href="tel:0800TRAVIO" className="text-accent hover:underline">0800 TRAVIO</a>
                 </p>
               </div>
-              <Link to="/contact" className="inline-flex items-center gap-2 px-6 py-3 bg-accent text-accent-foreground text-sm font-medium hover:bg-accent/90 transition-colors">
+              <Link href="/contact" className="inline-flex items-center gap-2 px-6 py-3 bg-accent text-accent-foreground text-sm font-medium hover:bg-accent/90 transition-colors">
                 Request Demo
                 <ArrowRight className="w-4 h-4" />
               </Link>

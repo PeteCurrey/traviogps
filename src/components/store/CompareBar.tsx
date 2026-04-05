@@ -1,8 +1,11 @@
+"use client";
+
 import { motion, AnimatePresence } from "framer-motion";
 import { X, ArrowRight, Check, Minus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useCompareStore } from "@/stores/compareStore";
-import { Link } from "react-router-dom";
+import Link from "next/link";
+
 
 export function CompareBar() {
   const { items, remove, clear } = useCompareStore();
@@ -52,7 +55,7 @@ export function CompareBar() {
                 disabled={items.length < 2}
                 className="bg-accent hover:bg-accent/90 text-accent-foreground"
               >
-                <Link to="/products/compare">
+                <Link href="/products/compare">
                   Compare <ArrowRight className="ml-1 h-3.5 w-3.5" />
                 </Link>
               </Button>

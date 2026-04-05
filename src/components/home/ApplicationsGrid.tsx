@@ -1,4 +1,6 @@
-import { Link } from "react-router-dom";
+"use client";
+
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight, Car, Bike, HardHat, Wrench, Tent, Container, Waves, Trophy } from "lucide-react";
 
@@ -53,7 +55,7 @@ export function ApplicationsGrid() {
           {applications.map((app) => (
             <motion.div key={app.name} variants={itemVariants}>
               <Link
-                to={app.href}
+                href={app.href}
                 className="group block p-6 bg-background rounded-sm border border-border hover:border-accent/30 transition-all duration-300"
               >
                 <app.icon className="w-8 h-8 text-accent mb-3" />

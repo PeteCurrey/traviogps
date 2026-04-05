@@ -1,3 +1,5 @@
+"use client";
+
 import { Star, BadgeCheck, ThumbsUp } from "lucide-react";
 import { motion } from "framer-motion";
 import type { CustomerReview } from "@/data/products";

@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from "react";
 import { format } from "date-fns";
 import { CalendarIcon, Wrench, ChevronDown, ChevronUp } from "lucide-react";
@@ -20,7 +22,7 @@ import {
 } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
 import { cn } from "@/lib/utils";
-import { useCartStore, type CartItem } from "@/stores/cartStore";
+import { useCartStore } from "@/stores/cartStore";
 
 const TIME_SLOTS = [
   "09:00 - 10:00",
@@ -90,8 +92,8 @@ export function FittingBookingForm({ fittingData, onChange }: FittingBookingForm
             <Wrench className="h-5 w-5 text-accent" />
           </div>
           <div className="text-left">
-            <h2 className="font-serif text-xl text-foreground">Professional Fitting</h2>
-            <p className="text-sm text-muted-foreground">
+            <h2 className="font-serif text-xl text-foreground text-left">Professional Fitting</h2>
+            <p className="text-sm text-muted-foreground text-left">
               Have your tracker professionally fitted at your location
             </p>
           </div>
@@ -176,7 +178,7 @@ export function FittingBookingForm({ fittingData, onChange }: FittingBookingForm
           <div>
             <p className="text-sm font-medium text-foreground mb-3">Preferred Date & Time</p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
+              <div className="flex flex-col">
                 <Label>Date</Label>
                 <Popover>
                   <PopoverTrigger asChild>

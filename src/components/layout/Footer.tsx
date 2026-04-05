@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom";
-import { Phone, Mail, MapPin, Facebook, Instagram, Linkedin, Twitter } from "lucide-react";
+import Link from "next/link";
+import { Phone, Mail, MapPin, Globe } from "lucide-react";
 import { TravioLogo } from "./TravioLogo";
 
 const footerLinks = {
@@ -30,10 +30,10 @@ const footerLinks = {
 };
 
 const socialLinks = [
-  { icon: Facebook, href: "https://facebook.com/travio", label: "Facebook" },
-  { icon: Instagram, href: "https://instagram.com/travio", label: "Instagram" },
-  { icon: Twitter, href: "https://twitter.com/travio", label: "Twitter" },
-  { icon: Linkedin, href: "https://linkedin.com/company/travio", label: "LinkedIn" },
+  { icon: Globe, href: "https://facebook.com/travio", label: "Facebook" },
+  { icon: Globe, href: "https://instagram.com/travio", label: "Instagram" },
+  { icon: Globe, href: "https://twitter.com/travio", label: "Twitter" },
+  { icon: Globe, href: "https://linkedin.com/company/travio", label: "LinkedIn" },
 ];
 
 export function Footer() {
@@ -42,7 +42,7 @@ export function Footer() {
       <div className="container-premium py-12 md:section-padding">
         <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-6 gap-8 lg:gap-8">
           <div className="col-span-2 lg:col-span-2">
-            <Link to="/" className="inline-block mb-6">
+            <Link href="/" className="inline-block mb-6">
               <TravioLogo size="sm" />
             </Link>
             <p className="text-muted-foreground text-sm leading-relaxed mb-6 max-w-sm">
@@ -69,7 +69,7 @@ export function Footer() {
             <ul className="space-y-2.5">
               {footerLinks.products.map(link => (
                 <li key={link.label}>
-                  <Link to={link.href} className="text-sm text-muted-foreground hover:text-primary transition-colors">{link.label}</Link>
+                  <Link href={link.href} className="text-sm text-muted-foreground hover:text-primary transition-colors">{link.label}</Link>
                 </li>
               ))}
             </ul>
@@ -80,7 +80,7 @@ export function Footer() {
             <ul className="space-y-2.5">
               {footerLinks.solutions.map(link => (
                 <li key={link.label}>
-                  <Link to={link.href} className="text-sm text-muted-foreground hover:text-primary transition-colors">{link.label}</Link>
+                  <Link href={link.href} className="text-sm text-muted-foreground hover:text-primary transition-colors">{link.label}</Link>
                 </li>
               ))}
             </ul>
@@ -91,7 +91,7 @@ export function Footer() {
             <ul className="space-y-2.5">
               {footerLinks.resources.map(link => (
                 <li key={link.label}>
-                  <Link to={link.href} className="text-sm text-muted-foreground hover:text-primary transition-colors">{link.label}</Link>
+                  <Link href={link.href} className="text-sm text-muted-foreground hover:text-primary transition-colors">{link.label}</Link>
                 </li>
               ))}
             </ul>
@@ -102,7 +102,7 @@ export function Footer() {
             <ul className="space-y-2.5">
               {footerLinks.company.map(link => (
                 <li key={link.label}>
-                  <Link to={link.href} className="text-sm text-muted-foreground hover:text-primary transition-colors">{link.label}</Link>
+                  <Link href={link.href} className="text-sm text-muted-foreground hover:text-primary transition-colors">{link.label}</Link>
                 </li>
               ))}
             </ul>
@@ -125,8 +125,8 @@ export function Footer() {
           </div>
 
           <div className="flex items-center gap-4 md:gap-6 text-xs md:text-sm text-muted-foreground">
-            <Link to="/privacy" className="hover:text-primary transition-colors">Privacy</Link>
-            <Link to="/terms" className="hover:text-primary transition-colors">Terms</Link>
+            <Link href="/privacy" className="hover:text-primary transition-colors">Privacy</Link>
+            <Link href="/terms" className="hover:text-primary transition-colors">Terms</Link>
           </div>
         </div>
       </div>

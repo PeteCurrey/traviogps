@@ -1,8 +1,10 @@
+"use client";
+
 import { useRef } from "react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowRight, Smartphone, Globe, Shield } from "lucide-react";
-import aboutMapImg from "@/assets/platform/about-map.webp";
+import Image from "next/image";
 
 export function AboutSection() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -24,12 +26,17 @@ export function AboutSection() {
             className="relative"
           >
             <div className="aspect-[4/5] overflow-hidden rounded-sm relative">
-              <motion.img
-                src={aboutMapImg}
-                alt="GPSLive real-time fleet map with live vehicle positions"
-                className="absolute inset-0 w-full object-cover"
+              <motion.div
+                className="absolute inset-0 w-full"
                 style={{ y: imgY, height: "120%" }}
-              />
+              >
+                <Image
+                  src="/assets/platform/about-map.webp"
+                  alt="GPSLive real-time fleet map with live vehicle positions"
+                  fill
+                  className="object-cover"
+                />
+              </motion.div>
               <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/40 to-background/10" />
               <div className="relative z-10 flex flex-col justify-end h-full p-8">
                 <h3 className="font-serif text-2xl text-white mb-2">GPSLive Platform</h3>
@@ -106,15 +113,15 @@ export function AboutSection() {
               transition={{ delay: 0.5, duration: 0.5 }}
               viewport={{ once: true }}
             >
-              <Link to="/products" className="group inline-flex items-center text-sm font-medium text-foreground link-underline">
+              <Link href="/products" className="group inline-flex items-center text-sm font-medium text-foreground link-underline">
                 Vehicle Trackers
                 <ArrowRight className="ml-2 h-4 w-4 opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:translate-x-1" />
               </Link>
-              <Link to="/fleet" className="group inline-flex items-center text-sm font-medium text-foreground link-underline">
+              <Link href="/fleet" className="group inline-flex items-center text-sm font-medium text-foreground link-underline">
                 Fleet Solutions
                 <ArrowRight className="ml-2 h-4 w-4 opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:translate-x-1" />
               </Link>
-              <Link to="/platform" className="group inline-flex items-center text-sm font-medium text-foreground link-underline">
+              <Link href="/platform" className="group inline-flex items-center text-sm font-medium text-foreground link-underline">
                 GPSLive Platform
                 <ArrowRight className="ml-2 h-4 w-4 opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:translate-x-1" />
               </Link>

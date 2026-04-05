@@ -1,3 +1,5 @@
+"use client";
+
 import { GitCompareArrows } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useCompareStore } from "@/stores/compareStore";

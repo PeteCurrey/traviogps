@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { 
@@ -8,7 +10,6 @@ import {
   TrendingUp,
   Users,
   FileText,
-  Settings,
   Filter,
   Trash2,
   Plus,
@@ -161,25 +162,25 @@ export function NotificationCenter() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div className="flex items-center gap-3">
-          <div className="p-3 bg-accent/20 rounded-xl">
+          <div className="p-3 bg-accent/20 rounded-xl group hover:scale-105 transition-transform">
             <Bell className="h-6 w-6 text-accent" />
           </div>
           <div>
-            <h2 className="text-xl font-semibold text-foreground">Notification Center</h2>
-            <p className="text-muted-foreground">
-              {unreadCount > 0 ? `${unreadCount} unread notifications` : "All caught up!"}
+            <h2 className="text-xl font-semibold text-foreground font-serif">Notification Center</h2>
+            <p className="text-muted-foreground text-sm">
+              {unreadCount > 0 ? `You have ${unreadCount} unread update${unreadCount !== 1 ? 's' : ''}` : "All systems fully synchronized"}
             </p>
           </div>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 w-full sm:w-auto">
           <Select value={filter} onValueChange={setFilter}>
-            <SelectTrigger className="w-[180px]">
+            <SelectTrigger className="w-full sm:w-[180px] h-10 bg-secondary/30 border-border">
               <Filter className="h-4 w-4 mr-2" />
               <SelectValue placeholder="Filter" />
             </SelectTrigger>
-            <SelectContent>
+            <SelectContent className="bg-card border-border">
               <SelectItem value="all">All Notifications</SelectItem>
               <SelectItem value="unread">Unread Only</SelectItem>
               <SelectItem value="competitor_change">Competitor Alerts</SelectItem>
@@ -191,35 +192,37 @@ export function NotificationCenter() {
           
           <Dialog open={isAddOpen} onOpenChange={setIsAddOpen}>
             <DialogTrigger asChild>
-              <Button variant="outline">
-                <Plus className="h-4 w-4 mr-2" />
-                Add
+              <Button variant="outline" className="h-10 px-3">
+                <Plus className="h-4 w-4" />
               </Button>
             </DialogTrigger>
-            <DialogContent>
+            <DialogContent className="bg-card border-border">
               <DialogHeader>
-                <DialogTitle>Create Notification</DialogTitle>
+                <DialogTitle className="font-serif">Create Intelligence Alert</DialogTitle>
               </DialogHeader>
               <div className="space-y-4 pt-4">
                 <div className="space-y-2">
-                  <Label>Title</Label>
+                  <Label className="text-sm font-medium">Alert Title</Label>
                   <Input 
                     value={newNotification.title}
                     onChange={(e) => setNewNotification({ ...newNotification, title: e.target.value })}
-                    placeholder="Notification title..."
+                    placeholder="e.g., New Competitor Detected"
+                    className="bg-secondary/30 border-border h-10"
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label>Message</Label>
+                  <Label className="text-sm font-medium">Message</Label>
                   <Textarea 
                     value={newNotification.message}
                     onChange={(e) => setNewNotification({ ...newNotification, message: e.target.value })}
-                    placeholder="Notification message..."
+                    placeholder="Detailed alert message..."
+                    className="bg-secondary/30 border-border resize-none"
+                    rows={3}
                   />
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <Label>Type</Label>
+                    <Label className="text-sm font-medium">Alert Type</Label>
                     <Select 
                       value={newNotification.notification_type} 
                       onValueChange={(v) => setNewNotification({ 
@@ -227,10 +230,10 @@ export function NotificationCenter() {
                         notification_type: v as typeof newNotification.notification_type 
                       })}
                     >
-                      <SelectTrigger>
+                      <SelectTrigger className="bg-secondary/30 border-border">
                         <SelectValue />
                       </SelectTrigger>
-                      <SelectContent>
+                      <SelectContent className="bg-card border-border">
                         <SelectItem value="system">System</SelectItem>
                         <SelectItem value="competitor_change">Competitor Alert</SelectItem>
                         <SelectItem value="market_trend">Market Trend</SelectItem>
@@ -240,7 +243,7 @@ export function NotificationCenter() {
                     </Select>
                   </div>
                   <div className="space-y-2">
-                    <Label>Priority</Label>
+                    <Label className="text-sm font-medium">Priority</Label>
                     <Select 
                       value={newNotification.priority} 
                       onValueChange={(v) => setNewNotification({ 
@@ -248,10 +251,10 @@ export function NotificationCenter() {
                         priority: v as typeof newNotification.priority 
                       })}
                     >
-                      <SelectTrigger>
+                      <SelectTrigger className="bg-secondary/30 border-border">
                         <SelectValue />
                       </SelectTrigger>
-                      <SelectContent>
+                      <SelectContent className="bg-card border-border">
                         <SelectItem value="low">Low</SelectItem>
                         <SelectItem value="medium">Medium</SelectItem>
                         <SelectItem value="high">High</SelectItem>
@@ -263,9 +266,9 @@ export function NotificationCenter() {
                 <Button 
                   onClick={() => addNotification.mutate(newNotification)}
                   disabled={!newNotification.title || !newNotification.message || addNotification.isPending}
-                  className="w-full"
+                  className="w-full bg-accent hover:bg-accent/90 text-accent-foreground h-11"
                 >
-                  {addNotification.isPending ? "Creating..." : "Create Notification"}
+                  {addNotification.isPending ? "Generating..." : "Create Alert"}
                 </Button>
               </div>
             </DialogContent>
@@ -276,112 +279,134 @@ export function NotificationCenter() {
               variant="outline" 
               onClick={() => markAllAsRead.mutate()}
               disabled={markAllAsRead.isPending}
+              className="h-10 px-3"
             >
-              <CheckCheck className="h-4 w-4 mr-2" />
-              Mark All Read
+              <CheckCheck className="h-4 w-4" />
             </Button>
           )}
         </div>
       </div>
 
       {/* Notifications List */}
-      <div className="space-y-3">
+      <div className="grid grid-cols-1 gap-3">
         {isLoading ? (
-          <Card className="bg-card border-border">
-            <CardContent className="p-8 flex items-center justify-center">
-              <RefreshCw className="h-8 w-8 text-accent animate-spin" />
-            </CardContent>
-          </Card>
+          <div className="flex flex-col items-center justify-center py-24 text-center">
+             <RefreshCw className="h-10 w-10 text-accent animate-spin mb-4" />
+             <p className="text-sm text-muted-foreground font-serif">Synchronizing intelligence stream...</p>
+          </div>
         ) : notifications?.length === 0 ? (
-          <Card className="bg-card border-border">
-            <CardContent className="p-8 text-center">
-              <Bell className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-              <h3 className="font-semibold text-foreground mb-2">No Notifications</h3>
-              <p className="text-muted-foreground mb-4">
+          <Card className="bg-card border-border shadow-sm">
+            <CardContent className="p-16 text-center">
+              <div className="w-16 h-16 bg-secondary rounded-full flex items-center justify-center mx-auto mb-6">
+                <Bell className="h-8 w-8 text-muted-foreground/30" />
+              </div>
+              <h3 className="font-semibold text-foreground mb-2 font-serif text-xl">No Recent Alerts</h3>
+              <p className="text-muted-foreground text-sm max-w-[320px] mx-auto mb-8 leading-relaxed">
                 {filter !== 'all' 
-                  ? "No notifications match your filter. Try changing the filter."
-                  : "You're all caught up! Create a notification to get started."}
+                  ? "No intelligence items match your current filter. Adjust filters to see more activity."
+                  : "Everything is currently stable. Intelligence logs will appear here as market changes are detected."}
               </p>
-              <Button onClick={() => setIsAddOpen(true)}>
-                <Plus className="h-4 w-4 mr-2" />
-                Create Notification
-              </Button>
+              {filter !== 'all' ? (
+                <Button onClick={() => setFilter('all')} variant="outline">View All Alerts</Button>
+              ) : (
+                <Button onClick={() => setIsAddOpen(true)} className="bg-accent hover:bg-accent/90 text-accent-foreground">
+                    <Plus className="h-4 w-4 mr-2" />
+                    Manually Add Alert
+                </Button>
+              )}
             </CardContent>
           </Card>
         ) : (
-          notifications?.map((notification, index) => {
-            const Icon = getNotificationIcon(notification.notification_type);
-            return (
-              <motion.div
-                key={notification.id}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.05 }}
-              >
-                <Card 
-                  className={`bg-card border-border transition-colors ${
-                    !notification.is_read ? 'border-l-4 border-l-accent' : ''
-                  }`}
+          <div className="grid grid-cols-1 gap-3">
+            {notifications?.map((notification, index) => {
+                const Icon = getNotificationIcon(notification.notification_type);
+                return (
+                <motion.div
+                    key={notification.id}
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: index * 0.05 }}
                 >
-                  <CardContent className="p-4">
-                    <div className="flex items-start gap-4">
-                      <div className={`p-2 rounded-lg ${
-                        notification.priority === 'urgent' ? 'bg-red-500/20' :
-                        notification.priority === 'high' ? 'bg-accent/20' :
-                        'bg-secondary'
-                      }`}>
-                        <Icon className={`h-5 w-5 ${
-                          notification.priority === 'urgent' ? 'text-red-500' :
-                          notification.priority === 'high' ? 'text-accent' :
-                          'text-muted-foreground'
-                        }`} />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-start justify-between gap-2">
-                          <div>
-                            <div className="flex items-center gap-2 mb-1">
-                              <h4 className={`font-semibold ${
-                                !notification.is_read ? 'text-foreground' : 'text-muted-foreground'
-                              }`}>
-                                {notification.title}
-                              </h4>
-                              <Badge variant={getPriorityColor(notification.priority)}>
-                                {notification.priority}
-                              </Badge>
+                    <Card 
+                    className={`bg-card border-border hover:border-accent/30 transition-all group overflow-hidden ${
+                        !notification.is_read ? 'border-l-4 border-l-accent' : ''
+                    }`}
+                    >
+                    <CardContent className="p-5">
+                        <div className="flex items-start gap-5">
+                        <div className={`p-3 rounded-lg shrink-0 group-hover:scale-110 transition-transform ${
+                            notification.priority === 'urgent' ? 'bg-destructive/10' :
+                            notification.priority === 'high' ? 'bg-accent/10' :
+                            'bg-secondary/50'
+                        }`}>
+                            <Icon className={`h-5 w-5 ${
+                            notification.priority === 'urgent' ? 'text-destructive' :
+                            notification.priority === 'high' ? 'text-accent' :
+                            'text-muted-foreground'
+                            }`} />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                            <div className="flex items-start justify-between gap-4">
+                            <div className="min-w-0 flex-1">
+                                <div className="flex items-center gap-3 mb-1.5 flex-wrap">
+                                <h4 className={`font-semibold text-sm truncate uppercase tracking-tight ${
+                                    !notification.is_read ? 'text-foreground' : 'text-muted-foreground'
+                                }`}>
+                                    {notification.title}
+                                </h4>
+                                <Badge 
+                                    variant={getPriorityColor(notification.priority)}
+                                    className={`text-[9px] font-bold uppercase tracking-widest px-1.5 h-4 border-0 ${
+                                        notification.priority === 'urgent' ? 'bg-destructive/10 text-destructive' :
+                                        notification.priority === 'high' ? 'bg-accent/10 text-accent' :
+                                        'bg-secondary text-muted-foreground'
+                                    }`}
+                                >
+                                    {notification.priority}
+                                </Badge>
+                                </div>
+                                <p className="text-xs text-muted-foreground leading-relaxed line-clamp-2 italic mb-3">
+                                {notification.message}
+                                </p>
+                                <div className="flex items-center gap-4">
+                                    <p className="text-[10px] text-muted-foreground font-bold uppercase tracking-tight flex items-center gap-1">
+                                        <RefreshCw className="h-2.5 w-2.5" />
+                                        {format(new Date(notification.created_at), "MMM d, h:mm a")}
+                                    </p>
+                                    <Badge variant="outline" className="text-[9px] px-1.5 h-4 rounded-none bg-background uppercase border-border/50 font-bold">
+                                        {notification.notification_type.replace('_', ' ')}
+                                    </Badge>
+                                </div>
                             </div>
-                            <p className="text-sm text-muted-foreground">
-                              {notification.message}
-                            </p>
-                            <p className="text-xs text-muted-foreground mt-2">
-                              {format(new Date(notification.created_at), "MMM d, h:mm a")}
-                            </p>
-                          </div>
-                          <div className="flex items-center gap-1">
-                            {!notification.is_read && (
-                              <Button 
+                            <div className="flex items-center gap-1 shrink-0">
+                                {!notification.is_read && (
+                                <Button 
+                                    variant="ghost" 
+                                    size="sm"
+                                    className="h-8 w-8 p-0 hover:text-accent hover:bg-accent/10"
+                                    onClick={() => markAsRead.mutate(notification.id)}
+                                >
+                                    <Check className="h-4 w-4" />
+                                </Button>
+                                )}
+                                <Button 
                                 variant="ghost" 
                                 size="sm"
-                                onClick={() => markAsRead.mutate(notification.id)}
-                              >
-                                <Check className="h-4 w-4" />
-                              </Button>
-                            )}
-                            <Button 
-                              variant="ghost" 
-                              size="sm"
-                              onClick={() => dismissNotification.mutate(notification.id)}
-                            >
-                              <Trash2 className="h-4 w-4" />
-                            </Button>
-                          </div>
+                                className="h-8 w-8 p-0 text-destructive/50 hover:text-destructive hover:bg-destructive/10"
+                                onClick={() => dismissNotification.mutate(notification.id)}
+                                >
+                                <Trash2 className="h-4 w-4" />
+                                </Button>
+                            </div>
+                            </div>
                         </div>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            );
-          })
+                        </div>
+                    </CardContent>
+                    </Card>
+                </motion.div>
+                );
+            })}
+          </div>
         )}
       </div>
     </div>

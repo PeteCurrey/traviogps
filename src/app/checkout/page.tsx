@@ -1,0 +1,276 @@
+"use client";
+
+import { PageWrapper } from "@/components/layout/PageWrapper";
+import { motion } from "framer-motion";
+import Link from "next/link";
+import { ArrowLeft, ShoppingCart, Lock } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { useCartStore } from "@/stores/cartStore";
+import { useState } from "react";
+import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
+import { usePageMeta } from "@/lib/seo";
+import { FittingBookingForm, INITIAL_FITTING, type FittingData } from "@/components/checkout/FittingBookingForm";
+import { useMounted } from "@/hooks/useMounted";
+
+export default function CheckoutPage() {
+  const mounted = useMounted();
+  const { toast } = useToast();
+  const { items, totalPrice } = useCartStore();
+  const [isLoading, setIsLoading] = useState(false);
+  const [fittingData, setFittingData] = useState<FittingData>(INITIAL_FITTING);
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    address: "",
+    city: "",
+    postcode: "",
+  });
+
+  usePageMeta(
+    "Secure Checkout | Travio GPS Tracker Store",
+    "Complete your GPS tracker purchase securely. Fast UK delivery, 2-year warranty, and 30-day money-back guarantee."
+  );
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const validateFitting = (): boolean => {
+    if (!fittingData.enabled) return true;
+    if (!fittingData.vehicleMake || !fittingData.vehicleModel || !fittingData.vehicleReg) {
+      toast({ title: "Missing vehicle details", description: "Please fill in your vehicle make, model, and registration.", variant: "destructive" });
+      return false;
+    }
+    if (!fittingData.preferredDate || !fittingData.preferredTime) {
+      toast({ title: "Missing date/time", description: "Please select a preferred fitting date and time slot.", variant: "destructive" });
+      return false;
+    }
+    if (!fittingData.fittingAddress || !fittingData.fittingPostcode) {
+      toast({ title: "Missing fitting address", description: "Please provide the address where the fitting should take place.", variant: "destructive" });
+      return false;
+    }
+    if (!fittingData.selectedProduct) {
+      toast({ title: "Missing product", description: "Please select which tracker you'd like fitted.", variant: "destructive" });
+      return false;
+    }
+    return true;
+  };
+
+  const submitFittingBooking = async () => {
+    if (!fittingData.enabled) return;
+    
+    const { error } = await supabase.from("fitting_bookings").insert({
+      customer_name: `${formData.firstName} ${formData.lastName}`.trim(),
+      customer_email: formData.email,
+      customer_phone: formData.phone || null,
+      vehicle_make: fittingData.vehicleMake.trim(),
+      vehicle_model: fittingData.vehicleModel.trim(),
+      vehicle_reg: fittingData.vehicleReg.trim(),
+      product_name: fittingData.selectedProduct,
+      preferred_date: fittingData.preferredDate!.toISOString().split("T")[0],
+      preferred_time: fittingData.preferredTime,
+      fitting_address: fittingData.fittingAddress.trim(),
+      fitting_postcode: fittingData.fittingPostcode.trim(),
+      fitting_city: fittingData.fittingCity.trim() || null,
+      customer_notes: fittingData.notes.trim() || null,
+    });
+
+    if (error) {
+      console.error("Fitting booking error:", error);
+      // Don't block checkout — log but continue
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!validateFitting()) return;
+    setIsLoading(true);
+
+    try {
+      // Submit fitting booking if enabled
+      await submitFittingBooking();
+
+      const { data, error } = await supabase.functions.invoke("create-checkout", {
+        body: {
+          items: items.map((item) => ({
+            name: item.product.name,
+            price: item.product.price,
+            quantity: item.quantity,
+          })),
+          customerEmail: formData.email,
+          customerName: `${formData.firstName} ${formData.lastName}`,
+        },
+      });
+
+      if (error) throw error;
+      if (data?.url) {
+        window.location.href = data.url;
+      } else {
+        throw new Error("No checkout URL returned");
+      }
+    } catch (err: any) {
+      toast({
+        title: "Payment Error",
+        description: err.message || "Something went wrong. Please try again.",
+        variant: "destructive",
+      });
+      setIsLoading(false);
+    }
+  };
+
+  if (!mounted) return null;
+
+  if (items.length === 0) {
+    return (
+      <PageWrapper>
+        <section className="pt-32 lg:pt-40 section-padding bg-background text-center">
+          <div className="container-premium">
+            <ShoppingCart className="h-20 w-20 text-muted-foreground/20 mx-auto mb-6" />
+            <h1 className="font-serif text-display-3 text-foreground mb-4 font-serif">Your cart is empty</h1>
+            <Button asChild variant="outline">
+              <Link href="/products"><ArrowLeft className="mr-2 h-4 w-4" /> Back to Store</Link>
+            </Button>
+          </div>
+        </section>
+      </PageWrapper>
+    );
+  }
+
+  return (
+    <PageWrapper>
+      <section className="pt-28 pb-2 bg-background">
+        <div className="container-premium">
+          <nav className="flex items-center gap-2 text-xs text-muted-foreground mb-6">
+            <Link href="/products" className="hover:text-foreground transition-colors">Store</Link>
+            <span>/</span>
+            <Link href="/cart" className="hover:text-foreground transition-colors">Cart</Link>
+            <span>/</span>
+            <span className="text-foreground">Checkout</span>
+          </nav>
+        </div>
+      </section>
+
+      <section className="section-padding bg-background">
+        <div className="container-premium">
+          <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }}>
+            <h1 className="font-serif text-display-3 text-foreground mb-8">
+              <span className="italic-accent">Checkout</span>
+            </h1>
+
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+              <form onSubmit={handleSubmit} className="lg:col-span-2 space-y-6">
+                <div className="bg-card rounded-sm border border-border p-6">
+                  <h2 className="font-serif text-xl text-foreground mb-4 font-serif">Contact Details</h2>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <Label htmlFor="firstName">First Name</Label>
+                      <Input id="firstName" name="firstName" value={formData.firstName} onChange={handleChange} required className="mt-1" />
+                    </div>
+                    <div>
+                      <Label htmlFor="lastName">Last Name</Label>
+                      <Input id="lastName" name="lastName" value={formData.lastName} onChange={handleChange} required className="mt-1" />
+                    </div>
+                    <div>
+                      <Label htmlFor="email">Email</Label>
+                      <Input id="email" name="email" type="email" value={formData.email} onChange={handleChange} required className="mt-1" />
+                    </div>
+                    <div>
+                      <Label htmlFor="phone">Phone</Label>
+                      <Input id="phone" name="phone" type="tel" value={formData.phone} onChange={handleChange} className="mt-1" />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="bg-card rounded-sm border border-border p-6">
+                  <h2 className="font-serif text-xl text-foreground mb-4 font-serif">Delivery Address</h2>
+                  <div className="space-y-4">
+                    <div>
+                      <Label htmlFor="address">Address</Label>
+                      <Input id="address" name="address" value={formData.address} onChange={handleChange} required className="mt-1" />
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <div>
+                        <Label htmlFor="city">City</Label>
+                        <Input id="city" name="city" value={formData.city} onChange={handleChange} required className="mt-1" />
+                      </div>
+                      <div>
+                        <Label htmlFor="postcode">Postcode</Label>
+                        <Input id="postcode" name="postcode" value={formData.postcode} onChange={handleChange} required className="mt-1" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Fitting booking option */}
+                <FittingBookingForm
+                  fittingData={fittingData}
+                  onChange={setFittingData}
+                />
+
+                <Button
+                  type="submit"
+                  size="lg"
+                  disabled={isLoading}
+                  className="w-full btn-premium bg-accent hover:bg-accent/90 text-accent-foreground"
+                >
+                  {isLoading ? (
+                    "Redirecting to payment..."
+                  ) : (
+                    <>
+                      <Lock className="mr-2 h-4 w-4" /> Pay £{totalPrice().toFixed(2)}
+                    </>
+                  )}
+                </Button>
+                <p className="text-xs text-muted-foreground text-center">
+                  Secure payment powered by Stripe. Your details are encrypted.
+                </p>
+              </form>
+
+              <div className="lg:col-span-1">
+                <div className="sticky top-40 bg-card rounded-sm border border-border p-6 space-y-4">
+                  <h2 className="font-serif text-xl text-foreground mb-2 font-serif">Order Summary</h2>
+                  <div className="space-y-3">
+                    {items.map((item) => (
+                      <div key={item.product.id} className="flex justify-between items-start text-sm">
+                        <div className="flex-1 min-w-0">
+                          <p className="font-medium text-foreground truncate">{item.product.name}</p>
+                          <p className="text-xs text-muted-foreground">Qty: {item.quantity}</p>
+                        </div>
+                        <span className="font-medium ml-4">£{(item.product.price * item.quantity).toFixed(2)}</span>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="border-t border-border pt-3 space-y-2">
+                    <div className="flex justify-between text-sm">
+                      <span className="text-muted-foreground">Subtotal</span>
+                      <span>£{totalPrice().toFixed(2)}</span>
+                    </div>
+                    <div className="flex justify-between text-sm">
+                      <span className="text-muted-foreground">Delivery</span>
+                      <span className="text-accent">FREE</span>
+                    </div>
+                    {fittingData.enabled && (
+                      <div className="flex justify-between text-sm">
+                        <span className="text-muted-foreground">Professional Fitting</span>
+                        <span className="text-accent">Included</span>
+                      </div>
+                    )}
+                    <div className="flex justify-between font-medium text-lg border-t border-border pt-3">
+                      <span>Total</span>
+                      <span>£{totalPrice().toFixed(2)}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+    </PageWrapper>
+  );
+}

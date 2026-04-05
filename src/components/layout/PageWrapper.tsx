@@ -1,16 +1,17 @@
+"use client";
+
 import { ReactNode } from "react";
 import { motion, type Transition } from "framer-motion";
-import { useLocation } from "react-router-dom";
+import { usePathname } from "next/navigation";
 import { useEffect } from "react";
-import { Navigation } from "./Navigation";
-import { Footer } from "./Footer";
 import { useBreadcrumbJsonLd } from "@/lib/seo";
 
 const SITE_URL = "https://traviogps.lovable.app";
 
 function useCanonical() {
-  const { pathname } = useLocation();
+  const pathname = usePathname();
   useEffect(() => {
+    if (typeof document === "undefined") return;
     const canonicalUrl = `${SITE_URL}${pathname === "/" ? "" : pathname}`;
     let link = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
     if (!link) {
@@ -42,19 +43,15 @@ export function PageWrapper({ children }: PageWrapperProps) {
   useCanonical();
   useBreadcrumbJsonLd();
   return (
-    <div className="min-h-screen flex flex-col">
-      <Navigation />
-      <motion.main
-        initial="initial"
-        animate="in"
-        exit="out"
-        variants={pageVariants}
-        transition={pageTransition}
-        className="flex-1"
-      >
-        {children}
-      </motion.main>
-      <Footer />
-    </div>
+    <motion.main
+      initial="initial"
+      animate="in"
+      exit="out"
+      variants={pageVariants}
+      transition={pageTransition}
+      className="flex-1"
+    >
+      {children}
+    </motion.main>
   );
 }

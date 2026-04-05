@@ -1,9 +1,12 @@
-import { Link } from "react-router-dom";
+"use client";
+
+import Link from "next/link";
 import { Star } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { CompareButton } from "@/components/store/CompareButton";
 import { AddToCartButton } from "@/components/store/AddToCartButton";
 import { motion } from "framer-motion";
+
 import type { Product } from "@/data/products";
 
 interface ProductCardProps {
@@ -19,7 +22,7 @@ export function ProductCard({ product, index = 0 }: ProductCardProps) {
       transition={{ duration: 0.4, delay: Math.min(index * 0.05, 0.3) }}
     >
       <Link
-        to={`/products/${product.slug}`}
+        href={`/products/${product.slug}`}
         className="group block bg-card rounded-sm border border-border overflow-hidden hover:border-accent/50 transition-all duration-300 h-full"
       >
         {/* Product Image Area */}

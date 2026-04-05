@@ -1,4 +1,6 @@
-import { Link } from "react-router-dom";
+"use client";
+
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { MapPin, Activity, Bell, Thermometer, ArrowRight } from "lucide-react";
 
@@ -83,7 +85,7 @@ export function FeaturesSection() {
         >
           {features.map((feature) => (
             <motion.div key={feature.title} variants={cardVariants}>
-              <Link to={feature.href} className="group block p-6 bg-card rounded-sm border border-border h-full relative overflow-hidden">
+              <Link href={feature.href} className="group block p-6 bg-card rounded-sm border border-border h-full relative overflow-hidden">
                 <motion.div
                   className="absolute inset-0 bg-accent/5"
                   initial={{ scaleY: 0, originY: 1 }}

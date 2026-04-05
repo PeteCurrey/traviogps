@@ -1,5 +1,8 @@
+"use client";
+
 import { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Phone, Mail, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -82,7 +85,7 @@ function NavLinkItem({ link, activeSubmenu, setActiveSubmenu, pathname }: NavLin
       onMouseLeave={() => setActiveSubmenu(null)}
     >
       <Link
-        to={link.href}
+        href={link.href}
         className={cn(
           "px-4 py-2 text-xs uppercase tracking-[0.15em] font-medium transition-colors flex items-center gap-1",
           pathname === link.href
@@ -107,7 +110,7 @@ function NavLinkItem({ link, activeSubmenu, setActiveSubmenu, pathname }: NavLin
               {link.submenu.map((sublink) => (
                 <Link
                   key={sublink.label}
-                  to={sublink.href}
+                  href={sublink.href}
                   className="block px-4 py-2.5 text-sm text-foreground/80 hover:text-primary hover:bg-secondary/50 transition-colors"
                 >
                   {sublink.label}
@@ -125,7 +128,7 @@ export function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSubmenu, setActiveSubmenu] = useState<string | null>(null);
-  const location = useLocation();
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -138,7 +141,7 @@ export function Navigation() {
   useEffect(() => {
     setIsMobileMenuOpen(false);
     setActiveSubmenu(null);
-  }, [location.pathname]);
+  }, [pathname]);
 
   return (
     <>
@@ -189,7 +192,7 @@ export function Navigation() {
               ))}
             </div>
 
-            <Link to="/" className="flex items-center justify-center lg:flex-none">
+            <Link href="/" className="flex items-center justify-center lg:flex-none">
               <TravioLogo size="md" />
             </Link>
 
@@ -236,13 +239,13 @@ export function Navigation() {
                 <nav className="flex-1 overflow-y-auto">
                   {allNavLinks.map((link, index) => (
                     <motion.div key={link.label} initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: index * 0.05 }}>
-                      <Link to={link.href} className={cn("block py-3 text-lg font-medium border-b border-border/50 transition-colors", location.pathname === link.href ? "text-primary" : "text-foreground hover:text-primary")}>
+                      <Link href={link.href} className={cn("block py-3 text-lg font-medium border-b border-border/50 transition-colors", pathname === link.href ? "text-primary" : "text-foreground hover:text-primary")}>
                         {link.label}
                       </Link>
                       {link.submenu && (
                         <div className="pl-4 py-2 space-y-2">
                           {link.submenu.map((sublink) => (
-                            <Link key={sublink.label} to={sublink.href} className="block py-2 text-sm text-muted-foreground hover:text-primary transition-colors">
+                            <Link key={sublink.label} href={sublink.href} className="block py-2 text-sm text-muted-foreground hover:text-primary transition-colors">
                               {sublink.label}
                             </Link>
                           ))}
@@ -254,7 +257,7 @@ export function Navigation() {
 
                 <div className="space-y-4 pt-6 border-t border-border/50">
                   <Button asChild className="w-full btn-premium">
-                    <Link to="/contact">Request Demo</Link>
+                    <Link href="/contact">Request Demo</Link>
                   </Button>
                   <div className="text-center space-y-2 text-sm text-muted-foreground">
                     <a href="tel:0800TRAVIO" className="block hover:text-primary transition-colors">0800 TRAVIO</a>

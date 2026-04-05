@@ -1,23 +1,19 @@
-import { useState, useEffect } from "react";
+"use client";
+
 import { motion } from "framer-motion";
 import { 
   TrendingUp, 
   TrendingDown, 
   Users, 
   Eye, 
-  MousePointer, 
   Target,
   FileText,
-  Share2,
-  Mail,
-  AlertCircle,
-  ArrowUpRight,
   Activity,
   Bell,
-  RefreshCw
+  RefreshCw,
+  MousePointer
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { supabase } from "@/integrations/supabase/client";
 import { useQuery } from "@tanstack/react-query";
@@ -32,7 +28,7 @@ import {
   BarChart,
   Bar
 } from "recharts";
-import { format, subDays, startOfDay, eachDayOfInterval } from "date-fns";
+import { format, subDays, eachDayOfInterval } from "date-fns";
 
 interface StatCard {
   title: string;
@@ -119,15 +115,15 @@ export function MarketingOverview() {
     const dateStr = format(date, 'yyyy-MM-dd');
     const dayName = format(date, 'EEE');
     
-    const dayAnalytics = analyticsData?.filter(a => a.date === dateStr) || [];
-    const dayLeads = leadsData?.filter(l => 
+    const dayAnalytics = analyticsData?.filter((a: any) => a.date === dateStr) || [];
+    const dayLeads = leadsData?.filter((l: any) => 
       format(new Date(l.created_at), 'yyyy-MM-dd') === dateStr
     ) || [];
     
     return {
       date: dayName,
-      visitors: dayAnalytics.reduce((sum, a) => sum + (a.visitors || 0), 0),
-      pageViews: dayAnalytics.reduce((sum, a) => sum + (a.page_views || 0), 0),
+      visitors: dayAnalytics.reduce((sum: number, a: any) => sum + (a.visitors || 0), 0),
+      pageViews: dayAnalytics.reduce((sum: number, a: any) => sum + (a.page_views || 0), 0),
       leads: dayLeads.length
     };
   });
@@ -162,14 +158,14 @@ export function MarketingOverview() {
                   <stat.icon className="h-8 w-8 text-accent/60" />
                   <Badge 
                     variant={stat.trend === 'up' ? 'default' : 'destructive'}
-                    className="text-xs"
+                    className="text-xs font-medium"
                   >
                     {stat.trend === 'up' ? <TrendingUp className="h-3 w-3 mr-1" /> : <TrendingDown className="h-3 w-3 mr-1" />}
                     {Math.abs(stat.change)}%
                   </Badge>
                 </div>
                 <div className="mt-4">
-                  <p className="text-2xl font-bold text-foreground">{stat.value}</p>
+                  <p className="text-2xl font-bold text-foreground font-serif">{stat.value}</p>
                   <p className="text-sm text-muted-foreground">{stat.title}</p>
                 </div>
               </CardContent>
@@ -183,7 +179,7 @@ export function MarketingOverview() {
         {/* Traffic Chart */}
         <Card className="bg-card border-border">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
+            <CardTitle className="flex items-center gap-2 font-serif text-lg font-serif">
               <Activity className="h-5 w-5 text-accent" />
               Website Traffic
             </CardTitle>
@@ -209,8 +205,8 @@ export function MarketingOverview() {
                       </linearGradient>
                     </defs>
                     <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
-                    <XAxis dataKey="date" stroke="hsl(var(--muted-foreground))" />
-                    <YAxis stroke="hsl(var(--muted-foreground))" />
+                    <XAxis dataKey="date" stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
+                    <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
                     <Tooltip 
                       contentStyle={{ 
                         backgroundColor: 'hsl(var(--card))', 
@@ -242,7 +238,7 @@ export function MarketingOverview() {
         {/* Leads Chart */}
         <Card className="bg-card border-border">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
+            <CardTitle className="flex items-center gap-2 font-serif text-lg font-serif">
               <Target className="h-5 w-5 text-accent" />
               Lead Generation
             </CardTitle>
@@ -253,8 +249,8 @@ export function MarketingOverview() {
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={chartData}>
                   <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
-                  <XAxis dataKey="date" stroke="hsl(var(--muted-foreground))" />
-                  <YAxis stroke="hsl(var(--muted-foreground))" />
+                  <XAxis dataKey="date" stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
+                  <YAxis stroke="hsl(var(--muted-foreground))" fontSize={12} tickLine={false} axisLine={false} />
                   <Tooltip 
                     contentStyle={{ 
                       backgroundColor: 'hsl(var(--card))', 
@@ -272,11 +268,11 @@ export function MarketingOverview() {
 
       {/* Quick Actions */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <Card className="bg-card border-border hover:border-accent/50 transition-colors cursor-pointer">
+        <Card className="bg-card border-border hover:border-accent/50 transition-colors cursor-pointer group">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className="p-2 bg-accent/20 rounded-lg">
+                <div className="p-2 bg-accent/20 rounded-lg group-hover:scale-110 transition-transform">
                   <Bell className="h-5 w-5 text-accent" />
                 </div>
                 <div>
@@ -291,11 +287,11 @@ export function MarketingOverview() {
           </CardContent>
         </Card>
 
-        <Card className="bg-card border-border hover:border-accent/50 transition-colors cursor-pointer">
+        <Card className="bg-card border-border hover:border-accent/50 transition-colors cursor-pointer group">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className="p-2 bg-accent/20 rounded-lg">
+                <div className="p-2 bg-accent/20 rounded-lg group-hover:scale-110 transition-transform">
                   <FileText className="h-5 w-5 text-accent" />
                 </div>
                 <div>
@@ -303,18 +299,18 @@ export function MarketingOverview() {
                   <p className="text-sm text-muted-foreground">Ready for review</p>
                 </div>
               </div>
-              <Badge className="text-lg px-3">
+              <Badge className="text-lg px-3 bg-accent text-accent-foreground">
                 {contentDrafts || 0}
               </Badge>
             </div>
           </CardContent>
         </Card>
 
-        <Card className="bg-card border-border hover:border-accent/50 transition-colors cursor-pointer">
+        <Card className="bg-card border-border hover:border-accent/50 transition-colors cursor-pointer group">
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <div className="p-2 bg-accent/20 rounded-lg">
+                <div className="p-2 bg-accent/20 rounded-lg group-hover:scale-110 transition-transform">
                   <Users className="h-5 w-5 text-accent" />
                 </div>
                 <div>
@@ -322,7 +318,7 @@ export function MarketingOverview() {
                   <p className="text-sm text-muted-foreground">Being monitored</p>
                 </div>
               </div>
-              <Badge variant="outline" className="text-lg px-3">
+              <Badge variant="outline" className="text-lg px-3 border-accent text-accent">
                 {competitors || 0}
               </Badge>
             </div>

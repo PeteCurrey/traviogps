@@ -1,4 +1,6 @@
-import { Link } from "react-router-dom";
+"use client";
+
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { Star, ShoppingCart, Navigation, Plug, Video, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -101,7 +103,7 @@ export function FeaturedProducts() {
             viewport={{ once: true }}
           >
             <Button asChild variant="outline" className="border-border hover:bg-secondary hover:scale-105 transition-all duration-300">
-              <Link to="/products">View All Products</Link>
+              <Link href="/products">View All Products</Link>
             </Button>
           </motion.div>
         </div>
@@ -115,7 +117,7 @@ export function FeaturedProducts() {
         >
           {products.map((product) => (
             <motion.div key={product.id} variants={cardVariants}>
-              <Link to={`/products/${product.slug}`} className="group block">
+              <Link href={`/products/${product.slug}`} className="group block">
                 <div className="relative aspect-[4/3] overflow-hidden rounded-sm mb-4 bg-secondary/30 flex items-center justify-center">
                   <motion.div
                     className="text-center"
