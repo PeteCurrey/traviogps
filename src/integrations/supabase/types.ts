@@ -1720,10 +1720,7 @@ export const Constants = {
         "commercial",
       ],
       tenure_type: ["freehold", "leasehold", "share-of-freehold"],
+    },
   },
 } as const;
 
-export type Tables<T extends keyof Database["public"]["Tables"]> =
-  Database["public"]["Tables"][T]["Row"];
-export type Enums<T extends keyof Database["public"]["Enums"]> =
-  Database["public"]["Enums"][T];

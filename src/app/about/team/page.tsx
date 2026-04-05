@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { ArrowRight, Mail, Phone, Linkedin } from "lucide-react";
+import { ArrowRight, Mail, Phone, Briefcase } from "lucide-react";
 import { PageWrapper } from "@/components/layout/PageWrapper";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
@@ -156,7 +156,7 @@ export default function TeamPage() {
                             rel="noopener noreferrer"
                             className="flex items-center gap-2 text-sm text-foreground hover:text-accent transition-colors"
                           >
-                            <Linkedin className="h-4 w-4" />
+                            <Briefcase className="h-4 w-4" />
                             LinkedIn
                           </a>
                         )}

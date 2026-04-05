@@ -5,10 +5,10 @@ import { motion } from "framer-motion";
 import { 
   Lightbulb, 
   FileText, 
-  Instagram, 
-  Facebook, 
-  Twitter, 
-  Linkedin,
+  Camera, 
+  Share2, 
+  MessageCircle, 
+  Briefcase,
   Mail,
   Zap,
   Copy,
@@ -37,10 +37,10 @@ import ReactMarkdown from "react-markdown";
 
 const contentTypes = [
   { id: "blog_post", label: "Blog Post", icon: FileText },
-  { id: "social_facebook", label: "Facebook", icon: Facebook },
-  { id: "social_instagram", label: "Instagram", icon: Instagram },
-  { id: "social_twitter", label: "Twitter/X", icon: Twitter },
-  { id: "social_linkedin", label: "LinkedIn", icon: Linkedin },
+  { id: "social_facebook", label: "Facebook", icon: Share2 },
+  { id: "social_instagram", label: "Instagram", icon: Camera },
+  { id: "social_twitter", label: "Twitter/X", icon: MessageCircle },
+  { id: "social_linkedin", label: "LinkedIn", icon: Briefcase },
   { id: "email_campaign", label: "Email", icon: Mail },
 ];
 
